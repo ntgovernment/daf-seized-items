@@ -1,0 +1,324 @@
+/* Form Elements Overrides */
+
+/* Input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="color"],
+textarea,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Text inputs and textareas */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="color"],
+textarea {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="color"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  background-color: #fafafa;
+}
+
+/* Disabled state */
+input[type="text"]:disabled,
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="tel"]:disabled,
+input[type="url"]:disabled,
+input[type="search"]:disabled,
+input[type="date"]:disabled,
+input[type="time"]:disabled,
+input[type="datetime-local"]:disabled,
+input[type="month"]:disabled,
+input[type="week"]:disabled,
+input[type="color"]:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Select */
+select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2rem;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  background-color: #fafafa;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 120px;
+  overflow: auto;
+}
+
+/* Checkboxes and Radios */
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #0066cc;
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: none;
+}
+
+/* Buttons */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"] {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Primary button style */
+button:not([class]),
+input[type="button"]:not([class]),
+input[type="submit"]:not([class]),
+input[type="reset"]:not([class]) {
+  padding: 0.75rem 1.5rem;
+  background-color: #0066cc;
+  color: #fff;
+  border: 1px solid #0066cc;
+}
+
+button:hover:not([class]),
+input[type="button"]:hover:not([class]),
+input[type="submit"]:hover:not([class]),
+input[type="reset"]:hover:not([class]) {
+  background-color: #0052a3;
+  border-color: #0052a3;
+}
+
+button:active:not([class]),
+input[type="button"]:active:not([class]),
+input[type="submit"]:active:not([class]),
+input[type="reset"]:active:not([class]) {
+  background-color: #003d7a;
+  border-color: #003d7a;
+}
+
+button:disabled:not([class]),
+input[type="button"]:disabled:not([class]),
+input[type="submit"]:disabled:not([class]),
+input[type="reset"]:disabled:not([class]) {
+  background-color: #ccc;
+  color: #999;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* File input */
+input[type="file"] {
+  padding: 0.5rem;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 0.5rem 1rem;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #d0d0d0;
+}
+
+/* Range slider */
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0066cc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #0052a3;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0066cc;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #0052a3;
+}
+
+/* Form groups and labels */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Error states */
+.form-error input,
+.form-error textarea,
+.form-error select,
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.form-error input:focus,
+.form-error textarea:focus,
+.form-error select:focus,
+input[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+}
+
+/* Success states */
+.form-success input,
+.form-success textarea,
+.form-success select,
+input[aria-invalid="false"],
+textarea[aria-invalid="false"],
+select[aria-invalid="false"] {
+  border-color: #28a745;
+  background-color: #f5fff5;
+}
+
+.form-success input:focus,
+.form-success textarea:focus,
+.form-success select:focus,
+input[aria-invalid="false"]:focus,
+textarea[aria-invalid="false"]:focus,
+select[aria-invalid="false"]:focus {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  border-color: #28a745;
+}
+
+/* Required field indicator */
+.required::after {
+  content: " *";
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Placeholder styling */
+::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: #999;
+}
+
+::-ms-input-placeholder {
+  color: #999;
+}
