@@ -14,6 +14,14 @@ This component is designed for use in **Squiz Matrix** to display seized fishing
 - **Status indicators** — Visual flags for items due soon or overdue
 - **Lazy-loaded images** — Optimized for performance
 
+## Design System
+
+This component is built according to the **NTG Design System**. The card design is defined in the Figma design system:
+
+**[View Card Design in Figma](https://www.figma.com/design/pztoZYJOfhXlFLRtU47qNd/NTG-Design-System?node-id=2672-822&m=dev)** (node-id: 2672-822)
+
+Refer to this design file for visual specifications, interactions, and component variants.
+
 ## Project Structure
 
 ```
@@ -40,16 +48,16 @@ Include the HTML, CSS, and JS files in your page:
 ```html
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Seized Fishing Items</title>
     <link rel="stylesheet" href="./styles/seized-items-cards.css" />
-</head>
-<body>
+  </head>
+  <body>
     <!-- Your seized items markup here (see src/index.html) -->
     <script src="./scripts/seized-items-cards.js"></script>
-</body>
+  </body>
 </html>
 ```
 
@@ -98,6 +106,7 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 ## JavaScript Enhancements
 
 The JavaScript file provides minimal client-side enhancements:
+
 - Sets a `data-js-enhanced` attribute on the grid for debugging
 - Validates grid presence before initialization
 
