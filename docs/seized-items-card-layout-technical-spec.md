@@ -187,44 +187,54 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 **Class:** `select.select-enhanced`
 
 **Dimensions & Spacing:**
-- Height: 40px (40px minimum)
-- Padding: 8px top/bottom, 12px left/right
+
+- Min-height: 48px
+- Width: 100%
+- Padding: 8px top/bottom, 16px left/right
+- Right padding: 48px (to clear icon space)
 - Max-width: 100%
-- Chevron icon: 16px × 16px, positioned 12px from right edge
+- Chevron icon: 20px × 20px, positioned 16px from right edge
 
 **Typography:**
+
 - Font family: Lato
 - Font size: 16px
 - Font weight: 400
 - Line height: 24px
 
 **Colors:**
+
 - Background: `var(--clr-bg-default, #ffffff)`
-- Border: `var(--clr-border-strong-02, #333333)`
+- Border: `var(--clr-border-strong-02, #1f1e27)`
 - Text: `var(--clr-text-default, #1f1e27)`
-- Focus/Hover: Same border color with box-shadow outline
+- Focus/Hover: Same border color with tokenized focus shadow
 
 **Interactive States:**
+
 - Hover: Border color remains same, cursor changes to pointer
 - Focus: Box-shadow outline applied, border color consistent
-- Disabled: Background set to `var(--clr-bg-disabled, #f5f5f5)`, opacity reduced to 0.6
+- Disabled: Background set to `var(--clr-bg-shade-alt, #f5f5f5)`, text muted, pointer events removed
+- Validation states via `data-status`, `is-valid`, `is-invalid`, and `aria-invalid`
 
 ### Label & Field Wrapper Styling
 
 **Label Container:** `sq-limbo-field`
+
 - Display: flex column with 8px gap
 - Width: 100%
-- Label text: 14px Lato, weight 600, line-height 20px
+- Label text: 16px Lato, weight 700, line-height 24px
 
 **Wrapper Classes:**
+
 - `sq-backend-data`: Full-width flex column with 8px gap
 - `sq-metadata-wrapper`: Full-width flex column with 8px gap
 - `sq-metadata-contents-wrapper`: Full-width flex layout
 
 **Helper Text:** `sq-metadata-description`
-- Font: 12px Lato, weight 400
-- Line height: 16px
-- Color: `var(--clr-text-alt, #999999)`
+
+- Font: 14px Lato, weight 400
+- Line height: 20px
+- Color: `var(--clr-text-muted, #666774)`
 - Margin top: 4px
 
 ### Implementation Notes
@@ -233,10 +243,14 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Dropdown styling removes native browser appearance for cross-browser consistency
 - Focus states include visible outline for accessibility compliance
 - Enhanced select class is optional; standard select styling is applied as fallback
+- Form overrides now depend on the NT design token package `@ntgovernment/web-design-tokens`
+- Token aliases for form controls are defined in `src/styles/form-overrides-tokens.css`
+- Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`
 
 ### File Location
 
 `src/styles/form-overrides.css`
+`src/styles/form-overrides-tokens.css`
 
 ## 8. Reuse Recipe for Similar Listings
 

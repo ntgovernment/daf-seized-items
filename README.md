@@ -28,15 +28,27 @@ Refer to this design file for visual specifications, interactions, and component
 .
 ├── README.md                                    # This file
 ├── LICENSE                                      # MIT License
-├── .gitignore                                   # Git ignore rules
+├── package.json                                 # Local dev scripts and dependencies
+├── vite.config.mjs                              # Vite dev server config
 ├── docs/
-│   └── seized-items-card-layout-technical-spec.md  # Technical specifications
+│   ├── seized-items-card-layout-technical-spec.md  # Technical specifications
+│   ├── confluence-integration-guide.md             # Matrix + GitHub integration notes
+│   └── confluence-markup.txt                       # Confluence wiki markup export
+├── implementation/
+│   ├── seized-items-cards.html                  # Squiz-ready markup fragment
+│   ├── seized-items-cards.css                   # Squiz-ready card styles
+│   ├── seized-items-cards.js                    # Squiz-ready card script
+│   ├── form-overrides.css                       # Squiz-ready form overrides
+│   └── form-overrides-tokens.css                # Squiz-safe token bridge
 └── src/
     ├── index.html                               # Main HTML markup
     ├── styles/
-    │   └── seized-items-cards.css               # Styling and responsive layout
+    │   ├── seized-items-cards.css               # Styling and responsive layout
+    │   ├── form-overrides.css                   # Form control overrides
+    │   └── form-overrides-tokens.css            # Token aliases for form overrides
     └── scripts/
-        └── seized-items-cards.js                # Client-side enhancements
+        ├── seized-items-cards.js                # Card listing enhancements
+        └── form-overrides.js                    # Form interaction enhancements
 ```
 
 ## Usage
@@ -132,6 +144,21 @@ The JavaScript file provides minimal client-side enhancements:
 - Validates grid presence before initialization
 
 No templating or dynamic rendering is performed—all markup is server-rendered by Squiz Matrix.
+
+For Matrix backend forms, `src/scripts/form-overrides.js` progressively enhances controls by:
+
+- Adding `select-enhanced` to `<select>` controls
+- Applying validation state classes (`is-valid` / `is-invalid`)
+- Improving accessibility wiring for error/helper messaging
+
+## Form Overrides And Tokens
+
+Form styling is split into two files:
+
+- `src/styles/form-overrides-tokens.css` imports `@ntgovernment/web-design-tokens` and defines form token aliases
+- `src/styles/form-overrides.css` applies practical control styles and Matrix-specific wrappers
+
+The same token bridge pattern is mirrored in Squiz delivery files under `implementation/` and `Publish seized item _ NT.GOV.AU_files/`.
 
 ## Responsive Breakpoints
 
