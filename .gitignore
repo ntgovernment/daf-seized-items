@@ -18,3 +18,7 @@ build/
 *.swo
 *~
 .vim/
+
+# Downloaded/Generated files
+Publish seized item _ NT.GOV.AU_files/
+Publish seized item _ NT.GOV.AU.html

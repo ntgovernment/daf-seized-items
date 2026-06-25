@@ -41,6 +41,27 @@ Refer to this design file for visual specifications, interactions, and component
 
 ## Usage
 
+### Local Development (HMR)
+
+Use Vite to serve this workspace with live reload/HMR support:
+
+```bash
+npm install
+npm run dev
+```
+
+Vite opens the captured page at:
+
+```text
+/Publish%20seized%20item%20_%20NT.GOV.AU.html
+```
+
+You can also open the component-only sample at:
+
+```text
+/src/index.html
+```
+
 ### HTML Integration
 
 Include the HTML, CSS, and JS files in your page:

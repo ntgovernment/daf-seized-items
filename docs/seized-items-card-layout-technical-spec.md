@@ -2,8 +2,8 @@
 
 ## Frontend Build Guide for Squiz Matrix
 
-Version: 2.1  
-Date: 2026-06-19  
+Version: 2.2  
+Date: 2026-06-25  
 Source page: https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items
 
 ## 1. Purpose
@@ -176,7 +176,69 @@ Empty state:
 - Status meaning is not color-only; keep text labels (for example, Overdue, Due soon).
 - Images include alt text or fallback text.
 
-## 7. Reuse Recipe for Similar Listings
+## 7. Form Styling Enhancements (Figma Design)
+
+### Overview
+
+Enhanced form styling has been implemented in `src/styles/form-overrides.css` to match the NTG Design System Figma specifications. These styles apply to Squiz Matrix form elements used for editing seized item metadata.
+
+### Select (Dropdown) Styling
+
+**Class:** `select.select-enhanced`
+
+**Dimensions & Spacing:**
+- Height: 40px (40px minimum)
+- Padding: 8px top/bottom, 12px left/right
+- Max-width: 100%
+- Chevron icon: 16px × 16px, positioned 12px from right edge
+
+**Typography:**
+- Font family: Lato
+- Font size: 16px
+- Font weight: 400
+- Line height: 24px
+
+**Colors:**
+- Background: `var(--clr-bg-default, #ffffff)`
+- Border: `var(--clr-border-strong-02, #333333)`
+- Text: `var(--clr-text-default, #1f1e27)`
+- Focus/Hover: Same border color with box-shadow outline
+
+**Interactive States:**
+- Hover: Border color remains same, cursor changes to pointer
+- Focus: Box-shadow outline applied, border color consistent
+- Disabled: Background set to `var(--clr-bg-disabled, #f5f5f5)`, opacity reduced to 0.6
+
+### Label & Field Wrapper Styling
+
+**Label Container:** `sq-limbo-field`
+- Display: flex column with 8px gap
+- Width: 100%
+- Label text: 14px Lato, weight 600, line-height 20px
+
+**Wrapper Classes:**
+- `sq-backend-data`: Full-width flex column with 8px gap
+- `sq-metadata-wrapper`: Full-width flex column with 8px gap
+- `sq-metadata-contents-wrapper`: Full-width flex layout
+
+**Helper Text:** `sq-metadata-description`
+- Font: 12px Lato, weight 400
+- Line height: 16px
+- Color: `var(--clr-text-alt, #999999)`
+- Margin top: 4px
+
+### Implementation Notes
+
+- All form overrides use CSS custom properties for theming consistency
+- Dropdown styling removes native browser appearance for cross-browser consistency
+- Focus states include visible outline for accessibility compliance
+- Enhanced select class is optional; standard select styling is applied as fallback
+
+### File Location
+
+`src/styles/form-overrides.css`
+
+## 8. Reuse Recipe for Similar Listings
 
 When a new listing request comes in, repeat this pattern:
 
@@ -189,7 +251,7 @@ When a new listing request comes in, repeat this pattern:
 7. Add 3 sample cards for design QA.
 8. Run content parity check against source data.
 
-## 8. Definition of Done
+## 9. Definition of Done
 
 Frontend is complete when:
 
@@ -200,7 +262,7 @@ Frontend is complete when:
 - Accessibility checklist passes.
 - Content team can add a new record without developer help.
 
-## 9. Quick Reference
+## 10. Quick Reference
 
 Class model:
 
