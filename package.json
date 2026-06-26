@@ -1,0 +1,16 @@
+{
+  "name": "seized-items",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ntgovernment/web-design-tokens": "^1.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}

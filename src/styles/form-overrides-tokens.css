@@ -1,0 +1,28 @@
+/* NTG design token bridge for form overrides. */
+@import "@ntgovernment/web-design-tokens";
+
+:root {
+  --form-border-default: var(--clr-border-subtle, #cccccc);
+  --form-bg-default: var(--clr-bg-default, #ffffff);
+  --form-bg-focus: var(--surface-alt, #fafafa);
+  --form-bg-disabled: var(--clr-bg-disabled, #f5f5f5);
+  --form-text-default: var(--clr-text-default, #1f1e27);
+  --form-text-muted: var(--clr-text-alt, #999999);
+  --form-text-contrast: var(--clr-bg-default, #ffffff);
+  --form-border-focus: var(--clr-link-default, #0066cc);
+  --form-focus-shadow: rgba(0, 102, 204, 0.1);
+  --form-icon-default: var(--clr-text-default, #333333);
+  --form-accent: var(--clr-link-default, #0066cc);
+  --form-accent-hover: #0052a3;
+  --form-accent-active: #003d7a;
+  --form-fieldset-border: var(--clr-border-subtle, #dddddd);
+  --form-button-file-bg: #e0e0e0;
+  --form-button-file-bg-hover: #d0d0d0;
+  --form-range-track: #dddddd;
+  --form-status-error: #dc3545;
+  --form-status-error-bg: #fff5f5;
+  --form-status-error-shadow: rgba(220, 53, 69, 0.1);
+  --form-status-success: #28a745;
+  --form-status-success-bg: #f5fff5;
+  --form-status-success-shadow: rgba(40, 167, 69, 0.1);
+}

@@ -1,3 +1,5 @@
+@import "./form-overrides-tokens.css";
+
 /* Form Elements Overrides */
 
 /* Input fields */
@@ -38,8 +40,8 @@ input[type="week"],
 input[type="color"],
 textarea {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid var(--form-border-default, #ccc);
+  background-color: var(--form-bg-default, #fff);
 }
 
 input[type="text"]:focus,
@@ -57,9 +59,9 @@ input[type="week"]:focus,
 input[type="color"]:focus,
 textarea:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-  background-color: #fafafa;
+  border-color: var(--form-border-focus, #0066cc);
+  box-shadow: 0 0 0 3px var(--form-focus-shadow, rgba(0, 102, 204, 0.1));
+  background-color: var(--form-bg-focus, #fafafa);
 }
 
 /* Disabled state */
@@ -78,17 +80,17 @@ input[type="week"]:disabled,
 input[type="color"]:disabled,
 textarea:disabled,
 select:disabled {
-  background-color: #f5f5f5;
-  color: #999;
+  background-color: var(--form-bg-disabled, #f5f5f5);
+  color: var(--form-text-muted, #999);
   cursor: not-allowed;
 }
 
 /* Select */
 select {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  border: 1px solid var(--form-border-default, #ccc);
+  background-color: var(--form-bg-default, #fff);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231f1e27' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   appearance: none;
@@ -99,52 +101,77 @@ select {
 
 select:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-  background-color: #fafafa;
+  border-color: var(--form-border-focus, #0066cc);
+  box-shadow: 0 0 0 3px var(--form-focus-shadow, rgba(0, 102, 204, 0.1));
+  background-color: var(--form-bg-focus, #fafafa);
 }
 
-/* Enhanced Select Dropdown - Figma Design */
+/* Enhanced Select Dropdown aligned with web-design-system dropdown tokens */
 select.select-enhanced {
   width: 100%;
-  max-width: 100%;
-  height: 40px;
-  padding: 8px 12px;
+  min-height: var(--sp-3xl, 48px);
+  padding: 0.5rem var(--sp-md, 16px);
+  padding-right: calc(var(--sp-md, 16px) * 3);
   background: var(--clr-bg-default, #ffffff);
-  border: 1px solid var(--clr-border-strong-02, #333333);
-  border-radius: 2px;
+  border: none;
+  outline: 1px solid var(--clr-border-strong-02, #1f1e27);
+  outline-offset: -1px;
+  border-radius: var(--ntg-radii-none, 0) !important;
   font-family: Lato, sans-serif;
-  font-size: 16px;
+  font-size: var(--type-desktop-body-default-size, 16px);
   font-weight: 400;
-  line-height: 24px;
+  line-height: var(--type-body-default-lh, 24px);
   color: var(--clr-text-default, #1f1e27);
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23333333' d='M4.5 6l3.5 3.5L11.5 6'/%3E%3C/svg%3E");
+  box-shadow: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%231f1e27' d='M5 7.5 10 12.5 15 7.5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px 16px;
-  padding-right: 36px;
+  background-position: right var(--sp-md, 16px) center;
+  background-size: var(--sp-lg, 20px) var(--sp-lg, 20px);
 }
 
 select.select-enhanced:hover {
-  border-color: var(--clr-border-strong-02, #333333);
   cursor: pointer;
 }
 
 select.select-enhanced:focus,
-select.select-enhanced.focused {
-  outline: none;
-  border-color: var(--clr-border-strong-02, #333333);
-  box-shadow: 0 0 0 1px var(--clr-border-strong-02, #333333);
+select.select-enhanced:focus-visible,
+select.select-enhanced.focused,
+select.select-enhanced[data-active="true"] {
+  border: 1px solid var(--clr-border-strong-02, #1f1e27) !important;
+  border-color: var(--clr-border-strong-02, #1f1e27) !important;
+  outline-color: var(--clr-border-strong-02, #1f1e27) !important;
+  box-shadow: var(
+    --shadow-focus-ntg,
+    0 0 0 calc(var(--sp-xs, 8px) / 2)
+      var(--clr-focus-focus, rgba(0, 102, 204, 0.35))
+  ) !important;
+  background-color: var(--clr-bg-default, #ffffff);
 }
 
-select.select-enhanced:disabled {
-  background-color: var(--clr-bg-disabled, #f5f5f5);
-  color: var(--clr-text-disabled, #999);
+select.select-enhanced:disabled,
+select.select-enhanced[data-disabled="true"] {
+  background-color: var(--clr-bg-shade-alt, #f5f5f5);
+  color: var(--clr-text-muted, #999999);
+  outline-color: var(--clr-border-subtle, #cccccc);
   cursor: not-allowed;
-  opacity: 0.6;
+  pointer-events: none;
+  opacity: 1;
+  box-shadow: none;
+}
+
+select.select-enhanced[data-status="success"],
+select.select-enhanced.is-valid,
+select.select-enhanced[aria-invalid="false"] {
+  outline-color: var(--clr-status-success, #28a745);
+}
+
+select.select-enhanced[data-status="error"],
+select.select-enhanced.is-invalid,
+select.select-enhanced[aria-invalid="true"] {
+  outline-color: var(--clr-status-danger, #dc3545);
 }
 
 /* Dropdown wrapper styling - Figma Design */
@@ -155,6 +182,11 @@ select.select-enhanced:disabled {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 8px;
+}
+
+form#page_asset_builder_1619140 {
+  width: 100%;
+  max-width: 480px;
 }
 
 .sq-metadata-wrapper {
@@ -174,6 +206,10 @@ select.select-enhanced:disabled {
   padding: 0;
 }
 
+.sq-metadata-contents-wrapper > input[type="hidden"] + select.select-enhanced {
+  width: 100%;
+}
+
 /* Textarea */
 textarea {
   resize: vertical;
@@ -188,7 +224,7 @@ input[type="radio"] {
   margin-right: 0.5rem;
   width: 18px;
   height: 18px;
-  accent-color: #0066cc;
+  accent-color: var(--form-accent, #0066cc);
 }
 
 input[type="checkbox"]:focus,
@@ -218,34 +254,34 @@ input[type="button"]:not([class]),
 input[type="submit"]:not([class]),
 input[type="reset"]:not([class]) {
   padding: 0.75rem 1.5rem;
-  background-color: #0066cc;
-  color: #fff;
-  border: 1px solid #0066cc;
+  background-color: var(--form-accent, #0066cc);
+  color: var(--form-text-contrast, #fff);
+  border: 1px solid var(--form-accent, #0066cc);
 }
 
 button:hover:not([class]),
 input[type="button"]:hover:not([class]),
 input[type="submit"]:hover:not([class]),
 input[type="reset"]:hover:not([class]) {
-  background-color: #0052a3;
-  border-color: #0052a3;
+  background-color: var(--form-accent-hover, #0052a3);
+  border-color: var(--form-accent-hover, #0052a3);
 }
 
 button:active:not([class]),
 input[type="button"]:active:not([class]),
 input[type="submit"]:active:not([class]),
 input[type="reset"]:active:not([class]) {
-  background-color: #003d7a;
-  border-color: #003d7a;
+  background-color: var(--form-accent-active, #003d7a);
+  border-color: var(--form-accent-active, #003d7a);
 }
 
 button:disabled:not([class]),
 input[type="button"]:disabled:not([class]),
 input[type="submit"]:disabled:not([class]),
 input[type="reset"]:disabled:not([class]) {
-  background-color: #ccc;
-  color: #999;
-  border-color: #ccc;
+  background-color: var(--form-border-default, #ccc);
+  color: var(--form-text-muted, #999);
+  border-color: var(--form-border-default, #ccc);
   cursor: not-allowed;
 }
 
@@ -256,8 +292,8 @@ input[type="file"] {
 
 input[type="file"]::file-selector-button {
   padding: 0.5rem 1rem;
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: var(--form-button-file-bg, #e0e0e0);
+  color: var(--form-text-default, #333);
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -266,7 +302,7 @@ input[type="file"]::file-selector-button {
 }
 
 input[type="file"]::file-selector-button:hover {
-  background-color: #d0d0d0;
+  background-color: var(--form-button-file-bg-hover, #d0d0d0);
 }
 
 /* Range slider */
@@ -274,7 +310,7 @@ input[type="range"] {
   width: 100%;
   height: 6px;
   border-radius: 3px;
-  background: #ddd;
+  background: var(--form-range-track, #ddd);
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -286,27 +322,27 @@ input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #0066cc;
+  background: var(--form-accent, #0066cc);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: #0052a3;
+  background: var(--form-accent-hover, #0052a3);
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #0066cc;
+  background: var(--form-accent, #0066cc);
   cursor: pointer;
   border: none;
   transition: background-color 0.3s ease;
 }
 
 input[type="range"]::-moz-range-thumb:hover {
-  background: #0052a3;
+  background: var(--form-accent-hover, #0052a3);
 }
 
 /* Form groups and labels */
@@ -314,7 +350,7 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
+  color: var(--form-text-default, #333);
 }
 
 /* Enhanced label for form fields - Figma Design */
@@ -339,10 +375,10 @@ label {
 /* Label text styling - Figma Design */
 .sq-limbo-field span > span {
   color: var(--clr-text-default, #1f1e27);
-  font-size: 14px;
+  font-size: var(--type-desktop-body-default-size, 16px);
   font-family: Lato, sans-serif;
-  font-weight: 600;
-  line-height: 20px;
+  font-weight: 700;
+  line-height: var(--type-body-default-lh, 24px);
   word-wrap: break-word;
   display: block;
 }
@@ -350,17 +386,17 @@ label {
 /* Helper text styling - Figma Design */
 .sq-metadata-description {
   align-self: stretch;
-  color: var(--clr-text-alt, #999999);
-  font-size: 12px;
+  color: var(--clr-text-muted, #666774);
+  font-size: var(--type-body-sm-size, 14px);
   font-family: Lato, sans-serif;
   font-weight: 400;
-  line-height: 16px;
+  line-height: var(--type-body-sm-lh, 20px);
   word-wrap: break-word;
   margin-top: 4px;
 }
 
 fieldset {
-  border: 1px solid #ddd;
+  border: 1px solid var(--form-fieldset-border, #ddd);
   border-radius: 4px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -369,7 +405,7 @@ fieldset {
 legend {
   padding: 0 0.5rem;
   font-weight: 600;
-  color: #333;
+  color: var(--form-text-default, #333);
 }
 
 /* Error states */
@@ -379,8 +415,8 @@ legend {
 input[aria-invalid="true"],
 textarea[aria-invalid="true"],
 select[aria-invalid="true"] {
-  border-color: #dc3545;
-  background-color: #fff5f5;
+  border-color: var(--form-status-error, #dc3545);
+  background-color: var(--form-status-error-bg, #fff5f5);
 }
 
 .form-error input:focus,
@@ -389,8 +425,8 @@ select[aria-invalid="true"] {
 input[aria-invalid="true"]:focus,
 textarea[aria-invalid="true"]:focus,
 select[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
-  border-color: #dc3545;
+  box-shadow: 0 0 0 3px var(--form-status-error-shadow, rgba(220, 53, 69, 0.1));
+  border-color: var(--form-status-error, #dc3545);
 }
 
 /* Success states */
@@ -400,8 +436,8 @@ select[aria-invalid="true"]:focus {
 input[aria-invalid="false"],
 textarea[aria-invalid="false"],
 select[aria-invalid="false"] {
-  border-color: #28a745;
-  background-color: #f5fff5;
+  border-color: var(--form-status-success, #28a745);
+  background-color: var(--form-status-success-bg, #f5fff5);
 }
 
 .form-success input:focus,
@@ -410,27 +446,28 @@ select[aria-invalid="false"] {
 input[aria-invalid="false"]:focus,
 textarea[aria-invalid="false"]:focus,
 select[aria-invalid="false"]:focus {
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
-  border-color: #28a745;
+  box-shadow: 0 0 0 3px
+    var(--form-status-success-shadow, rgba(40, 167, 69, 0.1));
+  border-color: var(--form-status-success, #28a745);
 }
 
 /* Required field indicator */
 .required::after {
   content: " *";
-  color: #dc3545;
+  color: var(--form-status-error, #dc3545);
   font-weight: bold;
 }
 
 /* Placeholder styling */
 ::placeholder {
-  color: #999;
+  color: var(--form-text-muted, #999);
   opacity: 1;
 }
 
 :-ms-input-placeholder {
-  color: #999;
+  color: var(--form-text-muted, #999);
 }
 
 ::-ms-input-placeholder {
-  color: #999;
+  color: var(--form-text-muted, #999);
 }
