@@ -201,12 +201,14 @@ Required field styling matches NTG Design System:
 Backend metadata warnings (e.g., "Currently empty") are styled and positioned below fields:
 
 **Visual styling:**
+
 - Display: inline-flex with 8px gap between icon and text
 - Alert icon: 20×20px SVG mask in danger color
 - Font: 14px Lato, weight 400, line-height 20px
 - Color: `--clr-status-danger` (#a60f37)
 
 **Positioning:**
+
 - Position: absolute within `.sq-limbo-field` container
 - Text fields: `top: 80px`, `left: -8px`
 - Dropdown/date fields: `top: 88px` (8px lower for visual clearance)
@@ -214,6 +216,7 @@ Backend metadata warnings (e.g., "Currently empty") are styled and positioned be
 - Z-index: 10
 
 **Dynamic visibility:**
+
 - JavaScript function `manageMetadataWarnings()` monitors field values
 - Warnings automatically hide when fields are filled
 - Uses `change` and `input` event listeners
@@ -221,6 +224,7 @@ Backend metadata warnings (e.g., "Currently empty") are styled and positioned be
 - Implementation in `src/scripts/form-overrides.js`
 
 **CSS selector logic:**
+
 - Base warning: `.sq-metadata-warning { top: 80px; }`
 - Dropdown detection: `.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning { top: 88px !important; }`
 - Date detection: `.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning { top: 88px !important; }`
