@@ -413,7 +413,7 @@
       // Check and update warning visibility on load
       updateWarningVisibility(field);
 
-      // Monitor changes
+      // Monitor native DOM changes
       field.addEventListener("change", function () {
         updateWarningVisibility(this);
       });
@@ -423,6 +423,13 @@
         updateWarningVisibility(this);
       });
     });
+
+    // Also bind via jQuery if available (select2 triggers jQuery events, not native DOM events)
+    if (typeof jQuery !== "undefined") {
+      jQuery(".sq-backend-data select").on("change", function () {
+        updateWarningVisibility(this);
+      });
+    }
   }
 
   /**
