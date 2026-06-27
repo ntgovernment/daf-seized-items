@@ -77,7 +77,7 @@ When you update `Publish seized item _ NT.GOV.AU.html` from production, ensure t
 
 ```html
 <!-- CSS Reference (line ~351) -->
-<link rel="stylesheet" href="./src/styles/form-overrides.css">
+<link rel="stylesheet" href="./src/styles/form-overrides.css" />
 
 <!-- JS Reference (line ~781) -->
 <script src="./src/scripts/form-overrides.js"></script>

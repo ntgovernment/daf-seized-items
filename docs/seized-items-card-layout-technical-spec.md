@@ -250,6 +250,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 **Error Validation - Figma Design:**
 
 When a required field is empty or contains invalid data:
+
 - Field outline changes to danger red: `outline: 1px var(--clr-status-danger, #a60f37) solid`
 - Error message displays below field with:
   - Icon: 20×20px solid circle in danger color
@@ -270,7 +271,7 @@ When a required field is empty or contains invalid data:
 - Label text: 16px Lato, weight 700, line-height 24px
 - First span child: inline-flex row layout with flex-wrap for label and required indicator
 - Required marker: `<span class="sq-backend-warning">` displays "(Required)" inline with 8px left margin
-  - Original asterisk (*) is hidden via font-size: 0
+  - Original asterisk (\*) is hidden via font-size: 0
   - "(Required)" text added via ::before pseudo-element
   - Color: `var(--clr-status-danger, #a60f37)`
   - Font: 14px Lato, weight 400, line-height 20px
