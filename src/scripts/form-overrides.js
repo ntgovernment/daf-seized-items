@@ -13,6 +13,7 @@
     enhanceSelectElements();
     enhanceFileInputs();
     removeExternalClassFromFormAnchors();
+    manageMetadataWarnings();
   }
 
   /**
@@ -400,6 +401,65 @@
   }
 
   /**
+   * Manage visibility of metadata warnings based on field values
+   */
+  function manageMetadataWarnings() {
+    // Find all fields with metadata warnings
+    const fields = document.querySelectorAll('.sq-backend-data input, .sq-backend-data select, .sq-backend-data textarea');
+    
+    fields.forEach(function(field) {
+      // Check and update warning visibility on load
+      updateWarningVisibility(field);
+      
+      // Monitor changes
+      field.addEventListener('change', function() {
+        updateWarningVisibility(this);
+      });
+      
+      // Monitor input (for text fields)
+      field.addEventListener('input', function() {
+        updateWarningVisibility(this);
+      });
+    });
+  }
+
+  /**
+   * Show or hide metadata warning based on field value
+   * @param {HTMLElement} field - The field element
+   */
+  function updateWarningVisibility(field) {
+    // Find the parent container
+    const backendData = field.closest('.sq-backend-data');
+    if (!backendData) return;
+    
+    const limboField = backendData.previousElementSibling;
+    if (!limboField || !limboField.classList.contains('sq-limbo-field')) return;
+    
+    // Find the metadata warning
+    const warning = limboField.querySelector('.sq-metadata-warning');
+    if (!warning) return;
+    
+    // Check if field has a value
+    let hasValue = false;
+    
+    if (field.tagName === 'SELECT') {
+      hasValue = field.value && field.value.trim() !== '' && field.value !== '--';
+    } else if (field.type === 'hidden') {
+      // Skip hidden fields
+      return;
+    } else {
+      hasValue = field.value && field.value.trim() !== '';
+    }
+    
+    // Hide or show warning
+    if (hasValue) {
+      warning.style.display = 'none';
+    } else {
+      warning.style.display = 'inline-flex';
+    }
+  }
+
+  /**
    * Validate entire form
    * @param {HTMLFormElement} form - The form to validate
    * @returns {boolean} Whether the form is valid
@@ -448,6 +508,7 @@
   const observer = new MutationObserver(function () {
     enhanceFormElements();
     removeExternalClassFromFormAnchors();
+    manageMetadataWarnings();
   });
 
   observer.observe(document.body, {
