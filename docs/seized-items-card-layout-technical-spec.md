@@ -193,7 +193,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Padding: 8px top/bottom, 16px left/right
 - Right padding: 48px (to clear icon space)
 - Max-width: 100%
-- Chevron icon: 20px × 20px, positioned 16px from right edge
+- Chevron icon: 16.67px × 9px, positioned 16px from right edge
 
 **Typography:**
 
@@ -225,7 +225,6 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Height: 52px
 - Min-height: 48px
 - Width: 100%
-- Max-width: 480px
 - Padding: 0 top/bottom, 16px left/right
 
 **Typography:**
@@ -264,6 +263,10 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - `sq-metadata-wrapper`: Full-width flex column with 8px gap
 - `sq-metadata-contents-wrapper`: Full-width flex layout
 
+**Form Container Width:**
+
+- `form#page_asset_builder_1619140`: width 100%, max-width 480px
+
 **Helper Text:** `sq-metadata-description`
 
 - Font: 14px Lato, weight 400
@@ -278,6 +281,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - TextInput now follows an outline-based state model from Figma (no additional focus glow)
 - Enhanced select class is optional; standard select styling is applied as fallback
 - TextInput enhancement is scoped to Matrix metadata wrappers to avoid unintended global Bootstrap `.form-control` overrides
+- Form width cap is applied at container level (`form#page_asset_builder_1619140`) instead of per-field caps
 - Form overrides now depend on the NT design token package `@ntgovernment/web-design-tokens`
 - Token aliases for form controls are defined in `src/styles/form-overrides-tokens.css`
 - Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`

@@ -90,9 +90,10 @@ select {
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--form-border-default, #ccc);
   background-color: var(--form-bg-default, #fff);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231f1e27' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16.67' height='9' viewBox='0 0 16.67 9'%3E%3Cpath d='M1.5 1.25 8.335 7.75 15.17 1.25' stroke='%231f1e27' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
+  background-size: 16.67px 9px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -126,10 +127,10 @@ select.select-enhanced {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%231f1e27' d='M5 7.5 10 12.5 15 7.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16.67' height='9' viewBox='0 0 16.67 9'%3E%3Cpath d='M1.5 1.25 8.335 7.75 15.17 1.25' stroke='%231f1e27' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--sp-md, 16px) center;
-  background-size: var(--sp-lg, 20px) var(--sp-lg, 20px);
+  background-size: 16.67px 9px;
 }
 
 select.select-enhanced:hover {
@@ -200,186 +201,14 @@ form#page_asset_builder_1619140 {
 
 .sq-metadata-contents-wrapper {
   width: 100%;
-  display: inline-flex;
-  align-items: stretch;
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
   padding: 0;
 }
 
 .sq-metadata-contents-wrapper > input[type="hidden"] + select.select-enhanced {
   width: 100%;
-}
-
-/* Enhanced TextInput aligned with web-design-system text input tokens */
-.sq-metadata-contents-wrapper input[type="text"].form-control,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field,
-.sq-metadata-contents-wrapper > input[type="hidden"] + input[type="text"] {
-  width: 100%;
-  height: 52px;
-  max-width: 480px;
-  min-height: var(--sp-3xl, 48px);
-  padding: 0 var(--sp-md, 16px);
-  border: none;
-  outline: 1px solid var(--clr-border-strong-02, #1f1e27);
-  outline-offset: -1px;
-  border-radius: var(--ntg-radii-none, 0);
-  background: var(--clr-bg-default, #ffffff);
-  font-family: Lato, sans-serif;
-  font-size: var(--type-desktop-body-default-size, 16px);
-  font-weight: 400;
-  line-height: var(--type-body-default-lh, 24px);
-  color: var(--clr-text-default, #1f1e27);
-  box-shadow: none;
-  transition:
-    outline-color 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control::placeholder,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field::placeholder,
-.sq-metadata-contents-wrapper
-  > input[type="hidden"]
-  + input[type="text"]::placeholder {
-  color: var(--clr-text-alt, #666774);
-  opacity: 1;
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control:hover,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field:hover,
-.sq-metadata-contents-wrapper
-  > input[type="hidden"]
-  + input[type="text"]:hover {
-  outline-color: var(--clr-border-strong-02, #1f1e27);
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control:focus,
-.sq-metadata-contents-wrapper input[type="text"].form-control:focus-visible,
-.sq-metadata-contents-wrapper input[type="text"].form-control.focused,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field:focus,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field:focus-visible,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field.focused,
-.sq-metadata-contents-wrapper > input[type="hidden"] + input[type="text"]:focus,
-.sq-metadata-contents-wrapper
-  > input[type="hidden"]
-  + input[type="text"]:focus-visible,
-.sq-metadata-contents-wrapper
-  > input[type="hidden"]
-  + input[type="text"].focused {
-  outline: none;
-  outline: 1px solid var(--clr-border-strong-02, #1f1e27);
-  outline-offset: -1px;
-  box-shadow: none;
-  background: var(--clr-bg-default, #ffffff);
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control:disabled,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field:disabled,
-.sq-metadata-contents-wrapper
-  > input[type="hidden"]
-  + input[type="text"]:disabled,
-.sq-metadata-contents-wrapper
-  input[type="text"].form-control[data-disabled="true"],
-.sq-metadata-contents-wrapper
-  input[type="text"].sq-form-field[data-disabled="true"] {
-  background-color: var(--form-bg-disabled, #f5f5f5);
-  outline-color: var(--clr-border-subtle, #cccccc);
-  color: var(--clr-text-alt, #666774);
-  cursor: not-allowed;
-  opacity: 1;
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control.is-invalid,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field.is-invalid,
-.sq-metadata-contents-wrapper
-  input[type="text"].form-control[aria-invalid="true"],
-.sq-metadata-contents-wrapper
-  input[type="text"].sq-form-field[aria-invalid="true"] {
-  outline-color: var(--form-status-error, #c33826);
-  background-color: var(--form-status-error-bg, #fff5f5);
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control.is-invalid:focus,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field.is-invalid:focus,
-.sq-metadata-contents-wrapper
-  input[type="text"].form-control[aria-invalid="true"]:focus,
-.sq-metadata-contents-wrapper
-  input[type="text"].sq-form-field[aria-invalid="true"]:focus {
-  outline: 1px solid var(--form-status-error, #c33826);
-  outline-offset: -1px;
-  box-shadow: none;
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control.is-valid,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field.is-valid,
-.sq-metadata-contents-wrapper
-  input[type="text"].form-control[aria-invalid="false"],
-.sq-metadata-contents-wrapper
-  input[type="text"].sq-form-field[aria-invalid="false"] {
-  outline-color: var(--form-status-success, #107810);
-  background-color: var(--form-status-success-bg, #f5fff5);
-}
-
-.sq-metadata-contents-wrapper input[type="text"].form-control.is-valid:focus,
-.sq-metadata-contents-wrapper input[type="text"].sq-form-field.is-valid:focus,
-.sq-metadata-contents-wrapper
-  input[type="text"].form-control[aria-invalid="false"]:focus,
-.sq-metadata-contents-wrapper
-  input[type="text"].sq-form-field[aria-invalid="false"]:focus {
-  outline: 1px solid var(--form-status-success, #107810);
-  outline-offset: -1px;
-  box-shadow: none;
-}
-
-/* Enhanced label for form fields - Figma Design */
-.sq-limbo-field {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 8px;
-  width: 100%;
-}
-
-.sq-limbo-field > span:first-child {
-  align-self: stretch;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: var(--sp-xs, 8px);
-}
-
-/* Label text styling - Figma Design */
-.sq-limbo-field span > span {
-  color: var(--clr-text-default, #1f1e27);
-  font-size: var(--type-desktop-body-default-size, 16px);
-  font-family: Lato, sans-serif;
-  font-weight: 700;
-  line-height: var(--type-body-default-lh, 24px);
-  word-wrap: break-word;
-  display: block;
-}
-
-/* Helper text styling - Figma Design */
-.sq-metadata-description {
-  align-self: stretch;
-  color: var(--clr-text-alt, #666774);
-  font-size: var(--type-body-sm-size, 14px);
-  font-family: Lato, sans-serif;
-  font-weight: 400;
-  line-height: var(--type-body-sm-lh, 20px);
-  word-wrap: break-word;
-  margin-top: 0;
-}
-
-.sq-limbo-field .required::after {
-  content: " (Required)";
-  color: var(--clr-status-danger, #a60f37);
-  font-size: var(--type-body-sm-size, 14px);
-  font-family: Lato, sans-serif;
-  font-weight: 400;
-  line-height: var(--type-body-sm-lh, 20px);
 }
 
 /* Textarea */

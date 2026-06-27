@@ -192,6 +192,12 @@ Implemented control coverage:
 - Dropdowns: `select.select-enhanced`
 - Text inputs: `input[type="text"].form-control.sq-form-field` inside `.sq-metadata-contents-wrapper`
 
+Dropdown implementation details:
+
+- Chevron icon uses stroked SVG at 16.67px width and 9px height
+- Icon is applied to both base `select` and `select.select-enhanced`
+- Form width constraint is applied at container level: `form#page_asset_builder_1619140 { max-width: 480px; width: 100%; }`
+
 Text input states are token-aligned with the NT design system:
 
 - Base control shape matches Figma reference: 52px height, 48px minimum, 16px inset, 480px max width
