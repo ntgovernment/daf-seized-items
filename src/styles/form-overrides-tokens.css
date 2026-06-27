@@ -11,7 +11,7 @@
   --form-bg-focus: var(--surface-alt, #fafafa);
   --form-bg-disabled: var(--clr-bg-disabled, #f5f5f5);
   --form-text-default: var(--clr-text-default, #1f1e27);
-  --form-text-muted: var(--clr-text-alt, #999999);
+  --form-text-muted: var(--clr-text-alt, #666774);
   --form-text-contrast: var(--clr-bg-default, #ffffff);
   --form-border-focus: var(--form-border-unified, #1f1e27);
   --form-focus-shadow: rgba(236, 140, 88, 0.35);

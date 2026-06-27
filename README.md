@@ -149,6 +149,7 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 
 ## Changelog
 
+- 2026-06-27: Updated textarea styling to match NTG Figma design — outline-based border (1px solid #1F1E27 with -1px offset), 16px left/right padding, 8px top/bottom padding, Lato 16px font, custom resize handle visual indicator (12x12px gradient in bottom-right), placeholder color updated to #666774 for design fidelity. Changes applied to `src/styles/form-overrides.css` and mirrored to `Publish seized item _ NT.GOV.AU_files/form-overrides.css` for Squiz CMS compatibility.
 - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
 
 ## JavaScript Enhancements
@@ -185,9 +186,9 @@ Current Matrix form override coverage includes:
 - Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
 - Required field indicators: Asterisk (`*`) replaced with "(Required)" text inline with labels via CSS `::before`
 - Metadata warnings: "Currently empty" messages with alert icons positioned below fields
- - Dynamic warning visibility: Warnings automatically hide when fields are filled by toggling a hide class (`.sq-warning-hidden`) in `src/scripts/form-overrides.js`
-   - Supports native `input` / `change` events, jQuery `change` handlers and `select2:select` events to ensure Select2-enhanced selects are detected
-   - Hiding is implemented by adding `.sq-warning-hidden` so CSS specificity and `!important` rules are respected
+- Dynamic warning visibility: Warnings automatically hide when fields are filled by toggling a hide class (`.sq-warning-hidden`) in `src/scripts/form-overrides.js`
+  - Supports native `input` / `change` events, jQuery `change` handlers and `select2:select` events to ensure Select2-enhanced selects are detected
+  - Hiding is implemented by adding `.sq-warning-hidden` so CSS specificity and `!important` rules are respected
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
@@ -201,16 +202,19 @@ The repository includes an enhanced file upload UI to match the NTG Figma design
 - Token variables (in `src/styles/form-overrides-tokens.css`): `--form-file-dropzone-bg`, `--form-file-dropzone-border`, `--form-file-dropzone-highlight-bg`, `--form-file-button-bg`, `--form-file-button-border`, `--form-file-button-color`, `--form-file-icon-color`, `--form-file-item-border`, `--form-file-error-bg`, `--form-file-error-border`, `--form-file-error-color`, `--form-file-success-color`.
 
 Usage notes:
+
 - The native input uses the existing `accept` attribute to display supported formats and to validate types client-side.
 - The implementation parses any nearby `.sq-backend-smallprint` text to derive max file size limits (falls back to no limit if not parseable).
 - The native input is visually hidden using a screen-reader-friendly clip technique so it remains submittable.
 - The component supports multiple files only if the native input includes the `multiple` attribute.
 
 Sync requirements:
+
 - Keep `src/scripts/form-overrides.js` and `implementation/form-overrides.js` identical for Squiz delivery.
 - Keep `src/styles/form-overrides.css` and the captured `Publish seized item _ NT.GOV.AU_files/form-overrides.css` in sync for production snapshots.
 
 Accessibility:
+
 - The dropzone uses `role="region"` and an accessible `aria-label`.
 - The file list has `aria-live="polite"` to announce added/removed files.
 - Individual remove buttons include `aria-label` pointing to the filename.

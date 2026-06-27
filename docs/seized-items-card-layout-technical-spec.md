@@ -247,6 +247,19 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Disabled: `var(--form-bg-disabled, #f5f5f5)` with subtle outline and muted text (`var(--clr-text-alt, #666774)`)
 - Error: 1px red outline `var(--clr-status-danger, #a60f37)` with error message displayed below field
 
+### Textarea Styling
+
+Textareas used in Squiz metadata wrappers follow the same NTG alignment and tokens as text inputs but with multiline considerations:
+
+- Target markup: `textarea` inside `.sq-metadata-contents-wrapper` or `.sq-backend-data`
+- Spacing: `padding: 8px 16px;` (8px top/bottom, 16px left/right)
+- Typography: Lato, `16px` font-size, `24px` line-height, color `var(--clr-text-default, #1f1e27)`
+- Background: `var(--clr-bg-default, #ffffff)`
+- Outline: use `outline: 1px solid var(--clr-border-strong-02, #1f1e27)` with `outline-offset: -1px` (keeps layout stable on state changes)
+- Resize: `resize: vertical` (horizontal resizing locked). A small visual resize indicator is implemented via a CSS-only pseudo-element (visual-only; native resize still functional across browsers). The visual indicator uses `--clr-border-subtle` (fallback `#d3d3d7`) and is positioned bottom-right.
+- Placeholder: uses `var(--clr-text-alt, #666774)` (Figma colour)
+- Enhancement approach: CSS-only; no JavaScript enhancement class required for textareas. Changes must be mirrored to implementation and captured Squiz exports.
+
 **Error Validation - Figma Design:**
 
 When a required field is empty or contains invalid data:
@@ -378,7 +391,6 @@ Usage notes:
 - The native `input[type="file"]` `accept` attribute drives displayed supported formats and client-side type validation.
 - Max file size is parsed from the `.sq-backend-smallprint` text near the upload field; fallback behaviour applies if parsing fails.
 - The native input is visually hidden but remains submittable (no `display:none`).
-
 
 ## 8. Reuse Recipe for Similar Listings
 

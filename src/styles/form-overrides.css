@@ -248,9 +248,34 @@ form#page_asset_builder_1619140 {
 
 /* Textarea */
 textarea {
+  padding: 8px 16px;
+  background: var(--clr-bg-default, white);
+  outline: 1px solid var(--clr-border-strong-02, #1f1e27);
+  outline-offset: -1px;
+  border: none;
   resize: vertical;
   min-height: 120px;
   overflow: auto;
+  font-family: Lato, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--clr-text-default, #1f1e27);
+  /* Custom resize handle visual indicator */
+  background-image: linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 40%,
+    var(--clr-border-subtle, #d3d3d7) 40%,
+    var(--clr-border-subtle, #d3d3d7) 42%,
+    transparent 42%,
+    transparent 48%,
+    var(--clr-border-subtle, #d3d3d7) 48%,
+    var(--clr-border-subtle, #d3d3d7) 50%,
+    transparent 50%
+  );
+  background-repeat: no-repeat;
+  background-position: bottom 4px right 4px;
+  background-size: 12px 12px;
 }
 
 /* Checkboxes and Radios */
@@ -984,7 +1009,10 @@ select[aria-invalid="false"]:focus {
 
 /* Placeholder styling */
 ::placeholder {
-  color: var(--form-text-muted, #999);
+  color: var(--clr-text-alt, #666774);
+  font-family: Lato, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
   opacity: 1;
 }
 

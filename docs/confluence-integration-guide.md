@@ -248,6 +248,17 @@ Unified border treatment:
 - All text inputs, textareas, and selects use the same border color token: `--form-border-unified`
 - Default, focus, disabled, and validation outlines for enhanced selects are aligned to the same token
 
+Textarea specifics:
+
+- Textareas follow the same NTG tokens and outline approach as single-line inputs but include multiline adjustments. Key points:
+   - Padding: `8px 16px` (8px top/bottom, 16px left/right)
+   - Outline: `outline: 1px solid var(--clr-border-strong-02, #1f1e27)` with `outline-offset: -1px`
+   - Placeholder: `var(--clr-text-alt, #666774)`
+   - Resize: `resize: vertical` (horizontal resizing locked)
+   - Visual resize indicator: implemented via a CSS-only background/pseudo-element (visual-only; native resize remains functional)
+
+Note: Token alias `--form-text-muted` has been updated to use `--clr-text-alt` fallback `#666774` to match Figma placeholder color.
+
 External icon removal:
 
 - NT.GOV design system adds external link icons (Font Awesome) to all `a.external` elements
