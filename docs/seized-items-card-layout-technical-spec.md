@@ -189,7 +189,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 **Dimensions & Spacing:**
 
 - Min-height: 48px
-- Width: 100%
+- Width: Auto-sized from longest option text (with 100% fallback before enhancement)
 - Padding: 8px top/bottom, 16px left/right
 - Right padding: 48px (to clear icon space)
 - Max-width: 100%
@@ -214,7 +214,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Hover: Border color remains same, cursor changes to pointer
 - Focus: Box-shadow outline applied, border color consistent
 - Disabled: Background set to `var(--clr-bg-shade-alt, #f5f5f5)`, text muted, pointer events removed
-- Validation states via `data-status`, `is-valid`, `is-invalid`, and `aria-invalid`
+- Validation states via `data-status`, `is-valid`, `is-invalid`, and `aria-invalid` keep the same unified border color
 
 ### TextInput Styling
 
@@ -245,8 +245,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 - Focus: keeps 1px strong outline with no glow
 - Disabled: `var(--form-bg-disabled, #f5f5f5)` with subtle outline and muted text (`var(--clr-text-alt, #666774)`)
-- Validation (error): `is-invalid` / `aria-invalid="true"` applies error outline using `var(--form-status-error, #c33826)`
-- Validation (success): `is-valid` / `aria-invalid="false"` applies success outline using `var(--form-status-success, #107810)`
+- Validation (error/success): keeps unified outline color for consistency across all form elements
 
 ### Label & Field Wrapper Styling
 
@@ -311,11 +310,12 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
 - Dropdown styling removes native browser appearance for cross-browser consistency
 - TextInput now follows an outline-based state model from Figma (no additional focus glow)
 - Enhanced select class is optional; standard select styling is applied as fallback
+- Select widths are auto-adjusted by JavaScript using the longest dropdown option text
 - TextInput enhancement is scoped to Matrix metadata wrappers to avoid unintended global Bootstrap `.form-control` overrides
 - Form width cap is applied at container level (`form#page_asset_builder_1619140`) instead of per-field caps
-- Form overrides now depend on the NT design token package `@ntgovernment/web-design-tokens`
-- Token aliases for form controls are defined in `src/styles/form-overrides-tokens.css`
-- Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`
+- Form token aliases are defined locally in `src/styles/form-overrides-tokens.css`
+- A unified border token (`--form-border-unified`) is used across text inputs, textareas, and selects in all interaction states
+- Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css`
 - Captured delivery styles in `Publish seized item _ NT.GOV.AU_files/form-overrides.css` are kept in sync with `implementation/form-overrides.css`
 
 ### File Location

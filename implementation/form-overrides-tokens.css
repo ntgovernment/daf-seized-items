@@ -1,6 +1,7 @@
 /* NTG design token bridge fallback for form overrides. */
 
 :root {
+  --form-border-unified: var(--clr-border-strong-02, #1f1e27);
   --form-border-default: var(--clr-border-subtle, #cccccc);
   --form-bg-default: var(--clr-bg-default, #ffffff);
   --form-bg-focus: var(--surface-alt, #fafafa);
@@ -8,7 +9,7 @@
   --form-text-default: var(--clr-text-default, #1f1e27);
   --form-text-muted: var(--clr-text-alt, #999999);
   --form-text-contrast: var(--clr-bg-default, #ffffff);
-  --form-border-focus: var(--clr-focus-focus, #ec8c58);
+  --form-border-focus: var(--form-border-unified, #1f1e27);
   --form-focus-shadow: rgba(236, 140, 88, 0.35);
   --form-icon-default: var(--clr-text-default, #333333);
   --form-accent: var(--clr-link-default, #0066cc);

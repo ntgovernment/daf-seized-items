@@ -159,25 +159,17 @@ Customize the card appearance by editing CSS variables in `src/styles/seized-ite
 
 ### Form Overrides Token Dependency
 
-Form overrides consume NT design tokens via npm package dependency:
-
-- `@ntgovernment/web-design-tokens`
-
-Registry setup:
-
-- Project `.npmrc` config points `@ntgovernment` to `https://npm.pkg.github.com`
-- A GitHub token with package read access is required for install in CI/local
+Form overrides use a local token alias bridge with CSS variable fallbacks.
 
 Delivery model:
 
-- Local/Vite: token package is resolved through `src/styles/form-overrides-tokens.css`
-- Squiz/Git File Bridge: committed token bridge files are served before form overrides to avoid runtime npm dependency resolution
+- Local/Vite: `src/styles/form-overrides-tokens.css` provides token aliases directly
+- Squiz/Git File Bridge: committed token bridge files are served before form overrides
 
 Files:
 
 - `src/styles/form-overrides-tokens.css`
 - `implementation/form-overrides-tokens.css`
-- `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`
 
 ### Matrix Form Styling Coverage
 
@@ -197,14 +189,20 @@ Dropdown implementation details:
 - Chevron icon uses stroked SVG at 16.67px width and 9px height
 - Icon is applied to both base `select` and `select.select-enhanced`
 - Form width constraint is applied at container level: `form#page_asset_builder_1619140 { max-width: 480px; width: 100%; }`
+- Dropdown widths are auto-calculated from the longest option text by `src/scripts/form-overrides.js`
+- Auto-size logic is re-applied after Matrix/select2 initialization to capture dynamically prepared controls
+
+Unified border treatment:
+
+- All text inputs, textareas, and selects use the same border color token: `--form-border-unified`
+- Default, focus, disabled, and validation outlines for enhanced selects are aligned to the same token
 
 Text input states are token-aligned with the NT design system:
 
 - Base control shape matches Figma reference: 52px height, 48px minimum, 16px inset, 480px max width
 - Default state uses 1px outline (`--clr-border-strong-02`) with no border radius
-- Focus state keeps outline treatment (no additional glow)
-- Error state uses `--form-status-error` outline with error background
-- Success state uses `--form-status-success` outline with success background
+- Focus state keeps outline treatment and unified border color
+- Error/success validation states retain unified border color for visual consistency
 
 This styling matches Squiz metadata markup patterns that may include a hidden field before the visible input (`input[type="hidden"] + input[type="text"]`).
 

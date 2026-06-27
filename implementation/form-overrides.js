@@ -124,6 +124,52 @@
   /**
    * Enhance select elements with custom styling support
    */
+  /**
+   * Auto-adjust select width based on longest option
+   */
+  function autoAdjustSelectWidth(select) {
+    // Create temporary element to measure text width
+    const tempSpan = document.createElement("span");
+    tempSpan.style.visibility = "hidden";
+    tempSpan.style.position = "absolute";
+    tempSpan.style.whiteSpace = "nowrap";
+
+    // Copy computed styles from select to ensure accurate measurement
+    const computedStyle = window.getComputedStyle(select);
+    tempSpan.style.fontFamily = computedStyle.fontFamily;
+    tempSpan.style.fontSize = computedStyle.fontSize;
+    tempSpan.style.fontWeight = computedStyle.fontWeight;
+    tempSpan.style.letterSpacing = computedStyle.letterSpacing;
+
+    document.body.appendChild(tempSpan);
+
+    let maxWidth = 0;
+
+    // Measure each option
+    Array.from(select.options).forEach(function (option) {
+      tempSpan.textContent = option.text;
+      const width = tempSpan.offsetWidth;
+      if (width > maxWidth) {
+        maxWidth = width;
+      }
+    });
+
+    document.body.removeChild(tempSpan);
+
+    // Add padding: left (16px) + right (16px) + chevron space (48px) + buffer (8px)
+    const totalPadding = 16 + 16 + 48 + 8;
+    const finalWidth = maxWidth + totalPadding;
+
+    // Only apply if not in a date picker context (those use flex with auto width)
+    const isInDatePicker = select.closest(".sq-inline-fields-wrapper");
+    if (!isInDatePicker) {
+      select.style.width = finalWidth + "px";
+    } else {
+      // For date pickers, set min-width instead
+      select.style.minWidth = finalWidth + "px";
+    }
+  }
+
   function enhanceSelectElements() {
     const selects = document.querySelectorAll("select");
 
@@ -143,7 +189,18 @@
           this.dispatchEvent(event);
         });
       }
+
+      // Always auto-adjust width, even when class already exists
+      autoAdjustSelectWidth(select);
     });
+
+    // Re-apply after select2/Matrix scripts have initialized options and styles
+    window.setTimeout(function () {
+      document.querySelectorAll("select").forEach(autoAdjustSelectWidth);
+    }, 0);
+    window.setTimeout(function () {
+      document.querySelectorAll("select").forEach(autoAdjustSelectWidth);
+    }, 150);
   }
 
   /**

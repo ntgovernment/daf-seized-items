@@ -157,21 +157,22 @@ Text inputs in Matrix metadata wrappers are styled via CSS selectors in `src/sty
 
 Form styling is split into two files:
 
-- `src/styles/form-overrides-tokens.css` imports `@ntgovernment/web-design-tokens` and defines form token aliases
+- `src/styles/form-overrides-tokens.css` defines local token aliases and fallbacks (no runtime package import)
 - `src/styles/form-overrides.css` applies practical control styles and Matrix-specific wrappers
 
 Current Matrix form override coverage includes:
 
 - Enhanced dropdown styling via `select.select-enhanced`
+- Auto-width dropdown sizing based on the longest option text (applied by `src/scripts/form-overrides.js`)
 - Enhanced text input styling for `input[type="text"].form-control.sq-form-field` in `.sq-metadata-contents-wrapper`
 - Figma-aligned text input structure: 52px control height, 48px minimum height, 16px horizontal inset, 480px max-width
-- Outline-based text input states (default/error/success) using token aliases instead of border + glow focus treatment
+- Unified form border color across default/focus/disabled/validation states via `--form-border-unified`
 - Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
 
-The same token bridge pattern is mirrored in Squiz delivery files under `implementation/` and `Publish seized item _ NT.GOV.AU_files/`.
+The same token bridge pattern is mirrored in Squiz delivery files under `implementation/`.
 
 ## Responsive Breakpoints
 
