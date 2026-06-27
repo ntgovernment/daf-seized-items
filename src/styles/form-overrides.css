@@ -478,6 +478,11 @@ label {
   z-index: 10;
 }
 
+/* Adjust position for dropdown fields (4px lower) */
+.sq-backend-data:has(select) .sq-metadata-warning {
+  top: 84px;
+}
+
 /* Add icon to metadata warning */
 .sq-metadata-warning::before {
   content: "";
