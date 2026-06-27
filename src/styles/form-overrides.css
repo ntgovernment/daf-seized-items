@@ -478,10 +478,10 @@ label {
   z-index: 10;
 }
 
-/* Adjust position for dropdown and date fields (16px lower) */
+/* Adjust position for dropdown and date fields (24px lower) */
 .sq-backend-data:has(select) .sq-metadata-warning,
 .sq-backend-data:has(.sq-metadata-date-wrapper) .sq-metadata-warning {
-  top: 96px;
+  top: 104px;
 }
 
 /* Add icon to metadata warning */
