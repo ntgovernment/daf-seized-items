@@ -408,31 +408,49 @@ label {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 4px;
+  gap: 0px;
+}
+
+/* Label wrapper with required indicator - Figma Design */
+.sq-limbo-field span > span:first-child {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Label text styling - Figma Design */
 .sq-limbo-field span > span {
   color: var(--clr-text-default, #1f1e27);
-  font-size: var(--type-desktop-body-default-size, 16px);
+  font-size: 16px;
   font-family: Lato, sans-serif;
   font-weight: 700;
-  line-height: var(--type-body-default-lh, 24px);
+  line-height: 24px;
   text-align: left;
   word-wrap: break-word;
-  display: block;
+}
+
+/* Required field indicator - Figma Design */
+.sq-limbo-field span > span:first-child::after {
+  content: "(Required)";
+  color: var(--clr-status-danger, #a60f37);
+  font-size: 14px;
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
 }
 
 /* Helper text styling - Figma Design */
 .sq-metadata-description {
   align-self: stretch;
-  color: var(--clr-text-muted, #666774);
-  font-size: var(--type-body-sm-size, 14px);
+  color: var(--clr-text-alt, #666774);
+  font-size: 14px;
   font-family: Lato, sans-serif;
   font-weight: 400;
-  line-height: var(--type-body-sm-lh, 20px);
+  line-height: 20px;
   word-wrap: break-word;
-  margin-top: 4px;
+  margin-top: 0px;
 }
 
 fieldset {
@@ -491,12 +509,7 @@ select[aria-invalid="false"]:focus {
   border-color: var(--form-status-success, #28a745);
 }
 
-/* Required field indicator */
-.required::after {
-  content: " *";
-  color: var(--form-status-error, #dc3545);
-  font-weight: bold;
-}
+
 
 /* Placeholder styling */
 ::placeholder {

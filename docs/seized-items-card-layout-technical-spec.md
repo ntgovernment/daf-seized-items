@@ -251,12 +251,15 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 **Label Container:** `sq-limbo-field`
 
-- Display: flex column with 8px gap
+- Display: flex column with 8px gap (between label row and field)
 - Width: 100%
 - Top margin: 16px
 - Text alignment: left (including nested label spans)
 - Label text: 16px Lato, weight 700, line-height 24px
-- Required marker: appended text ` (Required)` using status danger color and body-sm typography
+- Required marker: inline `(Required)` text displayed with 8px gap after label using `::after` pseudo-element
+  - Color: `var(--clr-status-danger, #a60f37)`
+  - Font: 14px Lato, weight 400, line-height 20px
+  - Layout: horizontal flex with center alignment
 
 **Wrapper Classes:**
 
