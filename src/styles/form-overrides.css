@@ -455,6 +455,11 @@ label {
   display: block;
 }
 
+/* Make backend data area the positioning context for warnings */
+.sq-backend-data {
+  position: relative;
+}
+
 /* Metadata warning (e.g., "Currently empty") - display below field */
 .sq-metadata-warning {
   display: inline-flex !important;
@@ -468,7 +473,7 @@ label {
   line-height: 20px;
   position: absolute;
   left: 0;
-  top: calc(100% + 8px);
+  top: 72px;
   width: 100%;
   z-index: 10;
 }
