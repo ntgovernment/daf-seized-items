@@ -514,17 +514,27 @@
     initFormEnhancements();
   }
 
-  // Re-run enhancements on dynamically added content
-  const observer = new MutationObserver(function () {
-    enhanceFormElements();
-    removeExternalClassFromFormAnchors();
-    manageMetadataWarnings();
+  // Re-run enhancements on dynamically added content (childList only to avoid
+  // infinite loops — class toggling by manageMetadataWarnings must not re-trigger)
+  let mutationTimer = null;
+  const observer = new MutationObserver(function (mutations) {
+    // Only react to childList mutations (new nodes added)
+    const hasNewNodes = mutations.some(function (m) {
+      return m.type === "childList" && m.addedNodes.length > 0;
+    });
+    if (!hasNewNodes) return;
+
+    // Debounce to batch rapid DOM insertions
+    if (mutationTimer) clearTimeout(mutationTimer);
+    mutationTimer = setTimeout(function () {
+      enhanceFormElements();
+      removeExternalClassFromFormAnchors();
+      manageMetadataWarnings();
+    }, 100);
   });
 
   observer.observe(document.body, {
     childList: true,
     subtree: true,
-    attributes: true,
-    attributeFilter: ["type", "class"],
   });
 })();

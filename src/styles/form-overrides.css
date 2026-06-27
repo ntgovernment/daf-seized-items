@@ -462,7 +462,7 @@ label {
 
 /* Metadata warning (e.g., "Currently empty") - display below field */
 .sq-metadata-warning {
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: flex-start;
   gap: 8px;
   margin-top: 8px;
@@ -476,6 +476,11 @@ label {
   top: 80px;
   width: 100%;
   z-index: 10;
+}
+
+/* Hide metadata warning when field has a value */
+.sq-metadata-warning.sq-warning-hidden {
+  display: none !important;
 }
 
 /* Adjust position for dropdown and date fields (24px lower) */

@@ -202,7 +202,7 @@ External icon removal:
 * Form section and field anchors (@<a name="section_1" class="external">@, @<a name="field_1" class="external">@) are navigation points, not external links
 * CSS overrides remove the icon using @content: none !important@ on form anchors
 * JavaScript function @removeExternalClassFromFormAnchors()@ actively removes the @.external@ class from form/section/field anchors
-* Runs on page load and observes DOM changes to handle dynamically added content
+* Runs on page load and uses a debounced @MutationObserver@ (childList-only) to handle dynamically added content without triggering infinite loops from class-based mutations
 
 ---
 
