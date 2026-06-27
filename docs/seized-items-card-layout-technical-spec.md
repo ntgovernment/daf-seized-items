@@ -254,6 +254,8 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 - Display: flex column with 8px gap
 - Width: 100%
+- Top margin: 16px
+- Text alignment: left (including nested label spans)
 - Label text: 16px Lato, weight 700, line-height 24px
 - Required marker: appended text ` (Required)` using status danger color and body-sm typography
 
@@ -261,7 +263,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 - `sq-backend-data`: Full-width flex column with 8px gap
 - `sq-metadata-wrapper`: Full-width flex column with 8px gap
-- `sq-metadata-contents-wrapper`: Full-width flex layout
+- `sq-metadata-contents-wrapper`: Full-width top-aligned flex column (`flex-direction: column; align-items: flex-start; justify-content: flex-start`)
 
 **Form Container Width:**
 

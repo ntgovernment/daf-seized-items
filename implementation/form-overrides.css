@@ -182,6 +182,7 @@ select.select-enhanced[aria-invalid="true"] {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  vertical-align: top;
   gap: 8px;
 }
 
@@ -196,15 +197,19 @@ form#page_asset_builder_1619140 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  vertical-align: top;
   gap: 8px;
 }
 
 .sq-metadata-contents-wrapper {
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
+  vertical-align: top;
   padding: 0;
+  gap: var(--sp-xs, 8px);
 }
 
 .sq-metadata-contents-wrapper > input[type="hidden"] + select.select-enhanced {
@@ -352,6 +357,19 @@ label {
   margin-bottom: 0.5rem;
   font-weight: 500;
   color: var(--form-text-default, #333);
+  text-align: left;
+}
+
+.sq-limbo-field,
+.sq-limbo-field > span,
+.sq-limbo-field > span:first-child,
+.sq-limbo-field > span:first-child > span {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.sq-limbo-field {
+  margin-top: 16px;
 }
 
 fieldset {

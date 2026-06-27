@@ -213,6 +213,13 @@ Label and helper text treatment in Matrix wrappers:
 - Label text: 16px Lato, weight 700
 - Helper text: 14px Lato, color `--clr-text-alt`
 - Required annotation: ` (Required)` appended via `.required::after` with danger token color
+- Labels are left-aligned across Matrix wrappers (`label`, `.sq-limbo-field`, and nested label spans)
+- `.sq-limbo-field` applies `margin-top: 16px` for label-to-field spacing
+
+Wrapper alignment treatment in Matrix wrappers:
+
+- `.sq-backend-data` and `.sq-metadata-wrapper` are top-aligned wrapper columns
+- `.sq-metadata-contents-wrapper` is a top-aligned column (`flex-direction: column; align-items: flex-start; justify-content: flex-start`)
 
 Delivery sync requirement:
 

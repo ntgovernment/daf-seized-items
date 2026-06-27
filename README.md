@@ -167,6 +167,9 @@ Current Matrix form override coverage includes:
 - Figma-aligned text input structure: 52px control height, 48px minimum height, 16px horizontal inset, 480px max-width
 - Outline-based text input states (default/error/success) using token aliases instead of border + glow focus treatment
 - Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
+- Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
+- Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
+- Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
 
 The same token bridge pattern is mirrored in Squiz delivery files under `implementation/` and `Publish seized item _ NT.GOV.AU_files/`.
 
