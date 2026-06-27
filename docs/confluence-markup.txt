@@ -170,8 +170,7 @@ Delivery model:
 
 Files:
 
-* @src/styles/form-overrides-tokens.css@
-* @implementation/form-overrides-tokens.css@
+* @src/styles/form-overrides-tokens.css@ (single source of truth)
 * @Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css@
 
 h3. Matrix Form Styling Coverage
@@ -186,6 +185,7 @@ Implemented control coverage:
 
 * Dropdowns: @select.select-enhanced@
 * Text inputs: @input[type="text"].form-control.sq-form-field@ inside @.sq-metadata-contents-wrapper@
+* Form anchor overrides: External link icons removed from section/field navigation anchors
 
 Dropdown implementation details:
 
@@ -195,6 +195,14 @@ Dropdown implementation details:
 * Labels are left-aligned across Matrix wrappers (@label@, @.sq-limbo-field@, nested label spans)
 * Label wrapper spacing uses @.sq-limbo-field { margin-top: 16px; }@
 * Metadata wrappers are top-aligned: @.sq-backend-data@, @.sq-metadata-wrapper@, and @.sq-metadata-contents-wrapper@ (column layout)
+
+External icon removal:
+
+* NT.GOV design system adds external link icons (Font Awesome) to all @a.external@ elements
+* Form section and field anchors (@<a name="section_1" class="external">@, @<a name="field_1" class="external">@) are navigation points, not external links
+* CSS overrides remove the icon using @content: none !important@ on form anchors
+* JavaScript function @removeExternalClassFromFormAnchors()@ actively removes the @.external@ class from form/section/field anchors
+* Runs on page load and observes DOM changes to handle dynamically added content
 
 ---
 

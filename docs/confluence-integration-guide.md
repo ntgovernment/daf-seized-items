@@ -168,8 +168,7 @@ Delivery model:
 
 Files:
 
-- `src/styles/form-overrides-tokens.css`
-- `implementation/form-overrides-tokens.css`
+- `src/styles/form-overrides-tokens.css` (single source of truth)
 
 ### Matrix Form Styling Coverage
 
@@ -183,6 +182,7 @@ Implemented control coverage:
 
 - Dropdowns: `select.select-enhanced`
 - Text inputs: `input[type="text"].form-control.sq-form-field` inside `.sq-metadata-contents-wrapper`
+- Form anchor overrides: External link icons removed from section/field navigation anchors
 
 Dropdown implementation details:
 
@@ -196,6 +196,14 @@ Unified border treatment:
 
 - All text inputs, textareas, and selects use the same border color token: `--form-border-unified`
 - Default, focus, disabled, and validation outlines for enhanced selects are aligned to the same token
+
+External icon removal:
+
+- NT.GOV design system adds external link icons (Font Awesome) to all `a.external` elements
+- Form section and field anchors (`<a name="section_1" class="external">`, `<a name="field_1" class="external">`) are navigation points, not external links
+- CSS overrides remove the icon using `content: none !important` on form anchors
+- JavaScript function `removeExternalClassFromFormAnchors()` actively removes the `.external` class from form/section/field anchors
+- Runs on page load and observes DOM changes to handle dynamically added content
 
 Text input states are token-aligned with the NT design system:
 
@@ -221,7 +229,7 @@ Wrapper alignment treatment in Matrix wrappers:
 
 Delivery sync requirement:
 
-- Keep `implementation/form-overrides.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides.css` synchronized so captured Squiz exports render the same form control styling.
+- Keep `src/styles/form-overrides.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides.css` synchronized so captured Squiz exports render the same form control styling.
 
 ---
 

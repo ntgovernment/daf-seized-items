@@ -1,8 +1,12 @@
 @import "./form-overrides-tokens.css";
 
-/* Form Elements Overrides */
+/**
+ * Form Elements Overrides
+ * Single source of truth for form styling (aligned with NTG Design System / Figma)
+ * This file consolidates all form control overrides for the seized items project
+ */
 
-/* Input fields */
+/* Base styles for all form controls */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -24,7 +28,7 @@ select {
   transition: all 0.3s ease;
 }
 
-/* Text inputs and textareas */
+/* Text inputs and textareas - default state */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -44,6 +48,7 @@ textarea {
   background-color: var(--form-bg-default, #fff);
 }
 
+/* Text inputs and textareas - focus state */
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
@@ -64,7 +69,7 @@ textarea:focus {
   background-color: var(--form-bg-focus, #fafafa);
 }
 
-/* Disabled state */
+/* Text inputs, textareas, and selects - disabled state */
 input[type="text"]:disabled,
 input[type="email"]:disabled,
 input[type="password"]:disabled,
@@ -499,10 +504,27 @@ select[aria-invalid="false"]:focus {
   opacity: 1;
 }
 
-:-ms-input-placeholder {
-  color: var(--form-text-muted, #999);
+/* Remove external link icons from form anchor elements */
+/* These are used as anchor points for form sections/fields, not external links */
+form a.external::after,
+form a.external:after,
+form a[name].external::after,
+form a[name].external:after,
+.sq-backend-section-table a.external::after,
+.sq-backend-section-table a.external:after,
+.sq-limbo-field a.external::after,
+.sq-limbo-field a.external:after {
+  content: none !important;
+  display: none !important;
+  padding-left: 0 !important;
 }
 
-::-ms-input-placeholder {
-  color: var(--form-text-muted, #999);
+/* Ensure form anchor elements don't have external link styling */
+form a[name],
+.sq-backend-section-table a[name],
+.sq-limbo-field a[name] {
+  text-decoration: none !important;
+  border: none !important;
+  background: none !important;
+  padding-right: 0 !important;
 }

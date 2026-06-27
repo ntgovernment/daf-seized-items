@@ -1,3 +1,9 @@
+/**
+ * Seized Items Cards Component Styles
+ * Single source of truth for seized items card layout and styling
+ * Provides responsive grid layout and card component styles
+ */
+
 :root {
   --clr-bg-default: #ffffff;
   --clr-border-subtle: #d3d3d7;

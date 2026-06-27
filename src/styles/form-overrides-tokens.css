@@ -1,5 +1,8 @@
-/* NTG design token bridge for form overrides. */
-/* Uses local CSS variable fallbacks to avoid private registry dependency at runtime. */
+/**
+ * NTG Design Token Bridge for Form Overrides
+ * Single source of truth for form token definitions
+ * Uses local CSS variable fallbacks to avoid private registry dependency at runtime
+ */
 
 :root {
   --form-border-unified: var(--clr-border-strong-02, #1f1e27);

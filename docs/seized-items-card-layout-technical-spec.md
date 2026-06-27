@@ -315,8 +315,9 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
 - Form width cap is applied at container level (`form#page_asset_builder_1619140`) instead of per-field caps
 - Form token aliases are defined locally in `src/styles/form-overrides-tokens.css`
 - A unified border token (`--form-border-unified`) is used across text inputs, textareas, and selects in all interaction states
-- Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css`
-- Captured delivery styles in `Publish seized item _ NT.GOV.AU_files/form-overrides.css` are kept in sync with `implementation/form-overrides.css`
+- Squiz-safe fallback delivery uses committed token bridge files in `src/styles/form-overrides-tokens.css`
+- Captured delivery styles in `Publish seized item _ NT.GOV.AU_files/form-overrides.css` are kept in sync with `src/styles/form-overrides.css`
+- External link icons are removed from form anchor elements (section/field navigation points) via CSS overrides and JavaScript class removal to prevent unwanted Font Awesome icons from the NT.GOV design system
 
 ### File Location
 

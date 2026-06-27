@@ -12,6 +12,7 @@
     addFormValidationListeners();
     enhanceSelectElements();
     enhanceFileInputs();
+    removeExternalClassFromFormAnchors();
   }
 
   /**
@@ -304,6 +305,30 @@
   }
 
   /**
+   * Remove external class from form anchor elements
+   * These anchors are used as section/field navigation points, not external links
+   */
+  function removeExternalClassFromFormAnchors() {
+    // Remove external class from all anchor elements with name attribute inside forms
+    const formAnchors = document.querySelectorAll(
+      'form a[name].external, .sq-backend-section-table a.external, .sq-limbo-field a.external'
+    );
+
+    formAnchors.forEach(function (anchor) {
+      anchor.classList.remove("external");
+    });
+
+    // Also check for any anchors with specific names that are commonly used as form anchors
+    const namedAnchors = document.querySelectorAll(
+      'a[name^="section_"].external, a[name^="field_"].external'
+    );
+
+    namedAnchors.forEach(function (anchor) {
+      anchor.classList.remove("external");
+    });
+  }
+
+  /**
    * Validate entire form
    * @param {HTMLFormElement} form - The form to validate
    * @returns {boolean} Whether the form is valid
@@ -351,6 +376,7 @@
   // Re-run enhancements on dynamically added content
   const observer = new MutationObserver(function () {
     enhanceFormElements();
+    removeExternalClassFromFormAnchors();
   });
 
   observer.observe(document.body, {

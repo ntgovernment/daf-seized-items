@@ -13,6 +13,7 @@ This component is designed for use in **Squiz Matrix** to display seized fishing
 - **Card design** — Clean, modern card layout with media, metadata bar, and action footer
 - **Status indicators** — Visual flags for items due soon or overdue
 - **Lazy-loaded images** — Optimized for performance
+- **Form control overrides** — NTG Design System aligned form inputs, dropdowns, and labels with external icon suppression for form anchors
 
 ## Design System
 
