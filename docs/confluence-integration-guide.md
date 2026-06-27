@@ -217,17 +217,20 @@ Backend metadata warnings (e.g., "Currently empty") are styled and positioned be
 
 **Dynamic visibility:**
 
-- JavaScript function `manageMetadataWarnings()` monitors field values
-- Warnings automatically hide when fields are filled
-- Uses `change` and `input` event listeners
+- JavaScript function `manageMetadataWarnings()` monitors field values and toggles a hide class
+- Warnings automatically hide when fields are filled by toggling `.sq-warning-hidden`
+- Uses native `input` / `change`, jQuery `change` handlers and `select2:select` bindings to support Select2-enhanced controls
+- Avoids inline style toggling — JS toggles a class so CSS specificity and `!important` rules behave predictably
 - Checks for empty values, `--` placeholders, and hidden field types
-- Implementation in `src/scripts/form-overrides.js`
+- Implementation in `src/scripts/form-overrides.js` and hide class defined in `src/styles/form-overrides.css`
 
 **CSS selector logic:**
 
 - Base warning: `.sq-metadata-warning { top: 80px; }`
 - Dropdown detection: `.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning { top: 88px !important; }`
 - Date detection: `.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning { top: 88px !important; }`
+ - Base display: `.sq-metadata-warning` intentionally has no base `!important` so JS can control visibility
+ - Hide class: `.sq-metadata-warning.sq-warning-hidden { display: none !important; }`
 - Uses `:has()` pseudo-class to detect field type in sibling container
 
 #### Dropdown Implementation

@@ -181,7 +181,9 @@ Current Matrix form override coverage includes:
 - Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
 - Required field indicators: Asterisk (`*`) replaced with "(Required)" text inline with labels via CSS `::before`
 - Metadata warnings: "Currently empty" messages with alert icons positioned below fields
-- Dynamic warning visibility: Warnings automatically hide when fields are filled (via `src/scripts/form-overrides.js`)
+ - Dynamic warning visibility: Warnings automatically hide when fields are filled by toggling a hide class (`.sq-warning-hidden`) in `src/scripts/form-overrides.js`
+   - Supports native `input` / `change` events, jQuery `change` handlers and `select2:select` events to ensure Select2-enhanced selects are detected
+   - Hiding is implemented by adding `.sq-warning-hidden` so CSS specificity and `!important` rules are respected
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin

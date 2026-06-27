@@ -426,7 +426,7 @@
 
     // Also bind via jQuery if available (select2 triggers jQuery events, not native DOM events)
     if (typeof jQuery !== "undefined") {
-      jQuery(".sq-backend-data select").on("change", function () {
+      jQuery(".sq-backend-data select").on("change select2:select", function () {
         updateWarningVisibility(this);
       });
     }
@@ -461,11 +461,11 @@
       hasValue = field.value && field.value.trim() !== "";
     }
 
-    // Hide or show warning
+    // Hide or show warning using class toggle (CSS !important on .sq-warning-hidden overrides base styles)
     if (hasValue) {
-      warning.style.display = "none";
+      warning.classList.add("sq-warning-hidden");
     } else {
-      warning.style.display = "inline-flex";
+      warning.classList.remove("sq-warning-hidden");
     }
   }
 
