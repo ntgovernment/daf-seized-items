@@ -245,7 +245,19 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 - Focus: keeps 1px strong outline with no glow
 - Disabled: `var(--form-bg-disabled, #f5f5f5)` with subtle outline and muted text (`var(--clr-text-alt, #666774)`)
-- Validation (error/success): keeps unified outline color for consistency across all form elements
+- Error: 1px red outline `var(--clr-status-danger, #a60f37)` with error message displayed below field
+
+**Error Validation - Figma Design:**
+
+When a required field is empty or contains invalid data:
+- Field outline changes to danger red: `outline: 1px var(--clr-status-danger, #a60f37) solid`
+- Error message displays below field with:
+  - Icon: 20×20px solid circle in danger color
+  - Text: 14px Lato, weight 400, line-height 20px, danger color
+  - Layout: inline-flex with 8px gap between icon and text
+  - Example message: "This field is required"
+- JavaScript validates on blur and clears error on input
+- Adds `aria-invalid="true"` and `aria-describedby` for accessibility
 
 ### Label & Field Wrapper Styling
 

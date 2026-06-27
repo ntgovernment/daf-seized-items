@@ -466,15 +466,20 @@ legend {
   color: var(--form-text-default, #333);
 }
 
-/* Error states */
+/* Error states - Figma Design */
 .form-error input,
 .form-error textarea,
 .form-error select,
 input[aria-invalid="true"],
 textarea[aria-invalid="true"],
-select[aria-invalid="true"] {
-  border-color: var(--form-status-error, #dc3545);
-  background-color: var(--form-status-error-bg, #fff5f5);
+select[aria-invalid="true"],
+input.error,
+textarea.error,
+select.error {
+  outline: 1px var(--clr-status-danger, #a60f37) solid;
+  outline-offset: -1px;
+  border: none;
+  background-color: var(--clr-bg-default, #fff);
 }
 
 .form-error input:focus,
@@ -482,9 +487,54 @@ select[aria-invalid="true"] {
 .form-error select:focus,
 input[aria-invalid="true"]:focus,
 textarea[aria-invalid="true"]:focus,
-select[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px var(--form-status-error-shadow, rgba(220, 53, 69, 0.1));
-  border-color: var(--form-status-error, #dc3545);
+select[aria-invalid="true"]:focus,
+input.error:focus,
+textarea.error:focus,
+select.error:focus {
+  outline: 1px var(--clr-status-danger, #a60f37) solid;
+  outline-offset: -1px;
+  box-shadow: 0 0 0 3px var(--form-focus-shadow, rgba(0, 102, 204, 0.1));
+}
+
+/* Error message container - Figma Design */
+.error-message,
+.form-error-message,
+.invalid-feedback {
+  align-self: stretch;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Error message icon - Figma Design */
+.error-message::before,
+.form-error-message::before,
+.invalid-feedback::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  position: relative;
+  overflow: hidden;
+  background: var(--clr-status-danger, #a60f37);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='7.5' fill='currentColor'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='7.5' fill='currentColor'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Error message text - Figma Design */
+.error-message,
+.form-error-message,
+.invalid-feedback {
+  flex: 1 1 0;
+  color: var(--clr-status-danger, #a60f37);
+  font-size: 14px;
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
 }
 
 /* Success states */

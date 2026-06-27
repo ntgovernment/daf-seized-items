@@ -86,40 +86,111 @@
    */
   function validateFormElement(element) {
     let isValid = true;
+    let errorMessage = "";
 
     if (element.hasAttribute("required") && !element.value.trim()) {
       isValid = false;
+      errorMessage = "This field is required";
     } else if (element.type === "email" && element.value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       isValid = emailRegex.test(element.value);
+      if (!isValid) errorMessage = "Please enter a valid email address";
     } else if (element.type === "tel" && element.value) {
       const telRegex = /^[\d\s\-\+\(\)]+$/;
       isValid = telRegex.test(element.value);
+      if (!isValid) errorMessage = "Please enter a valid phone number";
     } else if (element.type === "url" && element.value) {
       try {
         new URL(element.value);
       } catch {
         isValid = false;
+        errorMessage = "Please enter a valid URL";
       }
     } else if (element.hasAttribute("pattern") && element.value) {
       const pattern = new RegExp(element.getAttribute("pattern"));
       isValid = pattern.test(element.value);
+      if (!isValid)
+        errorMessage =
+          element.getAttribute("title") || "Please match the required format";
     }
 
     // Update element state
     if (isValid) {
       element.classList.remove("is-invalid");
       element.classList.remove("form-error");
+      element.classList.remove("error");
       element.classList.add("is-valid");
       element.setAttribute("aria-invalid", "false");
+      removeErrorMessage(element);
     } else {
       element.classList.add("is-invalid");
       element.classList.add("form-error");
+      element.classList.add("error");
       element.classList.remove("is-valid");
       element.setAttribute("aria-invalid", "true");
+      showErrorMessage(element, errorMessage);
     }
 
     return isValid;
+  }
+
+  /**
+   * Show error message below a form element - Figma Design
+   * @param {HTMLElement} element - The form element
+   * @param {string} message - The error message to display
+   */
+  function showErrorMessage(element, message) {
+    // Remove any existing error message
+    removeErrorMessage(element);
+
+    // Create error message element
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.setAttribute("role", "alert");
+    errorDiv.setAttribute("aria-live", "polite");
+    errorDiv.textContent = message;
+
+    // Find the appropriate container to insert the error message
+    const wrapper =
+      element.closest(".sq-metadata-contents-wrapper") ||
+      element.closest(".sq-limbo-field") ||
+      element.parentElement;
+
+    if (wrapper) {
+      // Insert after the input element
+      const insertAfter = element.nextElementSibling || element;
+      if (insertAfter.nextSibling) {
+        wrapper.insertBefore(errorDiv, insertAfter.nextSibling);
+      } else {
+        wrapper.appendChild(errorDiv);
+      }
+    }
+
+    // Set aria-describedby for accessibility
+    const errorId = "error-" + element.id || "error-" + Date.now();
+    errorDiv.id = errorId;
+    element.setAttribute("aria-describedby", errorId);
+  }
+
+  /**
+   * Remove error message from a form element
+   * @param {HTMLElement} element - The form element
+   */
+  function removeErrorMessage(element) {
+    const wrapper =
+      element.closest(".sq-metadata-contents-wrapper") ||
+      element.closest(".sq-limbo-field") ||
+      element.parentElement;
+
+    if (wrapper) {
+      const existingError = wrapper.querySelector(".error-message");
+      if (existingError) {
+        existingError.remove();
+      }
+    }
+
+    // Remove aria-describedby
+    element.removeAttribute("aria-describedby");
   }
 
   /**
