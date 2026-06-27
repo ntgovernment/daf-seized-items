@@ -22,6 +22,18 @@
   --form-fieldset-border: var(--clr-border-subtle, #dddddd);
   --form-button-file-bg: #e0e0e0;
   --form-button-file-bg-hover: #d0d0d0;
+  --form-file-dropzone-bg: var(--clr-bg-default, #ffffff);
+  --form-file-dropzone-border: var(--clr-border-strong-02, #1f1e27);
+  --form-file-dropzone-highlight-bg: var(--clr-bg-alt, #f5f5f8);
+  --form-file-button-bg: var(--clr-action-secondary, #ffffff);
+  --form-file-button-border: var(--clr-border-strong-01, #1f1f5f);
+  --form-file-button-color: var(--clr-link-default, #1f1f5f);
+  --form-file-icon-color: var(--clr-link-default, #1f1f5f);
+  --form-file-item-border: var(--clr-border-subtle, #d3d3d7);
+  --form-file-error-bg: var(--clr-status-danger-bg, #f7e7eb);
+  --form-file-error-border: var(--clr-status-danger, #a60f37);
+  --form-file-error-color: var(--clr-status-danger, #a60f37);
+  --form-file-success-color: var(--clr-status-success, #107810);
   --form-range-track: #dddddd;
   --form-status-error: var(--clr-status-danger, #c33826);
   --form-status-error-bg: #fff5f5;

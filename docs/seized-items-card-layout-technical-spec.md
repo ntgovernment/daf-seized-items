@@ -359,6 +359,27 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
 `src/styles/form-overrides.css`
 `src/styles/form-overrides-tokens.css`
 
+### File Upload Component (New)
+
+An enhanced file upload component has been added to match NTG Figma specs. It is implemented progressively so the native file input remains the form-submittable control while a rich drag-and-drop UI is rendered around it.
+
+- **JS:** `src/scripts/form-overrides.js` — `enhanceFileInputs()` builds the DOM for the dropzone, wires drag/drop listeners, validates files against `accept` and max-size (parsed from `.sq-backend-smallprint`), and renders the file list with per-file states (default, loading, success, error).
+- **CSS classes:** `.file-upload`, `.file-upload__label`, `.file-upload__dropzone`, `.file-upload__dropzone-button`, `.file-upload__file-list`, `.file-upload__file-item`, `.file-upload__file-error`.
+- **Tokens:** New `--form-file-*` tokens live in `src/styles/form-overrides-tokens.css` (dropzone/bg, button/bg/border, icon color, item border, error bg/border/color, success color).
+- **Accessibility:** Dropzone uses `role="region"` and `aria-label`; file list uses `aria-live="polite"`; remove buttons include `aria-label`.
+
+Integration & Delivery:
+
+- Keep `src/scripts/form-overrides.js` and `implementation/form-overrides.js` identical before exporting to Squiz.
+- Keep `src/styles/form-overrides.css` and the captured `Publish seized item _ NT.GOV.AU_files/form-overrides.css` in sync.
+
+Usage notes:
+
+- The native `input[type="file"]` `accept` attribute drives displayed supported formats and client-side type validation.
+- Max file size is parsed from the `.sq-backend-smallprint` text near the upload field; fallback behaviour applies if parsing fails.
+- The native input is visually hidden but remains submittable (no `display:none`).
+
+
 ## 8. Reuse Recipe for Similar Listings
 
 When a new listing request comes in, repeat this pattern:

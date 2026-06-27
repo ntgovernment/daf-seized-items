@@ -277,90 +277,405 @@
   }
 
   /**
-   * Enhance file input elements
+   * Enhance file input elements with drag-and-drop upload UI
    */
   function enhanceFileInputs() {
-    const fileInputs = document.querySelectorAll('input[type="file"]');
+    var fileInputs = document.querySelectorAll('input[type="file"]');
 
     fileInputs.forEach(function (fileInput) {
-      if (!fileInput.classList.contains("file-enhanced")) {
-        fileInput.classList.add("file-enhanced");
+      // Skip if already enhanced with the new UI (check for wrapper, not just class)
+      if (fileInput.closest(".file-upload")) return;
+      fileInput.classList.add("file-enhanced");
 
-        // Add drag and drop support
-        const parent = fileInput.parentElement;
+      var container =
+        fileInput.closest(".sq-form-upload-wrapper") ||
+        fileInput.closest(".sq-form-upload") ||
+        fileInput.parentElement;
+      if (!container) return;
 
-        if (parent) {
-          // Create drop zone if it doesn't exist
-          let dropZone = parent.querySelector(".drop-zone");
-          if (!dropZone) {
-            dropZone = document.createElement("div");
-            dropZone.className = "drop-zone";
-            parent.insertBefore(dropZone, fileInput);
-          }
+      // Direct parent for DOM insertion
+      var parent = fileInput.parentElement;
 
-          // Drag and drop events
-          ["dragenter", "dragover", "dragleave", "drop"].forEach(
-            (eventName) => {
-              dropZone.addEventListener(eventName, preventDefaults, false);
-            },
-          );
+      // Parse constraints from accept attribute and smallprint
+      var acceptAttr = fileInput.getAttribute("accept") || "";
+      var acceptedFormats = parseAcceptFormats(acceptAttr);
+      var maxFileSize = parseMaxFileSize(container);
 
-          function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
+      // Determine label text from associated label or parent fieldset
+      var labelText = getFileInputLabel(fileInput);
+      var isRequired = fileInput.hasAttribute("required");
 
-          ["dragenter", "dragover"].forEach((eventName) => {
-            dropZone.addEventListener(eventName, highlight, false);
-          });
+      // Build enhanced UI
+      var wrapper = document.createElement("div");
+      wrapper.className = "file-upload";
 
-          ["dragleave", "drop"].forEach((eventName) => {
-            dropZone.addEventListener(eventName, unhighlight, false);
-          });
+      // Label section
+      var labelSection = document.createElement("div");
+      labelSection.className = "file-upload__label";
 
-          function highlight(e) {
-            dropZone.classList.add("highlight");
-          }
+      var labelRow = document.createElement("div");
+      labelRow.className = "file-upload__label-row";
 
-          function unhighlight(e) {
-            dropZone.classList.remove("highlight");
-          }
+      var labelTextEl = document.createElement("span");
+      labelTextEl.className = "file-upload__label-text";
+      labelTextEl.textContent = labelText;
+      labelRow.appendChild(labelTextEl);
 
-          // Handle dropped files
-          dropZone.addEventListener("drop", handleDrop, false);
-
-          function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-
-            fileInput.files = files;
-
-            // Trigger change event
-            const event = new Event("change", { bubbles: true });
-            fileInput.dispatchEvent(event);
-          }
-
-          // Allow clicking drop zone to select files
-          dropZone.addEventListener("click", function () {
-            fileInput.click();
-          });
-        }
-
-        // Update file list display
-        fileInput.addEventListener("change", function () {
-          const fileList = parent.querySelector(".file-list");
-          if (fileList && this.files.length > 0) {
-            fileList.innerHTML = "";
-            Array.from(this.files).forEach((file) => {
-              const item = document.createElement("div");
-              item.className = "file-item";
-              item.textContent = `${file.name} (${formatFileSize(file.size)})`;
-              fileList.appendChild(item);
-            });
-          }
-        });
+      if (isRequired) {
+        var requiredEl = document.createElement("span");
+        requiredEl.className = "file-upload__required";
+        requiredEl.textContent = "(Required)";
+        labelRow.appendChild(requiredEl);
       }
+
+      labelSection.appendChild(labelRow);
+
+      // Helper text from smallprint
+      var smallprint = parent.closest(".sq-backend-data")
+        ? parent
+            .closest(".sq-backend-data")
+            .querySelector(".sq-backend-smallprint")
+        : null;
+      if (smallprint && smallprint.textContent.trim()) {
+        var helperEl = document.createElement("div");
+        helperEl.className = "file-upload__helper";
+        helperEl.textContent = smallprint.textContent.trim();
+        labelSection.appendChild(helperEl);
+        smallprint.style.display = "none";
+      }
+
+      wrapper.appendChild(labelSection);
+
+      // Dropzone
+      var dropzone = document.createElement("div");
+      dropzone.className = "file-upload__dropzone";
+      dropzone.setAttribute("role", "region");
+      dropzone.setAttribute("aria-label", "File upload drop zone");
+
+      // Upload icon
+      var iconEl = document.createElement("div");
+      iconEl.className = "file-upload__dropzone-icon";
+      iconEl.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 20" aria-hidden="true"><path d="M0 18h18v2H0v-2zm9-2L3 10h4V0h4v10h4l-6 6z" transform="rotate(180 9 10)"/></svg>';
+      dropzone.appendChild(iconEl);
+
+      // Instructional text
+      var textContainer = document.createElement("div");
+      textContainer.style.cssText =
+        "flex-direction:column;justify-content:flex-start;align-items:center;gap:8px;display:flex";
+
+      var dropText = document.createElement("div");
+      dropText.className = "file-upload__dropzone-text";
+      dropText.textContent = "Drag and drop files or select files to upload";
+      textContainer.appendChild(dropText);
+
+      // Meta info (formats + size)
+      var metaEl = document.createElement("div");
+      metaEl.className = "file-upload__dropzone-meta";
+
+      if (acceptedFormats.length > 0) {
+        var formatsSpan = document.createElement("span");
+        formatsSpan.textContent =
+          "Supported file formats: " + acceptedFormats.join(", ");
+        metaEl.appendChild(formatsSpan);
+      }
+
+      if (maxFileSize > 0) {
+        var sizeSpan = document.createElement("span");
+        sizeSpan.textContent =
+          "Max file size is " + formatFileSize(maxFileSize);
+        metaEl.appendChild(sizeSpan);
+      }
+
+      textContainer.appendChild(metaEl);
+      dropzone.appendChild(textContainer);
+
+      // Select files button
+      var selectBtn = document.createElement("button");
+      selectBtn.type = "button";
+      selectBtn.className = "file-upload__dropzone-button";
+      selectBtn.textContent = "Select files";
+      selectBtn.addEventListener("click", function () {
+        fileInput.click();
+      });
+      dropzone.appendChild(selectBtn);
+
+      wrapper.appendChild(dropzone);
+
+      // File list
+      var fileList = document.createElement("div");
+      fileList.className = "file-upload__file-list";
+      fileList.setAttribute("aria-live", "polite");
+      fileList.setAttribute("aria-relevant", "additions removals");
+      wrapper.appendChild(fileList);
+
+      // Insert wrapper before the input, then move input inside wrapper
+      parent.insertBefore(wrapper, fileInput);
+      wrapper.appendChild(fileInput);
+
+      // Remove old drop-zone if it existed
+      var oldDropZone = parent.querySelector(".drop-zone");
+      if (oldDropZone) oldDropZone.remove();
+
+      // Drag and drop events on the dropzone
+      ["dragenter", "dragover", "dragleave", "drop"].forEach(
+        function (eventName) {
+          dropzone.addEventListener(
+            eventName,
+            function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            },
+            false,
+          );
+        },
+      );
+
+      ["dragenter", "dragover"].forEach(function (eventName) {
+        dropzone.addEventListener(
+          eventName,
+          function () {
+            dropzone.classList.add("highlight");
+          },
+          false,
+        );
+      });
+
+      ["dragleave", "drop"].forEach(function (eventName) {
+        dropzone.addEventListener(
+          eventName,
+          function () {
+            dropzone.classList.remove("highlight");
+          },
+          false,
+        );
+      });
+
+      // Handle dropped files
+      dropzone.addEventListener(
+        "drop",
+        function (e) {
+          var files = e.dataTransfer.files;
+          handleFiles(fileInput, files, fileList, acceptAttr, maxFileSize);
+        },
+        false,
+      );
+
+      // Handle file selection via native picker
+      fileInput.addEventListener("change", function () {
+        handleFiles(
+          fileInput,
+          fileInput.files,
+          fileList,
+          acceptAttr,
+          maxFileSize,
+        );
+      });
+
+      // Allow clicking the dropzone (not the button) to also open picker
+      dropzone.addEventListener("click", function (e) {
+        if (e.target === selectBtn || selectBtn.contains(e.target)) return;
+        fileInput.click();
+      });
     });
+  }
+
+  /**
+   * Handle selected/dropped files — validate and render file list
+   */
+  function handleFiles(fileInput, files, fileListEl, acceptAttr, maxFileSize) {
+    fileListEl.innerHTML = "";
+    var hasError = false;
+
+    Array.from(files).forEach(function (file) {
+      var validation = validateFile(file, acceptAttr, maxFileSize);
+      var state = validation.valid ? "success" : "error";
+      if (!validation.valid) hasError = true;
+
+      var item = document.createElement("div");
+      item.className = "file-upload__file-item";
+      item.setAttribute("data-state", state);
+
+      var row = document.createElement("div");
+      row.className = "file-upload__file-item-row";
+
+      var info = document.createElement("div");
+      info.className = "file-upload__file-item-info";
+
+      // Status icon
+      var statusIcon = document.createElement("div");
+      statusIcon.className = "file-upload__file-status-icon";
+      if (state === "success") {
+        statusIcon.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.67 11.13L3.53 8l-1.07 1.06 4.2 4.2 9.01-9-1.07-1.07-7.93 7.94z"/></svg>';
+      } else if (state === "error") {
+        statusIcon.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5M8 11v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>';
+      }
+      info.appendChild(statusIcon);
+
+      // File name
+      var nameEl = document.createElement("span");
+      nameEl.className = "file-upload__file-name";
+      nameEl.textContent = file.name;
+      info.appendChild(nameEl);
+
+      row.appendChild(info);
+
+      // Remove button
+      var removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "file-upload__file-remove";
+      removeBtn.setAttribute("aria-label", "Remove " + file.name);
+      removeBtn.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M12.47 3.53L8 8l4.47 4.47-1.06 1.06L7 9.06l-4.47 4.47-1.06-1.06L5.94 8 1.47 3.53l1.06-1.06L7 6.94l4.47-4.47 1.06 1.06z"/></svg>';
+      removeBtn.addEventListener("click", function () {
+        item.remove();
+        // Clear the file input if no items remain
+        if (fileListEl.children.length === 0) {
+          clearFileInput(fileInput);
+        }
+      });
+      row.appendChild(removeBtn);
+
+      item.appendChild(row);
+
+      // Error message
+      if (!validation.valid) {
+        var errorEl = document.createElement("div");
+        errorEl.className = "file-upload__file-error";
+        errorEl.textContent = validation.message;
+        item.appendChild(errorEl);
+      }
+
+      fileListEl.appendChild(item);
+    });
+
+    // Set aria-invalid on the input
+    if (hasError) {
+      fileInput.setAttribute("aria-invalid", "true");
+    } else {
+      fileInput.removeAttribute("aria-invalid");
+    }
+  }
+
+  /**
+   * Validate a single file against accept types and max size
+   */
+  function validateFile(file, acceptAttr, maxFileSize) {
+    // Check file type
+    if (acceptAttr) {
+      var accepted = acceptAttr.split(",").map(function (t) {
+        return t.trim().toLowerCase();
+      });
+      var fileType = file.type.toLowerCase();
+      var fileExt = "." + file.name.split(".").pop().toLowerCase();
+
+      var typeValid = accepted.some(function (accept) {
+        if (accept.startsWith(".")) {
+          return fileExt === accept;
+        }
+        if (accept.endsWith("/*")) {
+          return fileType.startsWith(accept.replace("/*", "/"));
+        }
+        return fileType === accept;
+      });
+
+      if (!typeValid) {
+        var formats = parseAcceptFormats(acceptAttr);
+        return {
+          valid: false,
+          message:
+            "File type not supported. Accepted formats: " + formats.join(", "),
+        };
+      }
+    }
+
+    // Check file size
+    if (maxFileSize > 0 && file.size > maxFileSize) {
+      return {
+        valid: false,
+        message: "File must be less than " + formatFileSize(maxFileSize),
+      };
+    }
+
+    return { valid: true, message: "" };
+  }
+
+  /**
+   * Parse accept attribute into human-readable format list
+   */
+  function parseAcceptFormats(acceptAttr) {
+    if (!acceptAttr) return [];
+    return acceptAttr
+      .split(",")
+      .map(function (t) {
+        t = t.trim().toLowerCase();
+        // Extract extension from MIME type (e.g., "image/png" -> "png")
+        if (t.startsWith(".")) return t.substring(1);
+        var parts = t.split("/");
+        if (parts.length === 2) return parts[1].replace("jpeg", "jpg");
+        return t;
+      })
+      .filter(function (v, i, a) {
+        return a.indexOf(v) === i;
+      }); // deduplicate
+  }
+
+  /**
+   * Parse max file size from nearby smallprint text
+   */
+  function parseMaxFileSize(container) {
+    var smallprint = container.closest(".sq-backend-data")
+      ? container
+          .closest(".sq-backend-data")
+          .querySelector(".sq-backend-smallprint")
+      : null;
+    if (!smallprint) return 0;
+
+    var text = smallprint.textContent || "";
+    var match = text.match(/([\d.]+)\s*(MB|GB|KB)/i);
+    if (!match) return 0;
+
+    var value = parseFloat(match[1]);
+    var unit = match[2].toUpperCase();
+    if (unit === "KB") return value * 1024;
+    if (unit === "MB") return value * 1024 * 1024;
+    if (unit === "GB") return value * 1024 * 1024 * 1024;
+    return 0;
+  }
+
+  /**
+   * Get label text for a file input
+   */
+  function getFileInputLabel(fileInput) {
+    // Check for associated <label>
+    if (fileInput.id) {
+      var label = document.querySelector('label[for="' + fileInput.id + '"]');
+      if (label) return label.textContent.trim();
+    }
+    // Check parent fieldset legend
+    var fieldset = fileInput.closest("fieldset");
+    if (fieldset) {
+      var legend = fieldset.querySelector("legend");
+      if (legend) return legend.textContent.trim();
+    }
+    // Check aria-label
+    if (fileInput.getAttribute("aria-label")) {
+      return fileInput.getAttribute("aria-label");
+    }
+    // Default
+    return "Upload file";
+  }
+
+  /**
+   * Clear a file input's value
+   */
+  function clearFileInput(fileInput) {
+    fileInput.value = "";
+    // Dispatch change event so form knows files were cleared
+    var event = new Event("change", { bubbles: true });
+    fileInput.dispatchEvent(event);
   }
 
   /**
@@ -370,9 +685,9 @@
    */
   function formatFileSize(bytes) {
     if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    var k = 1024;
+    var sizes = ["Bytes", "KB", "MB", "GB"];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
     return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
   }
 
@@ -426,9 +741,12 @@
 
     // Also bind via jQuery if available (select2 triggers jQuery events, not native DOM events)
     if (typeof jQuery !== "undefined") {
-      jQuery(".sq-backend-data select").on("change select2:select", function () {
-        updateWarningVisibility(this);
-      });
+      jQuery(".sq-backend-data select").on(
+        "change select2:select",
+        function () {
+          updateWarningVisibility(this);
+        },
+      );
     }
   }
 

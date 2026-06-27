@@ -192,6 +192,29 @@ Current Matrix form override coverage includes:
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
 
+### File Upload Component
+
+The repository includes an enhanced file upload UI to match the NTG Figma design. The implementation is progressive — it keeps the native `<input type="file">` for form submission but renders a visible drag-and-drop component around it.
+
+- JS enhancement: `src/scripts/form-overrides.js` → `enhanceFileInputs()` builds the UI and handles drag/drop, validation, and file-list rendering.
+- CSS classes (BEM): `.file-upload`, `.file-upload__label`, `.file-upload__dropzone`, `.file-upload__dropzone-button`, `.file-upload__file-list`, `.file-upload__file-item`, `.file-upload__file-error`, etc.
+- Token variables (in `src/styles/form-overrides-tokens.css`): `--form-file-dropzone-bg`, `--form-file-dropzone-border`, `--form-file-dropzone-highlight-bg`, `--form-file-button-bg`, `--form-file-button-border`, `--form-file-button-color`, `--form-file-icon-color`, `--form-file-item-border`, `--form-file-error-bg`, `--form-file-error-border`, `--form-file-error-color`, `--form-file-success-color`.
+
+Usage notes:
+- The native input uses the existing `accept` attribute to display supported formats and to validate types client-side.
+- The implementation parses any nearby `.sq-backend-smallprint` text to derive max file size limits (falls back to no limit if not parseable).
+- The native input is visually hidden using a screen-reader-friendly clip technique so it remains submittable.
+- The component supports multiple files only if the native input includes the `multiple` attribute.
+
+Sync requirements:
+- Keep `src/scripts/form-overrides.js` and `implementation/form-overrides.js` identical for Squiz delivery.
+- Keep `src/styles/form-overrides.css` and the captured `Publish seized item _ NT.GOV.AU_files/form-overrides.css` in sync for production snapshots.
+
+Accessibility:
+- The dropzone uses `role="region"` and an accessible `aria-label`.
+- The file list has `aria-live="polite"` to announce added/removed files.
+- Individual remove buttons include `aria-label` pointing to the filename.
+
 ### Required Field Indicators
 
 - Display "(Required)" text instead of asterisk
