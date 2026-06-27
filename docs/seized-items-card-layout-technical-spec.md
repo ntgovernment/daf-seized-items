@@ -268,10 +268,14 @@ When a required field is empty or contains invalid data:
 - Top margin: 16px
 - Text alignment: left (including nested label spans)
 - Label text: 16px Lato, weight 700, line-height 24px
-- Required marker: inline `(Required)` text displayed with 8px gap after label using `::after` pseudo-element
+- First span child: inline-flex row layout with flex-wrap for label and required indicator
+- Required marker: `<span class="sq-backend-warning">` displays "(Required)" inline with 8px left margin
+  - Original asterisk (*) is hidden via font-size: 0
+  - "(Required)" text added via ::before pseudo-element
   - Color: `var(--clr-status-danger, #a60f37)`
   - Font: 14px Lato, weight 400, line-height 20px
-  - Layout: horizontal flex with center alignment
+  - Layout: inline with label text
+  - Line break after indicator is hidden
 
 **Wrapper Classes:**
 

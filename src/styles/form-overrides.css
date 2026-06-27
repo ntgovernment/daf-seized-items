@@ -404,22 +404,26 @@ label {
 
 .sq-limbo-field > span:first-child {
   align-self: stretch;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: 0px;
 }
 
 /* Label wrapper with required indicator - Figma Design */
-.sq-limbo-field span > span:first-child {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+.sq-limbo-field > span:first-child > span:first-child {
+  color: var(--clr-text-default, #1f1e27);
+  font-size: 16px;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  word-wrap: break-word;
 }
 
-/* Label text styling - Figma Design */
+/* All label spans styling - Figma Design */
 .sq-limbo-field span > span {
   color: var(--clr-text-default, #1f1e27);
   font-size: 16px;
@@ -430,15 +434,35 @@ label {
   word-wrap: break-word;
 }
 
-/* Required field indicator - Figma Design */
-.sq-limbo-field span > span:first-child::after {
-  content: "(Required)";
+/* Matrix backend required field indicator - Figma Design */
+.sq-backend-warning {
   color: var(--clr-status-danger, #a60f37);
   font-size: 14px;
   font-family: Lato, sans-serif;
   font-weight: 400;
   line-height: 20px;
   word-wrap: break-word;
+  margin-left: 8px;
+}
+
+/* Replace asterisk with (Required) text */
+.sq-backend-warning:not(.sq-metadata-warning)::before {
+  content: "(Required)";
+}
+
+/* Hide the asterisk */
+.sq-backend-warning:not(.sq-metadata-warning) {
+  font-size: 0;
+}
+
+/* Ensure the pseudo-element has the correct font size */
+.sq-backend-warning:not(.sq-metadata-warning)::before {
+  font-size: 14px;
+}
+
+/* Hide the line break after required indicator */
+.sq-limbo-field > span .sq-backend-warning + br {
+  display: none;
 }
 
 /* Helper text styling - Figma Design */
