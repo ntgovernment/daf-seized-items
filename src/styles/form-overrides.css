@@ -478,10 +478,11 @@ label {
   z-index: 10;
 }
 
-/* Adjust position for dropdown and date fields (32px lower) */
-.sq-backend-data:has(select) .sq-metadata-warning,
-.sq-backend-data:has(.sq-metadata-date-wrapper) .sq-metadata-warning {
-  top: 112px;
+/* Adjust position for dropdown and date fields (24px lower) */
+/* Target warnings where the next sibling .sq-backend-data contains a select or date wrapper */
+.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning,
+.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning {
+  top: 104px !important;
 }
 
 /* Add icon to metadata warning */
