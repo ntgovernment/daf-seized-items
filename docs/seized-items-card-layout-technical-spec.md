@@ -2,8 +2,8 @@
 
 ## Frontend Build Guide for Squiz Matrix
 
-Version: 2.2  
-Date: 2026-06-25  
+Version: 2.3  
+Date: 2026-06-27  
 Source page: https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items
 
 ## 1. Purpose
@@ -267,7 +267,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 **Form Container Width:**
 
-- `form#page_asset_builder_1619140`: width 100%, max-width 480px
+- `form#page_asset_builder_1619140`: width 100%, max-width 680px (increased from 480px to accommodate horizontal date pickers)
 
 **Helper Text:** `sq-metadata-description`
 
@@ -275,6 +275,35 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Line height: 20px
 - Color: `var(--clr-text-alt, #666774)`
 - Margin top: 0
+
+### Date Input Styling
+
+**Class:** `.sq-metadata-date-wrapper .sq-inline-fields-wrapper.bottom-margin`
+
+**Layout:**
+
+- Display: flex horizontal row with 8px gap
+- Flex-wrap: enabled for responsive behavior
+- Alignment: center vertical alignment
+
+**Dropdown Sizing:**
+
+- Width: auto (adjusted to content)
+- Min-width: fit-content
+- Flex-shrink: 0 (prevents content clipping)
+
+**Hidden Elements:**
+
+Matrix date fields include optional helper rows that are hidden by default:
+
+- "OR IN ... from now" row (duration input + period dropdown)
+- "OR keywords" row (creation/update date shortcuts)
+
+These are hidden using sibling selectors to keep only the main date picker dropdowns visible.
+
+**Implementation:**
+
+All date/time dropdowns (day, month, year, hour, minute) display in a single horizontal row with optimized widths based on their content. The form width was increased to 680px to prevent wrapping of the last dropdown element.
 
 ### Implementation Notes
 

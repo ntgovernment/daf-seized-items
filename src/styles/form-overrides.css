@@ -20,7 +20,7 @@ textarea,
 select {
   font-family: inherit;
   font-size: 1rem;
-  border-radius: 4px;
+  border-radius: 0px;
   transition: all 0.3s ease;
 }
 
@@ -188,7 +188,7 @@ select.select-enhanced[aria-invalid="true"] {
 
 form#page_asset_builder_1619140 {
   width: 100%;
-  max-width: 480px;
+  max-width: 680px;
 }
 
 .sq-metadata-wrapper {
@@ -214,6 +214,30 @@ form#page_asset_builder_1619140 {
 
 .sq-metadata-contents-wrapper > input[type="hidden"] + select.select-enhanced {
   width: 100%;
+}
+
+/* Date picker horizontal layout with auto-sizing dropdowns */
+.sq-metadata-date-wrapper .sq-inline-fields-wrapper.bottom-margin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sq-metadata-date-wrapper .sq-inline-fields-wrapper.bottom-margin select {
+  width: auto !important;
+  min-width: fit-content;
+  flex-shrink: 0;
+}
+
+/* Hide relative-date helper rows for Matrix date metadata fields */
+/* Keep only the first inline wrapper (actual date picker), hide the rest */
+.sq-metadata-date-wrapper
+  .sq-inline-fields-wrapper.bottom-margin
+  ~ .sq-inline-fields-wrapper.bottom-margin,
+.sq-metadata-date-wrapper .sq-inline-fields-wrapper.bottom-margin ~ br {
+  display: none !important;
 }
 
 /* Textarea */
