@@ -229,8 +229,8 @@ Backend metadata warnings (e.g., "Currently empty") are styled and positioned be
 - Base warning: `.sq-metadata-warning { top: 80px; }`
 - Dropdown detection: `.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning { top: 88px !important; }`
 - Date detection: `.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning { top: 88px !important; }`
- - Base display: `.sq-metadata-warning` intentionally has no base `!important` so JS can control visibility
- - Hide class: `.sq-metadata-warning.sq-warning-hidden { display: none !important; }`
+- Base display: `.sq-metadata-warning` intentionally has no base `!important` so JS can control visibility
+- Hide class: `.sq-metadata-warning.sq-warning-hidden { display: none !important; }`
 - Uses `:has()` pseudo-class to detect field type in sibling container
 
 #### Dropdown Implementation
@@ -251,11 +251,11 @@ Unified border treatment:
 Textarea specifics:
 
 - Textareas follow the same NTG tokens and outline approach as single-line inputs but include multiline adjustments. Key points:
-   - Padding: `8px 16px` (8px top/bottom, 16px left/right)
-   - Outline: `outline: 1px solid var(--clr-border-strong-02, #1f1e27)` with `outline-offset: -1px`
-   - Placeholder: `var(--clr-text-alt, #666774)`
-   - Resize: `resize: vertical` (horizontal resizing locked)
-   - Visual resize indicator: implemented via a CSS-only background/pseudo-element (visual-only; native resize remains functional)
+  - Padding: `8px 16px` (8px top/bottom, 16px left/right)
+  - Outline: `outline: 1px solid var(--clr-border-strong-02, #1f1e27)` with `outline-offset: -1px`
+  - Placeholder: `var(--clr-text-alt, #666774)`
+  - Resize: `resize: vertical` (horizontal resizing locked)
+  - Visual resize indicator: implemented via a CSS-only background/pseudo-element (visual-only; native resize remains functional)
 
 Note: Token alias `--form-text-muted` has been updated to use `--clr-text-alt` fallback `#666774` to match Figma placeholder color.
 

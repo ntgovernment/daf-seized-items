@@ -312,6 +312,14 @@ Button styling was updated to align with the NTG Figma design. These rules apply
 - Squiz classes: `.sq-commit-button`, `.sq-btn-large`, and `.sq-btn-green` receive the same visual styles via class-based overrides to ensure the CMS `input[type="button"]` commit control matches the Figma appearance.
 - Backend spacing: the backend commit section wrapper `.sq-backend-section-table` has been given a substantial top margin to separate the action row from metadata fields (48px).
 
+**Submit button loading state**
+
+- Commit buttons are progressively enhanced to present a submitting state: when clicked they become disabled and display a Font Awesome `fa-spinner` overlay while the form is being submitted. This enhancement preserves existing inline `onclick` handlers used by Squiz Matrix and injects the spinner via JavaScript to avoid changing the native `input[type="button"]` element.
+- Tokens used for the submitting/disabled appearance:
+  - `--form-action-disabled` (defaults to `--clr-action-disabled`, `#E7E7EA`) — background for disabled/submit state
+  - `--form-action-disabled-text` (defaults to `--clr-text-alt`, `#666774`) — spinner / muted text colour
+ - The spinner is injected as an absolutely positioned overlay inside a `btn-submit-wrapper` element. The overlay centres a `fa-spinner fa-spin` icon in a 24×24 container and uses the disabled tokens above.
+
 **Form Container Width:**
 
 - `form#page_asset_builder_1619140`: width 100%, max-width 680px (increased from 480px to accommodate horizontal date pickers)

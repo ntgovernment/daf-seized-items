@@ -41,4 +41,6 @@
   --form-status-success: var(--clr-status-success, #107810);
   --form-status-success-bg: #f5fff5;
   --form-status-success-shadow: rgba(16, 120, 16, 0.2);
+  --form-action-disabled: var(--clr-action-disabled, #e7e7ea);
+  --form-action-disabled-text: var(--clr-text-alt, #666774);
 }

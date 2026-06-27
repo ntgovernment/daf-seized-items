@@ -14,6 +14,7 @@
     enhanceFileInputs();
     removeExternalClassFromFormAnchors();
     manageMetadataWarnings();
+    enhanceSubmitButtons();
   }
 
   /**
@@ -785,6 +786,39 @@
     } else {
       warning.classList.remove("sq-warning-hidden");
     }
+  }
+
+  /**
+   * Enhance submit buttons with a loading spinner on click
+   */
+  function enhanceSubmitButtons() {
+    var buttons = document.querySelectorAll(
+      ".sq-commit-button, input[type=\"submit\"].sq-btn-green, input[type=\"button\"].sq-btn-green",
+    );
+
+    buttons.forEach(function (btn) {
+      if (btn.getAttribute("data-submit-enhanced")) return;
+      btn.setAttribute("data-submit-enhanced", "true");
+
+      // Wrap button in a positioned container for spinner overlay
+      var wrapper = document.createElement("span");
+      wrapper.className = "btn-submit-wrapper";
+      btn.parentNode.insertBefore(wrapper, btn);
+      wrapper.appendChild(btn);
+
+      btn.addEventListener("click", function () {
+        // Defer so the existing onclick handler fires first
+        setTimeout(function () {
+          btn.disabled = true;
+
+          // Inject spinner overlay
+          var spinner = document.createElement("span");
+          spinner.className = "btn-spinner";
+          spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+          wrapper.appendChild(spinner);
+        }, 0);
+      });
+    });
   }
 
   /**

@@ -151,6 +151,8 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 
 - 2026-06-27: Updated textarea styling to match NTG Figma design — outline-based border (1px solid #1F1E27 with -1px offset), 16px left/right padding, 8px top/bottom padding, Lato 16px font, custom resize handle visual indicator (12x12px gradient in bottom-right), placeholder color updated to #666774 for design fidelity. Changes applied to `src/styles/form-overrides.css` and mirrored to `Publish seized item _ NT.GOV.AU_files/form-overrides.css` for Squiz CMS compatibility.
 - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
+ - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
+ - 2026-06-27: Added submit-button loading state: commit buttons are enhanced to disable on click and display a Font Awesome `fa-spinner` overlay while submitting. New tokens: `--form-action-disabled` and `--form-action-disabled-text` (mapped to `--clr-action-disabled` and `--clr-text-alt`). Enhancement preserves existing inline `onclick` submission flow and injects a spinner overlay via JS.
 
 ## JavaScript Enhancements
 

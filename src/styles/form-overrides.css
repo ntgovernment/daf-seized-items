@@ -403,9 +403,34 @@ input[type="button"].sq-commit-button {
 .sq-commit-button:disabled,
 .sq-btn-large:disabled,
 .sq-btn-green:disabled {
-  background-color: var(--form-border-default, #ccc) !important;
-  color: var(--form-text-muted, #999) !important;
+  background-color: var(--form-action-disabled, #e7e7ea) !important;
+  color: var(--form-action-disabled-text, #666774) !important;
   cursor: not-allowed !important;
+}
+
+/* Submit button wrapper and spinner overlay */
+.btn-submit-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.btn-spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--form-action-disabled, #e7e7ea);
+  color: var(--form-action-disabled-text, #666774);
+}
+
+.btn-spinner i {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 }
 
 /* Squiz backend button section spacing */
