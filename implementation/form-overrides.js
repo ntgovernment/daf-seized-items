@@ -311,7 +311,7 @@
   function removeExternalClassFromFormAnchors() {
     // Remove external class from all anchor elements with name attribute inside forms
     const formAnchors = document.querySelectorAll(
-      'form a[name].external, .sq-backend-section-table a.external, .sq-limbo-field a.external'
+      "form a[name].external, .sq-backend-section-table a.external, .sq-limbo-field a.external",
     );
 
     formAnchors.forEach(function (anchor) {
@@ -320,7 +320,7 @@
 
     // Also check for any anchors with specific names that are commonly used as form anchors
     const namedAnchors = document.querySelectorAll(
-      'a[name^="section_"].external, a[name^="field_"].external'
+      'a[name^="section_"].external, a[name^="field_"].external',
     );
 
     namedAnchors.forEach(function (anchor) {
