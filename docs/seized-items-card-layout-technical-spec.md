@@ -216,6 +216,39 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Disabled: Background set to `var(--clr-bg-shade-alt, #f5f5f5)`, text muted, pointer events removed
 - Validation states via `data-status`, `is-valid`, `is-invalid`, and `aria-invalid`
 
+### TextInput Styling
+
+**Target Markup:** `input[type="text"].form-control.sq-form-field` (including hidden-field adjacency patterns such as `input[type="hidden"] + input[type="text"]`) inside `.sq-metadata-contents-wrapper`
+
+**Dimensions & Spacing:**
+
+- Height: 52px
+- Min-height: 48px
+- Width: 100%
+- Max-width: 480px
+- Padding: 0 top/bottom, 16px left/right
+
+**Typography:**
+
+- Font family: Lato
+- Font size: 16px
+- Font weight: 400
+- Line height: 24px
+
+**Colors:**
+
+- Background: `var(--clr-bg-default, #ffffff)`
+- Outline (default): `var(--clr-border-strong-02, #1f1e27)`
+- Outline (hover): `var(--clr-border-strong-02, #1f1e27)`
+- Placeholder: `var(--clr-text-alt, #666774)`
+
+**Interactive States:**
+
+- Focus: keeps 1px strong outline with no glow
+- Disabled: `var(--form-bg-disabled, #f5f5f5)` with subtle outline and muted text (`var(--clr-text-alt, #666774)`)
+- Validation (error): `is-invalid` / `aria-invalid="true"` applies error outline using `var(--form-status-error, #c33826)`
+- Validation (success): `is-valid` / `aria-invalid="false"` applies success outline using `var(--form-status-success, #107810)`
+
 ### Label & Field Wrapper Styling
 
 **Label Container:** `sq-limbo-field`
@@ -223,6 +256,7 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 - Display: flex column with 8px gap
 - Width: 100%
 - Label text: 16px Lato, weight 700, line-height 24px
+- Required marker: appended text ` (Required)` using status danger color and body-sm typography
 
 **Wrapper Classes:**
 
@@ -234,18 +268,20 @@ Enhanced form styling has been implemented in `src/styles/form-overrides.css` to
 
 - Font: 14px Lato, weight 400
 - Line height: 20px
-- Color: `var(--clr-text-muted, #666774)`
-- Margin top: 4px
+- Color: `var(--clr-text-alt, #666774)`
+- Margin top: 0
 
 ### Implementation Notes
 
 - All form overrides use CSS custom properties for theming consistency
 - Dropdown styling removes native browser appearance for cross-browser consistency
-- Focus states include visible outline for accessibility compliance
+- TextInput now follows an outline-based state model from Figma (no additional focus glow)
 - Enhanced select class is optional; standard select styling is applied as fallback
+- TextInput enhancement is scoped to Matrix metadata wrappers to avoid unintended global Bootstrap `.form-control` overrides
 - Form overrides now depend on the NT design token package `@ntgovernment/web-design-tokens`
 - Token aliases for form controls are defined in `src/styles/form-overrides-tokens.css`
 - Squiz-safe fallback delivery uses committed token bridge files in `implementation/form-overrides-tokens.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`
+- Captured delivery styles in `Publish seized item _ NT.GOV.AU_files/form-overrides.css` are kept in sync with `implementation/form-overrides.css`
 
 ### File Location
 

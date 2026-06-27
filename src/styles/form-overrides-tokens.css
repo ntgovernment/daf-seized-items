@@ -9,8 +9,8 @@
   --form-text-default: var(--clr-text-default, #1f1e27);
   --form-text-muted: var(--clr-text-alt, #999999);
   --form-text-contrast: var(--clr-bg-default, #ffffff);
-  --form-border-focus: var(--clr-link-default, #0066cc);
-  --form-focus-shadow: rgba(0, 102, 204, 0.1);
+  --form-border-focus: var(--clr-focus-focus, #ec8c58);
+  --form-focus-shadow: rgba(236, 140, 88, 0.35);
   --form-icon-default: var(--clr-text-default, #333333);
   --form-accent: var(--clr-link-default, #0066cc);
   --form-accent-hover: #0052a3;
@@ -19,10 +19,10 @@
   --form-button-file-bg: #e0e0e0;
   --form-button-file-bg-hover: #d0d0d0;
   --form-range-track: #dddddd;
-  --form-status-error: #dc3545;
+  --form-status-error: var(--clr-status-danger, #c33826);
   --form-status-error-bg: #fff5f5;
-  --form-status-error-shadow: rgba(220, 53, 69, 0.1);
-  --form-status-success: #28a745;
+  --form-status-error-shadow: rgba(195, 56, 38, 0.2);
+  --form-status-success: var(--clr-status-success, #107810);
   --form-status-success-bg: #f5fff5;
-  --form-status-success-shadow: rgba(40, 167, 69, 0.1);
+  --form-status-success-shadow: rgba(16, 120, 16, 0.2);
 }

@@ -95,11 +95,14 @@ seized-items/
 
 This Git File Bridge asset serves the frontend code from the GitHub repository directly into Squiz Matrix. It bridges the following files:
 
-| GitHub File                         | Served Path    | Purpose                          |
-| ----------------------------------- | -------------- | -------------------------------- |
-| `src/index.html`                    | HTML markup    | Card component structure         |
-| `src/styles/seized-items-cards.css` | CSS stylesheet | Card styling & responsive layout |
-| `src/scripts/seized-items-cards.js` | JavaScript     | Client-side enhancements         |
+| GitHub File                            | Served Path    | Purpose                               |
+| -------------------------------------- | -------------- | ------------------------------------- |
+| `src/index.html`                       | HTML markup    | Card component structure              |
+| `src/styles/seized-items-cards.css`    | CSS stylesheet | Card styling & responsive layout      |
+| `src/styles/form-overrides.css`        | CSS stylesheet | Matrix form control overrides         |
+| `src/styles/form-overrides-tokens.css` | CSS stylesheet | Token alias bridge for form overrides |
+| `src/scripts/seized-items-cards.js`    | JavaScript     | Client-side enhancements              |
+| `src/scripts/form-overrides.js`        | JavaScript     | Matrix form enhancement behavior      |
 
 **Configuration:**
 
@@ -175,6 +178,39 @@ Files:
 - `src/styles/form-overrides-tokens.css`
 - `implementation/form-overrides-tokens.css`
 - `Publish seized item _ NT.GOV.AU_files/form-overrides-tokens.css`
+
+### Matrix Form Styling Coverage
+
+Matrix backend form styling is delivered through:
+
+- `src/styles/form-overrides.css`
+- `src/styles/form-overrides-tokens.css`
+- `src/scripts/form-overrides.js`
+
+Implemented control coverage:
+
+- Dropdowns: `select.select-enhanced`
+- Text inputs: `input[type="text"].form-control.sq-form-field` inside `.sq-metadata-contents-wrapper`
+
+Text input states are token-aligned with the NT design system:
+
+- Base control shape matches Figma reference: 52px height, 48px minimum, 16px inset, 480px max width
+- Default state uses 1px outline (`--clr-border-strong-02`) with no border radius
+- Focus state keeps outline treatment (no additional glow)
+- Error state uses `--form-status-error` outline with error background
+- Success state uses `--form-status-success` outline with success background
+
+This styling matches Squiz metadata markup patterns that may include a hidden field before the visible input (`input[type="hidden"] + input[type="text"]`).
+
+Label and helper text treatment in Matrix wrappers:
+
+- Label text: 16px Lato, weight 700
+- Helper text: 14px Lato, color `--clr-text-alt`
+- Required annotation: ` (Required)` appended via `.required::after` with danger token color
+
+Delivery sync requirement:
+
+- Keep `implementation/form-overrides.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides.css` synchronized so captured Squiz exports render the same form control styling.
 
 ---
 

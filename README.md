@@ -151,12 +151,22 @@ For Matrix backend forms, `src/scripts/form-overrides.js` progressively enhances
 - Applying validation state classes (`is-valid` / `is-invalid`)
 - Improving accessibility wiring for error/helper messaging
 
+Text inputs in Matrix metadata wrappers are styled via CSS selectors in `src/styles/form-overrides.css` (no extra JavaScript class is required).
+
 ## Form Overrides And Tokens
 
 Form styling is split into two files:
 
 - `src/styles/form-overrides-tokens.css` imports `@ntgovernment/web-design-tokens` and defines form token aliases
 - `src/styles/form-overrides.css` applies practical control styles and Matrix-specific wrappers
+
+Current Matrix form override coverage includes:
+
+- Enhanced dropdown styling via `select.select-enhanced`
+- Enhanced text input styling for `input[type="text"].form-control.sq-form-field` in `.sq-metadata-contents-wrapper`
+- Figma-aligned text input structure: 52px control height, 48px minimum height, 16px horizontal inset, 480px max-width
+- Outline-based text input states (default/error/success) using token aliases instead of border + glow focus treatment
+- Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
 
 The same token bridge pattern is mirrored in Squiz delivery files under `implementation/` and `Publish seized item _ NT.GOV.AU_files/`.
 
