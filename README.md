@@ -71,6 +71,20 @@ http://localhost:5173/src/index.html
 
 This is the component-only development page with clean markup. The production capture file (`Publish seized item _ NT.GOV.AU.html`) is also accessible during development but is not tracked in git (it's in `.gitignore` as it's a saved production page with NT.GOV assets).
 
+### Updating Production HTML
+
+When you update `Publish seized item _ NT.GOV.AU.html` from production, ensure the CSS and JS references point to the `src` folder for development:
+
+```html
+<!-- CSS Reference (line ~351) -->
+<link rel="stylesheet" href="./src/styles/form-overrides.css">
+
+<!-- JS Reference (line ~781) -->
+<script src="./src/scripts/form-overrides.js"></script>
+```
+
+This ensures you're always working with the latest source files during development. The production asset files in `Publish seized item _ NT.GOV.AU_files/` are kept for reference but not used in development.
+
 ### HTML Integration
 
 Include the HTML, CSS, and JS files in your page:
