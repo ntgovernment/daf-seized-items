@@ -449,12 +449,48 @@ label {
   font-size: 14px;
 }
 
-/* Metadata warning (e.g., "Currently empty") - display on new line */
-.sq-metadata-warning {
+/* Position the parent container to accommodate repositioning */
+.sq-backend-section-table-inner > div {
+  position: relative;
   display: block;
-  margin-top: 4px;
+}
+
+/* Metadata warning (e.g., "Currently empty") - display below field */
+.sq-metadata-warning {
+  display: inline-flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
   font-size: 14px;
   color: var(--clr-status-danger, #a60f37);
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: 100%;
+  z-index: 10;
+}
+
+/* Add icon to metadata warning */
+.sq-metadata-warning::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  flex-shrink: 0;
+  background: var(--clr-status-danger, #a60f37);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13H9v-2h2v2zm0-4H9V6h2v5z' fill='currentColor'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13H9v-2h2v2zm0-4H9V6h2v5z' fill='currentColor'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+}
+
+/* Add padding to parent container to make space for absolutely positioned warning */
+.sq-backend-section-table-inner > div:has(.sq-metadata-warning) {
+  padding-bottom: 36px;
 }
 
 /* Hide the line break after required indicator */
