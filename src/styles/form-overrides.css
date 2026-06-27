@@ -478,12 +478,8 @@ label {
   z-index: 10;
 }
 
-/* Adjust position for dropdown fields (8px lower) */
-.sq-backend-data:has(select) .sq-metadata-warning {
-  top: 88px;
-}
-
-/* Adjust position for date fields (8px lower) */
+/* Adjust position for dropdown and date fields (8px lower) */
+.sq-backend-data:has(select) .sq-metadata-warning,
 .sq-backend-data:has(.sq-metadata-date-wrapper) .sq-metadata-warning {
   top: 88px;
 }
