@@ -16,9 +16,9 @@
   --form-border-focus: var(--form-border-unified, #1f1e27);
   --form-focus-shadow: rgba(236, 140, 88, 0.35);
   --form-icon-default: var(--clr-text-default, #333333);
-  --form-accent: var(--clr-link-default, #0066cc);
-  --form-accent-hover: #0052a3;
-  --form-accent-active: #003d7a;
+  --form-accent: var(--clr-action-primary, #1f1f5f);
+  --form-accent-hover: #c33826;
+  --form-accent-active: #a22f20;
   --form-fieldset-border: var(--clr-border-subtle, #dddddd);
   --form-button-file-bg: #e0e0e0;
   --form-button-file-bg-hover: #d0d0d0;

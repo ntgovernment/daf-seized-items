@@ -147,6 +147,10 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 --surface-alt: #f7f7f9;
 ```
 
+## Changelog
+
+- 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
+
 ## JavaScript Enhancements
 
 The JavaScript file provides minimal client-side enhancements:

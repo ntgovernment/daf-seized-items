@@ -284,6 +284,21 @@ When a required field is empty or contains invalid data:
 - `sq-metadata-wrapper`: Full-width flex column with 8px gap
 - `sq-metadata-contents-wrapper`: Full-width top-aligned flex column (`flex-direction: column; align-items: flex-start; justify-content: flex-start`)
 
+### Buttons
+
+Button styling was updated to align with the NTG Figma design. These rules apply to both unclassed native buttons and Squiz backend button classes used in Matrix edit screens.
+
+- Primary background: `var(--form-accent)` mapped to `--clr-action-primary` (`#1F1F5F`).
+- Typography: `Lato`, `font-size: 16px`, `font-weight: 700`, `line-height: 16px`.
+- Layout: `display: inline-flex`, `justify-content: center`, `align-items: center`, `gap: 8px`, `overflow: hidden`.
+- Spacing: `padding: 16px 24px` (16px vertical, 24px horizontal).
+- Corners: `border-radius: 0` (sharp corners per Figma).
+- Border: removed (use solid fill instead of bordered outline).
+- Hover / active states: hover `#C33826`, active `#A22F20` (tokenised via `--form-accent-hover` / `--form-accent-active`).
+- Icon: Font Awesome `fa-save` (`\\f0c7`) is rendered via a `::after` pseudo-element for native `<button>` elements only (CSS pseudo-elements don't work on `<input>` elements).
+- Squiz classes: `.sq-commit-button`, `.sq-btn-large`, and `.sq-btn-green` receive the same visual styles via class-based overrides to ensure the CMS `input[type="button"]` commit control matches the Figma appearance.
+- Backend spacing: the backend commit section wrapper `.sq-backend-section-table` has been given a substantial top margin to separate the action row from metadata fields (48px).
+
 **Form Container Width:**
 
 - `form#page_asset_builder_1619140`: width 100%, max-width 680px (increased from 480px to accommodate horizontal date pickers)

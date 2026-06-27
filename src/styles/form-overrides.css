@@ -275,12 +275,13 @@ input[type="submit"],
 input[type="reset"],
 input[type="file"] {
   cursor: pointer;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
   text-align: center;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 0;
   transition: all 0.3s ease;
 }
 
@@ -289,26 +290,43 @@ button:not([class]),
 input[type="button"]:not([class]),
 input[type="submit"]:not([class]),
 input[type="reset"]:not([class]) {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--form-accent, #0066cc);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 16px 24px;
+  background-color: var(--form-accent, #1f1f5f);
   color: var(--form-text-contrast, #fff);
-  border: 1px solid var(--form-accent, #0066cc);
+  border: none;
+}
+
+/* Font Awesome save icon on <button> elements */
+button:not([class])::after {
+  font-family: "Font Awesome 5 Pro";
+  font-weight: 900;
+  content: "\f0c7";
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
 }
 
 button:hover:not([class]),
 input[type="button"]:hover:not([class]),
 input[type="submit"]:hover:not([class]),
 input[type="reset"]:hover:not([class]) {
-  background-color: var(--form-accent-hover, #0052a3);
-  border-color: var(--form-accent-hover, #0052a3);
+  background-color: var(--form-accent-hover, #c33826);
 }
 
 button:active:not([class]),
 input[type="button"]:active:not([class]),
 input[type="submit"]:active:not([class]),
 input[type="reset"]:active:not([class]) {
-  background-color: var(--form-accent-active, #003d7a);
-  border-color: var(--form-accent-active, #003d7a);
+  background-color: var(--form-accent-active, #a22f20);
 }
 
 button:disabled:not([class]),
@@ -317,8 +335,57 @@ input[type="submit"]:disabled:not([class]),
 input[type="reset"]:disabled:not([class]) {
   background-color: var(--form-border-default, #ccc);
   color: var(--form-text-muted, #999);
-  border-color: var(--form-border-default, #ccc);
   cursor: not-allowed;
+}
+
+/* Squiz CMS button classes (match Figma design) */
+.sq-commit-button,
+.sq-btn-large,
+.sq-btn-green,
+input[type="button"].sq-commit-button {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  overflow: hidden !important;
+  padding: 16px 24px !important;
+  background-color: var(--form-accent, #1f1f5f) !important;
+  color: var(--form-text-contrast, #fff) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: "Lato", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 16px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.sq-commit-button:hover,
+.sq-btn-large:hover,
+.sq-btn-green:hover {
+  background-color: var(--form-accent-hover, #c33826) !important;
+}
+
+.sq-commit-button:active,
+.sq-btn-large:active,
+.sq-btn-green:active {
+  background-color: var(--form-accent-active, #a22f20) !important;
+}
+
+.sq-commit-button:disabled,
+.sq-btn-large:disabled,
+.sq-btn-green:disabled {
+  background-color: var(--form-border-default, #ccc) !important;
+  color: var(--form-text-muted, #999) !important;
+  cursor: not-allowed !important;
+}
+
+/* Squiz backend button section spacing */
+.sq-backend-section-table {
+  margin-top: 48px !important;
 }
 
 /* File input */
