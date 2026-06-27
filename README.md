@@ -179,9 +179,31 @@ Current Matrix form override coverage includes:
 - Figma-aligned text input structure: 52px control height, 48px minimum height, 16px horizontal inset, 480px max-width
 - Unified form border color across default/focus/disabled/validation states via `--form-border-unified`
 - Label, helper, and required indicator styling aligned to Matrix wrapper structure (`.sq-limbo-field`, `.sq-metadata-description`, `.required`)
+- Required field indicators: Asterisk (`*`) replaced with "(Required)" text inline with labels via CSS `::before`
+- Metadata warnings: "Currently empty" messages with alert icons positioned below fields
+- Dynamic warning visibility: Warnings automatically hide when fields are filled (via `src/scripts/form-overrides.js`)
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
+
+### Required Field Indicators
+
+- Display "(Required)" text instead of asterisk
+- Font: 14px Lato, weight 400
+- Color: `--clr-status-danger` (#a60f37)
+- Position: Inline with label (line breaks hidden)
+- Implementation: CSS `::before` pseudo-element on `.sq-backend-warning:not(.sq-metadata-warning)`
+
+### Metadata Warnings
+
+Backend metadata warnings (e.g., "Currently empty") feature:
+
+- 20×20px alert icon (SVG mask) in danger color
+- 14px Lato, weight 400, positioned below fields
+- Absolute positioning: `top: 80px` for text inputs, `top: 88px` for dropdowns/dates
+- Dynamic visibility controlled by JavaScript
+- Automatically hidden when fields contain values
+- Detects dropdown/date fields using CSS `:has()` selector
 
 The same token bridge pattern is mirrored in Squiz delivery files under `implementation/`.
 

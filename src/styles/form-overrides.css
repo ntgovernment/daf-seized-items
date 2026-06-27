@@ -472,7 +472,7 @@ label {
   font-weight: 400;
   line-height: 20px;
   position: absolute;
-  left: 0;
+  left: -8px;
   top: 80px;
   width: 100%;
   z-index: 10;
@@ -481,8 +481,9 @@ label {
 /* Adjust position for dropdown and date fields (24px lower) */
 /* Target warnings where the next sibling .sq-backend-data contains a select or date wrapper */
 .sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning,
-.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning {
-  top: 104px !important;
+.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper)
+  .sq-metadata-warning {
+  top: 88px !important;
 }
 
 /* Add icon to metadata warning */

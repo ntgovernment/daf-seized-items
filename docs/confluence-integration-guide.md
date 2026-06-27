@@ -183,6 +183,50 @@ Implemented control coverage:
 - Dropdowns: `select.select-enhanced`
 - Text inputs: `input[type="text"].form-control.sq-form-field` inside `.sq-metadata-contents-wrapper`
 - Form anchor overrides: External link icons removed from section/field navigation anchors
+- Required field indicators: Displayed as "(Required)" text inline with labels
+- Metadata warnings: "Currently empty" messages with alert icons
+
+#### Required Field Indicators
+
+Required field styling matches NTG Design System:
+
+- Asterisk (`*`) replaced with "(Required)" text via CSS `::before` pseudo-element
+- Font: 14px Lato, weight 400
+- Color: `--clr-status-danger` (#a60f37)
+- Position: Inline with label (line breaks hidden via CSS)
+- Implementation: `.sq-backend-warning:not(.sq-metadata-warning)::before { content: "(Required)"; }`
+
+#### Metadata Warnings
+
+Backend metadata warnings (e.g., "Currently empty") are styled and positioned below fields:
+
+**Visual styling:**
+- Display: inline-flex with 8px gap between icon and text
+- Alert icon: 20×20px SVG mask in danger color
+- Font: 14px Lato, weight 400, line-height 20px
+- Color: `--clr-status-danger` (#a60f37)
+
+**Positioning:**
+- Position: absolute within `.sq-limbo-field` container
+- Text fields: `top: 80px`, `left: -8px`
+- Dropdown/date fields: `top: 88px` (8px lower for visual clearance)
+- Width: 100%
+- Z-index: 10
+
+**Dynamic visibility:**
+- JavaScript function `manageMetadataWarnings()` monitors field values
+- Warnings automatically hide when fields are filled
+- Uses `change` and `input` event listeners
+- Checks for empty values, `--` placeholders, and hidden field types
+- Implementation in `src/scripts/form-overrides.js`
+
+**CSS selector logic:**
+- Base warning: `.sq-metadata-warning { top: 80px; }`
+- Dropdown detection: `.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning { top: 88px !important; }`
+- Date detection: `.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning { top: 88px !important; }`
+- Uses `:has()` pseudo-class to detect field type in sibling container
+
+#### Dropdown Implementation
 
 Dropdown implementation details:
 
@@ -316,6 +360,6 @@ MIT License. See the [LICENSE file](https://github.com/ntgovernment/daf-seized-i
 
 ---
 
-**Last Updated:** 2026-06-25  
+**Last Updated:** 2026-06-27  
 **Maintained By:** Fisheries Compliance (NT Government)  
 **Repository:** [ntgovernment/daf-seized-items](https://github.com/ntgovernment/daf-seized-items)
