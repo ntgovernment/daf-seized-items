@@ -509,8 +509,6 @@ select[aria-invalid="false"]:focus {
   border-color: var(--form-status-success, #28a745);
 }
 
-
-
 /* Placeholder styling */
 ::placeholder {
   color: var(--form-text-muted, #999);
