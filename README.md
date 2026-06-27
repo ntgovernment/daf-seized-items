@@ -63,17 +63,13 @@ npm install
 npm run dev
 ```
 
-Vite opens the captured page at:
+Vite will start the dev server and automatically open:
 
 ```text
-/Publish%20seized%20item%20_%20NT.GOV.AU.html
+http://localhost:5173/src/index.html
 ```
 
-You can also open the component-only sample at:
-
-```text
-/src/index.html
-```
+This is the component-only development page with clean markup. The production capture file (`Publish seized item _ NT.GOV.AU.html`) is also accessible during development but is not tracked in git (it's in `.gitignore` as it's a saved production page with NT.GOV assets).
 
 ### HTML Integration
 

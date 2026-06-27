@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  root: ".", // Explicitly set root directory
   build: {
     rollupOptions: {
       input: "Publish seized item _ NT.GOV.AU.html",
@@ -32,6 +33,9 @@ export default defineConfig({
     },
   ],
   server: {
-    open: "/Publish%20seized%20item%20_%20NT.GOV.AU.html",
+    open: "/src/index.html", // Use src/index.html for development (production capture file still accessible)
+    fs: {
+      strict: false, // Allow serving files outside of root
+    },
   },
 });
