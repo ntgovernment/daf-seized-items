@@ -14,6 +14,7 @@ This component is designed for use in **Squiz Matrix** to display seized fishing
 - **Status indicators** — Visual flags for items due soon or overdue
 - **Lazy-loaded images** — Optimized for performance
 - **Form control overrides** — NTG Design System aligned form inputs, dropdowns, and labels with external icon suppression for form anchors
+- **Conditional metadata field logic** — "If other, specify" only appears when Type is set to "Other", and is cleared when hidden
 
 ## Design System
 
@@ -150,6 +151,7 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 ## Changelog
 
 - 2026-06-27: Updated textarea styling to match NTG Figma design — outline-based border (1px solid #1F1E27 with -1px offset), 16px left/right padding, 8px top/bottom padding, Lato 16px font, custom resize handle visual indicator (12x12px gradient in bottom-right), placeholder color updated to #666774 for design fidelity. Changes applied to `src/styles/form-overrides.css` and mirrored to `Publish seized item _ NT.GOV.AU_files/form-overrides.css` for Squiz CMS compatibility.
+- 2026-07-08: Added Type-dependent visibility for the backend metadata field "If other, specify" in `src/scripts/form-overrides.js` (mirrored in `implementation/form-overrides.js`). The field row is shown only when Type equals "Other" (selector: `metadata_field_select_1619102`), hidden with `display: none` for all other values, and its input value (`metadata_field_text_1620443_value`) is cleared when hidden. Supports native `change` and Select2 `select2:select` flows.
 - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
  - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
  - 2026-06-27: Added submit-button loading state: commit buttons are enhanced to disable on click and display a Font Awesome `fa-spinner` overlay while submitting. New tokens: `--form-action-disabled` and `--form-action-disabled-text` (mapped to `--clr-action-disabled` and `--clr-text-alt`). Enhancement preserves existing inline `onclick` submission flow and injects a spinner overlay via JS.
@@ -191,6 +193,12 @@ Current Matrix form override coverage includes:
 - Dynamic warning visibility: Warnings automatically hide when fields are filled by toggling a hide class (`.sq-warning-hidden`) in `src/scripts/form-overrides.js`
   - Supports native `input` / `change` events, jQuery `change` handlers and `select2:select` events to ensure Select2-enhanced selects are detected
   - Hiding is implemented by adding `.sq-warning-hidden` so CSS specificity and `!important` rules are respected
+- Conditional dependent field visibility: "If other, specify" is displayed only when Type is "Other"
+  - Type selector: `select[name="metadata_field_select_1619102"]`
+  - Dependent input selector: `input[name="metadata_field_text_1620443_value"]`
+  - Hidden state uses `display: none` on the field row container
+  - Value is cleared whenever the row is hidden
+  - Listener coverage includes native `change` and jQuery `change select2:select`, with guard attributes to avoid duplicate bindings after mutation-driven re-enhancement
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin

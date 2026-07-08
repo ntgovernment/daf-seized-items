@@ -374,6 +374,13 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
 - Squiz-safe fallback delivery uses committed token bridge files in `src/styles/form-overrides-tokens.css`
 - Captured delivery styles in `Publish seized item _ NT.GOV.AU_files/form-overrides.css` are kept in sync with `src/styles/form-overrides.css`
 - External link icons are removed from form anchor elements (section/field navigation points) via CSS overrides and JavaScript class removal to prevent unwanted Font Awesome icons from the NT.GOV design system
+- Dependent metadata field logic is implemented in JavaScript for Type -> "If other, specify":
+  - Type select: `select[name="metadata_field_select_1619102"]`
+  - Dependent text input: `input[name="metadata_field_text_1620443_value"]`
+  - The dependent row is shown only when Type value is `Other` (case-insensitive trim)
+  - Hidden state uses `display: none` and clears the dependent input value to prevent stale data
+  - Event support includes native `change` and jQuery `change select2:select` for Select2-enhanced controls
+  - Rebind-safe guard attributes prevent duplicate listeners during mutation-driven re-enhancement
 
 ### File Location
 

@@ -186,6 +186,23 @@ Implemented control coverage:
 * Dropdowns: @select.select-enhanced@
 * Text inputs: @input[type="text"].form-control.sq-form-field@ inside @.sq-metadata-contents-wrapper@
 * Form anchor overrides: External link icons removed from section/field navigation anchors
+* Conditional dependent field visibility: "If other, specify" only displays when Type is set to "Other"
+
+h4. Type -> "If other, specify" Dependent Field Behavior
+
+Backend metadata dependency is implemented in @src/scripts/form-overrides.js@ (and mirrored for Squiz delivery in @implementation/form-overrides.js@):
+
+* Type control selector: @select[name="metadata_field_select_1619102"]@
+* Dependent field selector: @input[name="metadata_field_text_1620443_value"]@
+* Behavior:
+** Show dependent row only when Type value is @Other@ (case-insensitive trim)
+** Hide row with @display: none@ for all other Type values
+** Clear dependent input value whenever the row is hidden
+* Event coverage:
+** Native @change@
+** jQuery @change select2:select@ (for Select2-enhanced dropdown flows)
+* Mutation safety:
+** Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
 
 Dropdown implementation details:
 

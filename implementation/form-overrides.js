@@ -13,6 +13,7 @@
     enhanceSelectElements();
     enhanceFileInputs();
     removeExternalClassFromFormAnchors();
+    manageTypeOtherFieldVisibility();
     enhanceSubmitButtons();
   }
 
@@ -716,6 +717,58 @@
   }
 
   /**
+   * Hide/show "If other, specify" based on Type selection
+   */
+  function manageTypeOtherFieldVisibility() {
+    const typeSelect = document.querySelector(
+      'select[name="metadata_field_select_1619102"]',
+    );
+    const otherInput = document.querySelector(
+      'input[name="metadata_field_text_1620443_value"]',
+    );
+
+    if (!typeSelect || !otherInput) return;
+
+    const otherBackendData = otherInput.closest(".sq-backend-data");
+    if (!otherBackendData || !otherBackendData.parentElement) return;
+
+    const otherRow = otherBackendData.parentElement;
+
+    function applyVisibility() {
+      const isOther =
+        (typeSelect.value || "").trim().toLowerCase() === "other";
+
+      if (isOther) {
+        otherRow.style.display = "";
+        return;
+      }
+
+      otherRow.style.display = "none";
+
+      if (otherInput.value !== "") {
+        otherInput.value = "";
+        otherInput.dispatchEvent(new Event("input", { bubbles: true }));
+        otherInput.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    }
+
+    if (!typeSelect.getAttribute("data-other-visibility-bound")) {
+      typeSelect.setAttribute("data-other-visibility-bound", "true");
+      typeSelect.addEventListener("change", applyVisibility);
+    }
+
+    if (
+      typeof jQuery !== "undefined" &&
+      !typeSelect.getAttribute("data-other-visibility-select2-bound")
+    ) {
+      typeSelect.setAttribute("data-other-visibility-select2-bound", "true");
+      jQuery(typeSelect).on("change select2:select", applyVisibility);
+    }
+
+    applyVisibility();
+  }
+
+  /**
    * Enhance submit buttons with a loading spinner on click
    */
   function enhanceSubmitButtons() {
@@ -793,16 +846,25 @@
     initFormEnhancements();
   }
 
-  // Re-run enhancements on dynamically added content
-  const observer = new MutationObserver(function () {
-    enhanceFormElements();
-    removeExternalClassFromFormAnchors();
+  // Re-run enhancements on dynamically added content (childList only to avoid
+  // infinite loops from attribute changes)
+  let mutationTimer = null;
+  const observer = new MutationObserver(function (mutations) {
+    const hasNewNodes = mutations.some(function (m) {
+      return m.type === "childList" && m.addedNodes.length > 0;
+    });
+    if (!hasNewNodes) return;
+
+    if (mutationTimer) clearTimeout(mutationTimer);
+    mutationTimer = setTimeout(function () {
+      enhanceFormElements();
+      removeExternalClassFromFormAnchors();
+      manageTypeOtherFieldVisibility();
+    }, 100);
   });
 
   observer.observe(document.body, {
     childList: true,
     subtree: true,
-    attributes: true,
-    attributeFilter: ["type", "class"],
   });
 })();
