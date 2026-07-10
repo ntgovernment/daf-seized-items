@@ -192,14 +192,14 @@ Backend metadata dependency is implemented in `src/scripts/form-overrides.js` (a
 - Type control selector: `select[name="metadata_field_select_1619102"]`
 - Dependent field selector: `input[name="metadata_field_text_1620443_value"]`
 - Behavior:
-   - Show dependent row only when Type value is `Other` (case-insensitive trim)
-   - Hide row with `display: none` for all other Type values
-   - Clear dependent input value whenever the row is hidden
+  - Show dependent row only when Type value is `Other` (case-insensitive trim)
+  - Hide row with `display: none` for all other Type values
+  - Clear dependent input value whenever the row is hidden
 - Event coverage:
-   - Native `change`
-   - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
+  - Native `change`
+  - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
 - Mutation safety:
-   - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
+  - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
 - Required field indicators: Displayed as "(Required)" text inline with labels
 - Metadata warnings: "Currently empty" messages with alert icons
 
@@ -210,14 +210,14 @@ Backend metadata date dependency is implemented in `src/scripts/form-overrides.j
 - Source date selectors: `#metadata_field_date_1619067_datetimevalue_d`, `#metadata_field_date_1619067_datetimevalue_m`, `#metadata_field_date_1619067_datetimevalue_y`
 - Target date selectors: `#metadata_field_date_1619069_datetimevalue_d`, `#metadata_field_date_1619069_datetimevalue_m`, `#metadata_field_date_1619069_datetimevalue_y`
 - Behavior:
-   - Set Collect by date to Date and time seized +60 days when source date is valid
-   - Continue auto-updating while Collect by is not manually edited
-   - Stop auto-overwriting after user manually changes any Collect by date dropdown
+  - Set Collect by date to Date and time seized +60 days when source date is valid
+  - Recalculate Collect by each time Date and time seized changes
+  - Existing Collect by values are overwritten from the latest seized date
 - Event coverage:
-   - Native `change`
-   - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
+  - Native `change`
+  - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
 - Mutation safety:
-   - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
+  - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
 
 #### Required Field Indicators
 

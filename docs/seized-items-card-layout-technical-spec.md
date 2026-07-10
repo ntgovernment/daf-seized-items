@@ -318,7 +318,7 @@ Button styling was updated to align with the NTG Figma design. These rules apply
 - Tokens used for the submitting/disabled appearance:
   - `--form-action-disabled` (defaults to `--clr-action-disabled`, `#E7E7EA`) — background for disabled/submit state
   - `--form-action-disabled-text` (defaults to `--clr-text-alt`, `#666774`) — spinner / muted text colour
- - The spinner is injected as an absolutely positioned overlay inside a `btn-submit-wrapper` element. The overlay centres a `fa-spinner fa-spin` icon in a 24×24 container and uses the disabled tokens above.
+- The spinner is injected as an absolutely positioned overlay inside a `btn-submit-wrapper` element. The overlay centres a `fa-spinner fa-spin` icon in a 24×24 container and uses the disabled tokens above.
 
 **Form Container Width:**
 
@@ -385,8 +385,8 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
   - Source date selectors: `#metadata_field_date_1619067_datetimevalue_d`, `#metadata_field_date_1619067_datetimevalue_m`, `#metadata_field_date_1619067_datetimevalue_y`
   - Target date selectors: `#metadata_field_date_1619069_datetimevalue_d`, `#metadata_field_date_1619069_datetimevalue_m`, `#metadata_field_date_1619069_datetimevalue_y`
   - Behavior sets Collect by to seized date +60 days when source date is valid
-  - Auto-update continues until user manually changes any Collect by date dropdown
-  - After manual Collect by edit, further automatic overwrites are disabled for that page lifecycle
+  - Auto-update runs each time Date and time seized changes
+  - Existing Collect by values are recalculated from the latest seized date
   - Event support includes native `change` and jQuery `change select2:select` for Select2-enhanced controls
   - Rebind-safe guard attributes prevent duplicate listeners during mutation-driven re-enhancement
 

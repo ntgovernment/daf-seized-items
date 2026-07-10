@@ -770,7 +770,7 @@
 
   /**
    * Auto-set "Collect by" to 60 days after "Date and time seized"
-   * and stop auto-updating once user manually edits "Collect by".
+   * whenever "Date and time seized" changes.
    */
   function bindCollectByFromSeizedDate() {
     const seizedDay = document.getElementById(
@@ -838,16 +838,7 @@
       emitChange(select);
     }
 
-    function markCollectByAsManual() {
-      if (isApplyingAutoCollectBy) return;
-      collectDay.setAttribute("data-collect-by-manual", "true");
-    }
-
     function applyCollectByFromSeizedDate() {
-      if (collectDay.getAttribute("data-collect-by-manual") === "true") {
-        return;
-      }
-
       const seizedDate = parseValidDate(seizedDay, seizedMonth, seizedYear);
       if (!seizedDate) return;
 
@@ -874,16 +865,6 @@
       seizedYear.addEventListener("change", applyCollectByFromSeizedDate);
     }
 
-    if (!collectDay.getAttribute("data-collect-by-manual-bound")) {
-      collectDay.setAttribute("data-collect-by-manual-bound", "true");
-      collectMonth.setAttribute("data-collect-by-manual-bound", "true");
-      collectYear.setAttribute("data-collect-by-manual-bound", "true");
-
-      collectDay.addEventListener("change", markCollectByAsManual);
-      collectMonth.addEventListener("change", markCollectByAsManual);
-      collectYear.addEventListener("change", markCollectByAsManual);
-    }
-
     if (
       typeof jQuery !== "undefined" &&
       !seizedDay.getAttribute("data-collect-by-select2-bound")
@@ -901,10 +882,6 @@
         "change select2:select",
         applyCollectByFromSeizedDate,
       );
-
-      jQuery(collectDay).on("change select2:select", markCollectByAsManual);
-      jQuery(collectMonth).on("change select2:select", markCollectByAsManual);
-      jQuery(collectYear).on("change select2:select", markCollectByAsManual);
     }
 
     applyCollectByFromSeizedDate();
