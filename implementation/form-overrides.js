@@ -14,6 +14,7 @@
     enhanceFileInputs();
     removeExternalClassFromFormAnchors();
     manageTypeOtherFieldVisibility();
+    bindCollectByFromSeizedDate();
     enhanceSubmitButtons();
   }
 
@@ -735,8 +736,7 @@
     const otherRow = otherBackendData.parentElement;
 
     function applyVisibility() {
-      const isOther =
-        (typeSelect.value || "").trim().toLowerCase() === "other";
+      const isOther = (typeSelect.value || "").trim().toLowerCase() === "other";
 
       if (isOther) {
         otherRow.style.display = "";
@@ -769,11 +769,153 @@
   }
 
   /**
+   * Auto-set "Collect by" to 60 days after "Date and time seized"
+   * and stop auto-updating once user manually edits "Collect by".
+   */
+  function bindCollectByFromSeizedDate() {
+    const seizedDay = document.getElementById(
+      "metadata_field_date_1619067_datetimevalue_d",
+    );
+    const seizedMonth = document.getElementById(
+      "metadata_field_date_1619067_datetimevalue_m",
+    );
+    const seizedYear = document.getElementById(
+      "metadata_field_date_1619067_datetimevalue_y",
+    );
+
+    const collectDay = document.getElementById(
+      "metadata_field_date_1619069_datetimevalue_d",
+    );
+    const collectMonth = document.getElementById(
+      "metadata_field_date_1619069_datetimevalue_m",
+    );
+    const collectYear = document.getElementById(
+      "metadata_field_date_1619069_datetimevalue_y",
+    );
+
+    if (
+      !seizedDay ||
+      !seizedMonth ||
+      !seizedYear ||
+      !collectDay ||
+      !collectMonth ||
+      !collectYear
+    ) {
+      return;
+    }
+
+    let isApplyingAutoCollectBy = false;
+
+    function parseValidDate(daySelect, monthSelect, yearSelect) {
+      const day = Number(daySelect.value);
+      const month = Number(monthSelect.value);
+      const year = Number(yearSelect.value);
+
+      if (!day || !month || !year) return null;
+
+      // Use noon to avoid DST boundary issues when adding days.
+      const candidate = new Date(year, month - 1, day, 12, 0, 0, 0);
+      if (
+        candidate.getFullYear() !== year ||
+        candidate.getMonth() !== month - 1 ||
+        candidate.getDate() !== day
+      ) {
+        return null;
+      }
+
+      return candidate;
+    }
+
+    function emitChange(select) {
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    function setSelectValue(select, value) {
+      const nextValue = String(value);
+      if (select.value !== nextValue) {
+        select.value = nextValue;
+      }
+      emitChange(select);
+    }
+
+    function markCollectByAsManual() {
+      if (isApplyingAutoCollectBy) return;
+      collectDay.setAttribute("data-collect-by-manual", "true");
+    }
+
+    function applyCollectByFromSeizedDate() {
+      if (collectDay.getAttribute("data-collect-by-manual") === "true") {
+        return;
+      }
+
+      const seizedDate = parseValidDate(seizedDay, seizedMonth, seizedYear);
+      if (!seizedDate) return;
+
+      const collectByDate = new Date(seizedDate.getTime());
+      collectByDate.setDate(collectByDate.getDate() + 60);
+
+      isApplyingAutoCollectBy = true;
+      try {
+        setSelectValue(collectDay, collectByDate.getDate());
+        setSelectValue(collectMonth, collectByDate.getMonth() + 1);
+        setSelectValue(collectYear, collectByDate.getFullYear());
+      } finally {
+        isApplyingAutoCollectBy = false;
+      }
+    }
+
+    if (!seizedDay.getAttribute("data-collect-by-source-bound")) {
+      seizedDay.setAttribute("data-collect-by-source-bound", "true");
+      seizedMonth.setAttribute("data-collect-by-source-bound", "true");
+      seizedYear.setAttribute("data-collect-by-source-bound", "true");
+
+      seizedDay.addEventListener("change", applyCollectByFromSeizedDate);
+      seizedMonth.addEventListener("change", applyCollectByFromSeizedDate);
+      seizedYear.addEventListener("change", applyCollectByFromSeizedDate);
+    }
+
+    if (!collectDay.getAttribute("data-collect-by-manual-bound")) {
+      collectDay.setAttribute("data-collect-by-manual-bound", "true");
+      collectMonth.setAttribute("data-collect-by-manual-bound", "true");
+      collectYear.setAttribute("data-collect-by-manual-bound", "true");
+
+      collectDay.addEventListener("change", markCollectByAsManual);
+      collectMonth.addEventListener("change", markCollectByAsManual);
+      collectYear.addEventListener("change", markCollectByAsManual);
+    }
+
+    if (
+      typeof jQuery !== "undefined" &&
+      !seizedDay.getAttribute("data-collect-by-select2-bound")
+    ) {
+      seizedDay.setAttribute("data-collect-by-select2-bound", "true");
+      jQuery(seizedDay).on(
+        "change select2:select",
+        applyCollectByFromSeizedDate,
+      );
+      jQuery(seizedMonth).on(
+        "change select2:select",
+        applyCollectByFromSeizedDate,
+      );
+      jQuery(seizedYear).on(
+        "change select2:select",
+        applyCollectByFromSeizedDate,
+      );
+
+      jQuery(collectDay).on("change select2:select", markCollectByAsManual);
+      jQuery(collectMonth).on("change select2:select", markCollectByAsManual);
+      jQuery(collectYear).on("change select2:select", markCollectByAsManual);
+    }
+
+    applyCollectByFromSeizedDate();
+  }
+
+  /**
    * Enhance submit buttons with a loading spinner on click
    */
   function enhanceSubmitButtons() {
     var buttons = document.querySelectorAll(
-      ".sq-commit-button, input[type=\"submit\"].sq-btn-green, input[type=\"button\"].sq-btn-green",
+      '.sq-commit-button, input[type="submit"].sq-btn-green, input[type="button"].sq-btn-green',
     );
 
     buttons.forEach(function (btn) {
@@ -860,6 +1002,7 @@
       enhanceFormElements();
       removeExternalClassFromFormAnchors();
       manageTypeOtherFieldVisibility();
+      bindCollectByFromSeizedDate();
     }, 100);
   });
 

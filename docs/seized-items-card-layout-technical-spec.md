@@ -381,6 +381,14 @@ All date/time dropdowns (day, month, year, hour, minute) display in a single hor
   - Hidden state uses `display: none` and clears the dependent input value to prevent stale data
   - Event support includes native `change` and jQuery `change select2:select` for Select2-enhanced controls
   - Rebind-safe guard attributes prevent duplicate listeners during mutation-driven re-enhancement
+- Dependent metadata date logic is implemented in JavaScript for Date and time seized -> Collect by:
+  - Source date selectors: `#metadata_field_date_1619067_datetimevalue_d`, `#metadata_field_date_1619067_datetimevalue_m`, `#metadata_field_date_1619067_datetimevalue_y`
+  - Target date selectors: `#metadata_field_date_1619069_datetimevalue_d`, `#metadata_field_date_1619069_datetimevalue_m`, `#metadata_field_date_1619069_datetimevalue_y`
+  - Behavior sets Collect by to seized date +60 days when source date is valid
+  - Auto-update continues until user manually changes any Collect by date dropdown
+  - After manual Collect by edit, further automatic overwrites are disabled for that page lifecycle
+  - Event support includes native `change` and jQuery `change select2:select` for Select2-enhanced controls
+  - Rebind-safe guard attributes prevent duplicate listeners during mutation-driven re-enhancement
 
 ### File Location
 

@@ -204,6 +204,22 @@ Backend metadata dependency is implemented in @src/scripts/form-overrides.js@ (a
 * Mutation safety:
 ** Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
 
+h4. Date And Time Seized -> "Collect by" Dependent Date Behavior
+
+Backend metadata date dependency is implemented in @src/scripts/form-overrides.js@ (and mirrored for Squiz delivery in @implementation/form-overrides.js@):
+
+* Source date selectors: @#metadata_field_date_1619067_datetimevalue_d@, @#metadata_field_date_1619067_datetimevalue_m@, @#metadata_field_date_1619067_datetimevalue_y@
+* Target date selectors: @#metadata_field_date_1619069_datetimevalue_d@, @#metadata_field_date_1619069_datetimevalue_m@, @#metadata_field_date_1619069_datetimevalue_y@
+* Behavior:
+** Set Collect by date to Date and time seized +60 days when source date is valid
+** Continue auto-updating while Collect by is not manually edited
+** Stop auto-overwriting after user manually changes any Collect by date dropdown
+* Event coverage:
+** Native @change@
+** jQuery @change select2:select@ (for Select2-enhanced dropdown flows)
+* Mutation safety:
+** Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
+
 Dropdown implementation details:
 
 * Chevron icon uses stroked SVG at 16.67px width and 9px height

@@ -15,6 +15,7 @@ This component is designed for use in **Squiz Matrix** to display seized fishing
 - **Lazy-loaded images** — Optimized for performance
 - **Form control overrides** — NTG Design System aligned form inputs, dropdowns, and labels with external icon suppression for form anchors
 - **Conditional metadata field logic** — "If other, specify" only appears when Type is set to "Other", and is cleared when hidden
+- **Date dependency logic** — "Collect by" auto-sets to 60 days after "Date and time seized" until manually overridden
 
 ## Design System
 
@@ -150,6 +151,7 @@ The component uses CSS custom properties for theming. Customize colors in the `:
 
 ## Changelog
 
+- 2026-07-10: Added backend metadata date dependency in `src/scripts/form-overrides.js` (mirrored in `implementation/form-overrides.js`) so Collect by (`metadata_field_date_1619069_*`) auto-populates to Date and time seized (`metadata_field_date_1619067_*`) +60 days. Auto-updates stop once the user manually changes any Collect by date dropdown. Supports native `change` and jQuery `change select2:select` events and rebind-safe mutation-driven enhancements.
 - 2026-06-27: Updated textarea styling to match NTG Figma design — outline-based border (1px solid #1F1E27 with -1px offset), 16px left/right padding, 8px top/bottom padding, Lato 16px font, custom resize handle visual indicator (12x12px gradient in bottom-right), placeholder color updated to #666774 for design fidelity. Changes applied to `src/styles/form-overrides.css` and mirrored to `Publish seized item _ NT.GOV.AU_files/form-overrides.css` for Squiz CMS compatibility.
 - 2026-07-08: Added Type-dependent visibility for the backend metadata field "If other, specify" in `src/scripts/form-overrides.js` (mirrored in `implementation/form-overrides.js`). The field row is shown only when Type equals "Other" (selector: `metadata_field_select_1619102`), hidden with `display: none` for all other values, and its input value (`metadata_field_text_1620443_value`) is cleared when hidden. Supports native `change` and Select2 `select2:select` flows.
 - 2026-06-27: Updated form button styles to match NTG Figma design — dark navy primary (#1F1F5F), Lato 700 16px, inline-flex layout, padding 16px × 24px, sharp corners, hover #C33826, active #A22F20. Squiz backend commit controls (`.sq-commit-button`, `.sq-btn-large`, `.sq-btn-green`) receive matching overrides. Added 48px top margin to `.sq-backend-section-table`.
@@ -199,6 +201,12 @@ Current Matrix form override coverage includes:
   - Hidden state uses `display: none` on the field row container
   - Value is cleared whenever the row is hidden
   - Listener coverage includes native `change` and jQuery `change select2:select`, with guard attributes to avoid duplicate bindings after mutation-driven re-enhancement
+- Conditional date dependency for metadata dates: Collect by auto-sets to seized date +60 days
+  - Source date selectors: `#metadata_field_date_1619067_datetimevalue_d`, `#metadata_field_date_1619067_datetimevalue_m`, `#metadata_field_date_1619067_datetimevalue_y`
+  - Target date selectors: `#metadata_field_date_1619069_datetimevalue_d`, `#metadata_field_date_1619069_datetimevalue_m`, `#metadata_field_date_1619069_datetimevalue_y`
+  - Auto-update behavior runs while Collect by remains unedited by user
+  - Manual override behavior: once user changes Collect by, auto-overwrite is disabled for the current page lifecycle
+  - Event coverage includes native `change` and jQuery `change select2:select`, with listener guards for mutation-driven re-enhancement
 - Left-aligned label treatment for Matrix label wrappers (`label`, `.sq-limbo-field`, and nested label spans)
 - Top-aligned metadata wrapper layout for Matrix backend fields (`.sq-backend-data`, `.sq-metadata-wrapper`, `.sq-metadata-contents-wrapper`)
 - Label wrapper spacing update: `.sq-limbo-field` now applies a 16px top margin
