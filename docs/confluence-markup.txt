@@ -212,8 +212,8 @@ Backend metadata date dependency is implemented in @src/scripts/form-overrides.j
 * Target date selectors: @#metadata_field_date_1619069_datetimevalue_d@, @#metadata_field_date_1619069_datetimevalue_m@, @#metadata_field_date_1619069_datetimevalue_y@
 * Behavior:
 ** Set Collect by date to Date and time seized +60 days when source date is valid
-** Continue auto-updating while Collect by is not manually edited
-** Stop auto-overwriting after user manually changes any Collect by date dropdown
+** Recalculate Collect by each time Date and time seized changes
+** Existing Collect by values are overwritten from the latest seized date
 * Event coverage:
 ** Native @change@
 ** jQuery @change select2:select@ (for Select2-enhanced dropdown flows)
@@ -317,7 +317,7 @@ MIT License. See the [LICENSE file|https://github.com/ntgovernment/daf-seized-it
 
 ---
 
-_Last Updated: 2026-06-25_
+_Last Updated: 2026-07-10_
 
 _Maintained By: Fisheries Compliance (NT Government)_
 

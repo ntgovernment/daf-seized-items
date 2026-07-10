@@ -1,4 +1,4 @@
-# Seized Items Card Component – Integration Guide
+# Seized Items Card Component - Integration Guide
 
 ## Overview
 
@@ -12,21 +12,21 @@ The Seized Items Card Component is a responsive, accessible card-based listing f
 
 **Metadata schema - seized items** (Asset ID: #1619057)
 
-The metadata schema defines all required and optional fields for seized items:
+The metadata schema defines all required and optional fields for seized items.
 
-**Required Fields:**
+**Required fields:**
 
-- `seized_item_name` — Item name (text)
-- `seized_item_type` — Type of item (select: Crab pot, Dilly, Drag net, Cast net)
-- `seized_item_id_number` — Unique identifier (text)
-- `seized_item_date_time_seized` — Date/time of seizure (date/datetime)
-- `seized_item_location_seized` — Location seized (text, min 2 chars)
-- `seized_item_collect_by` — Collection deadline (date, must be ≥ seizure date)
+- Item name (text)
+- Type of item (select: Crab pot, Dilly, Drag net, Cast net)
+- Unique identifier (text)
+- Date/time of seizure (date/datetime)
+- Location seized (text, minimum 2 characters)
+- Collection deadline (date, must be greater than or equal to seizure date)
 
-**Optional Fields:**
+**Optional fields:**
 
-- `image_url` — Item image (asset/text)
-- `image_alt` — Alternative text for image (text, defaults to item name)
+- Item image (asset/text)
+- Alternative text for image (text, defaults to item name)
 
 ### 2. Data Folder
 
@@ -38,13 +38,13 @@ All seized item metadata records are stored in this data folder. This folder con
 
 **Squiz Listing - seized items** (Asset ID: #1619073)
 
-Live URL: [https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items/configuration/listing-seized-items](https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items/configuration/listing-seized-items)
+Live URL: <https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items/configuration/listing-seized-items>
 
 This is the Squiz Matrix asset listing that renders seized items using:
 
-- The **Data Folder** (#1617850) as the source
-- The **Metadata Schema** (#1619057) to structure the data
-- The **Git File Bridge** asset (#1619134) to serve the frontend code
+- The Data Folder (#1617850) as the source
+- The Metadata Schema (#1619057) to structure the data
+- The Git File Bridge asset (#1619134) to serve the frontend code
 
 ---
 
@@ -56,38 +56,28 @@ This is the Squiz Matrix asset listing that renders seized items using:
 
 The complete source code, technical specifications, and documentation are maintained in GitHub.
 
-**Repository Structure:**
+**Repository structure:**
 
-```
+```text
 seized-items/
 ├── README.md                                    # Project overview & usage
 ├── LICENSE                                      # MIT License
-├── package.json                                 # Local scripts + dependencies
-├── vite.config.mjs                              # Vite dev server config
+├── .gitignore                                   # Git ignore rules
 ├── docs/
 │   ├── seized-items-card-layout-technical-spec.md  # Technical specs
-│   └── confluence-integration-guide.md              # This integration guide
-├── implementation/
-│   ├── seized-items-cards.html                  # Squiz-ready markup fragment
-│   ├── seized-items-cards.css                   # Squiz-ready card styles
-│   ├── seized-items-cards.js                    # Squiz-ready card script
-│   ├── form-overrides.css                       # Squiz-ready form overrides
-│   └── form-overrides-tokens.css                # Squiz-safe token bridge
+│   └── confluence-integration-guide.md              # Integration guide
 └── src/
     ├── index.html                               # Main HTML markup
-   ├── styles/
-   │   ├── seized-items-cards.css               # Styling & responsive layout
-   │   ├── form-overrides.css                   # Form control overrides
-   │   └── form-overrides-tokens.css            # Token aliases for form overrides
+    ├── styles/
+    │   └── seized-items-cards.css               # Styling & responsive layout
     └── scripts/
-      ├── seized-items-cards.js                # Card listing enhancements
-      └── form-overrides.js                    # Form interaction enhancements
+        └── seized-items-cards.js                # Client-side enhancements
 ```
 
 **Branches:**
 
-- `main` — Production-ready code (default branch)
-- Feature branches — Short-lived branches merged into `main` via PR
+- `main` - Production-ready code (default branch)
+- `develop` - Development/staging branch
 
 ### Git File Bridge Asset
 
@@ -95,35 +85,32 @@ seized-items/
 
 This Git File Bridge asset serves the frontend code from the GitHub repository directly into Squiz Matrix. It bridges the following files:
 
-| GitHub File                            | Served Path    | Purpose                               |
-| -------------------------------------- | -------------- | ------------------------------------- |
-| `src/index.html`                       | HTML markup    | Card component structure              |
-| `src/styles/seized-items-cards.css`    | CSS stylesheet | Card styling & responsive layout      |
-| `src/styles/form-overrides.css`        | CSS stylesheet | Matrix form control overrides         |
-| `src/styles/form-overrides-tokens.css` | CSS stylesheet | Token alias bridge for form overrides |
-| `src/scripts/seized-items-cards.js`    | JavaScript     | Client-side enhancements              |
-| `src/scripts/form-overrides.js`        | JavaScript     | Matrix form enhancement behavior      |
+| GitHub File                         | Served Type    | Purpose                            |
+| ----------------------------------- | -------------- | ---------------------------------- |
+| `src/index.html`                    | HTML markup    | Card component structure           |
+| `src/styles/seized-items-cards.css` | CSS stylesheet | Card styling and responsive layout |
+| `src/scripts/seized-items-cards.js` | JavaScript     | Client-side enhancements           |
 
 **Configuration:**
 
-- **Repository:** `ntgovernment/daf-seized-items`
-- **Branch:** `main`
-- **Webhook:** Configured for automatic updates on push
+- Repository: `ntgovernment/daf-seized-items`
+- Branch: `main`
+- Webhook: Configured for automatic updates on push
 
 ---
 
 ## Design System
 
-The card design follows the **NTG Design System**.
+The card design follows the NTG Design System.
 
-**Design Reference:** [View in Figma](https://www.figma.com/design/pztoZYJOfhXlFLRtU47qNd/NTG-Design-System?node-id=2672-822&m=dev) (node-id: 2672-822)
+Design reference: [View in Figma](https://www.figma.com/design/pztoZYJOfhXlFLRtU47qNd/NTG-Design-System?node-id=2672-822&m=dev) (node-id: 2672-822)
 
 The design specifies:
 
-- Responsive grid (1 → 2 → 3 columns)
+- Responsive grid (1 -> 2 -> 3 columns)
 - Semantic card layout
 - Status indicators (due soon / overdue)
-- Accessible color scheme & typography
+- Accessible color scheme and typography
 - Lazy-loaded images
 
 ---
@@ -133,12 +120,12 @@ The design specifies:
 | Device  | Columns | CSS Width                      |
 | ------- | ------- | ------------------------------ |
 | Mobile  | 1       | < 48rem (768px)                |
-| Tablet  | 2       | 48rem – 75rem (768px – 1200px) |
-| Desktop | 3       | ≥ 75rem (1200px)               |
+| Tablet  | 2       | 48rem - 75rem (768px - 1200px) |
+| Desktop | 3       | >= 75rem (1200px)              |
 
 ---
 
-## CSS Variables & Theming
+## CSS Variables And Theming
 
 Customize the card appearance by editing CSS variables in `src/styles/seized-items-cards.css`:
 
@@ -157,217 +144,47 @@ Customize the card appearance by editing CSS variables in `src/styles/seized-ite
 }
 ```
 
-### Form Overrides Token Dependency
-
-Form overrides use a local token alias bridge with CSS variable fallbacks.
-
-Delivery model:
-
-- Local/Vite: `src/styles/form-overrides-tokens.css` provides token aliases directly
-- Squiz/Git File Bridge: committed token bridge files are served before form overrides
-
-Files:
-
-- `src/styles/form-overrides-tokens.css` (single source of truth)
-
-### Matrix Form Styling Coverage
-
-Matrix backend form styling is delivered through:
-
-- `src/styles/form-overrides.css`
-- `src/styles/form-overrides-tokens.css`
-- `src/scripts/form-overrides.js`
-
-Implemented control coverage:
-
-- Dropdowns: `select.select-enhanced`
-- Text inputs: `input[type="text"].form-control.sq-form-field` inside `.sq-metadata-contents-wrapper`
-- Form anchor overrides: External link icons removed from section/field navigation anchors
-- Conditional dependent field visibility: "If other, specify" only displays when Type is set to "Other"
-
-#### Type -> "If other, specify" Dependent Field Behavior
-
-Backend metadata dependency is implemented in `src/scripts/form-overrides.js` (and mirrored for Squiz delivery in `implementation/form-overrides.js`):
-
-- Type control selector: `select[name="metadata_field_select_1619102"]`
-- Dependent field selector: `input[name="metadata_field_text_1620443_value"]`
-- Behavior:
-  - Show dependent row only when Type value is `Other` (case-insensitive trim)
-  - Hide row with `display: none` for all other Type values
-  - Clear dependent input value whenever the row is hidden
-- Event coverage:
-  - Native `change`
-  - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
-- Mutation safety:
-  - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
-- Required field indicators: Displayed as "(Required)" text inline with labels
-- Metadata warnings: "Currently empty" messages with alert icons
-
-#### Date And Time Seized -> "Collect by" Dependent Date Behavior
-
-Backend metadata date dependency is implemented in `src/scripts/form-overrides.js` (and mirrored for Squiz delivery in `implementation/form-overrides.js`):
-
-- Source date selectors: `#metadata_field_date_1619067_datetimevalue_d`, `#metadata_field_date_1619067_datetimevalue_m`, `#metadata_field_date_1619067_datetimevalue_y`
-- Target date selectors: `#metadata_field_date_1619069_datetimevalue_d`, `#metadata_field_date_1619069_datetimevalue_m`, `#metadata_field_date_1619069_datetimevalue_y`
-- Behavior:
-  - Set Collect by date to Date and time seized +60 days when source date is valid
-  - Recalculate Collect by each time Date and time seized changes
-  - Existing Collect by values are overwritten from the latest seized date
-- Event coverage:
-  - Native `change`
-  - jQuery `change select2:select` (for Select2-enhanced dropdown flows)
-- Mutation safety:
-  - Listener guard attributes prevent duplicate binding during mutation-driven re-enhancement
-
-#### Required Field Indicators
-
-Required field styling matches NTG Design System:
-
-- Asterisk (`*`) replaced with "(Required)" text via CSS `::before` pseudo-element
-- Font: 14px Lato, weight 400
-- Color: `--clr-status-danger` (#a60f37)
-- Position: Inline with label (line breaks hidden via CSS)
-- Implementation: `.sq-backend-warning:not(.sq-metadata-warning)::before { content: "(Required)"; }`
-
-#### Metadata Warnings
-
-Backend metadata warnings (e.g., "Currently empty") are styled and positioned below fields:
-
-**Visual styling:**
-
-- Display: inline-flex with 8px gap between icon and text
-- Alert icon: 20×20px SVG mask in danger color
-- Font: 14px Lato, weight 400, line-height 20px
-- Color: `--clr-status-danger` (#a60f37)
-
-**Positioning:**
-
-- Position: absolute within `.sq-limbo-field` container
-- Text fields: `top: 80px`, `left: -8px`
-- Dropdown/date fields: `top: 88px` (8px lower for visual clearance)
-- Width: 100%
-- Z-index: 10
-
-**Dynamic visibility:**
-
-- JavaScript function `manageMetadataWarnings()` monitors field values and toggles a hide class
-- Warnings automatically hide when fields are filled by toggling `.sq-warning-hidden`
-- Uses native `input` / `change`, jQuery `change` handlers and `select2:select` bindings to support Select2-enhanced controls
-- Avoids inline style toggling — JS toggles a class so CSS specificity and `!important` rules behave predictably
-- Checks for empty values, `--` placeholders, and hidden field types
-- Implementation in `src/scripts/form-overrides.js` and hide class defined in `src/styles/form-overrides.css`
-
-**CSS selector logic:**
-
-- Base warning: `.sq-metadata-warning { top: 80px; }`
-- Dropdown detection: `.sq-limbo-field:has(+ .sq-backend-data select) .sq-metadata-warning { top: 88px !important; }`
-- Date detection: `.sq-limbo-field:has(+ .sq-backend-data .sq-metadata-date-wrapper) .sq-metadata-warning { top: 88px !important; }`
-- Base display: `.sq-metadata-warning` intentionally has no base `!important` so JS can control visibility
-- Hide class: `.sq-metadata-warning.sq-warning-hidden { display: none !important; }`
-- Uses `:has()` pseudo-class to detect field type in sibling container
-
-#### Dropdown Implementation
-
-Dropdown implementation details:
-
-- Chevron icon uses stroked SVG at 16.67px width and 9px height
-- Icon is applied to both base `select` and `select.select-enhanced`
-- Form width constraint is applied at container level: `form#page_asset_builder_1619140 { max-width: 480px; width: 100%; }`
-- Dropdown widths are auto-calculated from the longest option text by `src/scripts/form-overrides.js`
-- Auto-size logic is re-applied after Matrix/select2 initialization to capture dynamically prepared controls
-
-Unified border treatment:
-
-- All text inputs, textareas, and selects use the same border color token: `--form-border-unified`
-- Default, focus, disabled, and validation outlines for enhanced selects are aligned to the same token
-
-Textarea specifics:
-
-- Textareas follow the same NTG tokens and outline approach as single-line inputs but include multiline adjustments. Key points:
-  - Padding: `8px 16px` (8px top/bottom, 16px left/right)
-  - Outline: `outline: 1px solid var(--clr-border-strong-02, #1f1e27)` with `outline-offset: -1px`
-  - Placeholder: `var(--clr-text-alt, #666774)`
-  - Resize: `resize: vertical` (horizontal resizing locked)
-  - Visual resize indicator: implemented via a CSS-only background/pseudo-element (visual-only; native resize remains functional)
-
-Note: Token alias `--form-text-muted` has been updated to use `--clr-text-alt` fallback `#666774` to match Figma placeholder color.
-
-External icon removal:
-
-- NT.GOV design system adds external link icons (Font Awesome) to all `a.external` elements
-- Form section and field anchors (`<a name="section_1" class="external">`, `<a name="field_1" class="external">`) are navigation points, not external links
-- CSS overrides remove the icon using `content: none !important` on form anchors
-- JavaScript function `removeExternalClassFromFormAnchors()` actively removes the `.external` class from form/section/field anchors
-- Runs on page load and uses a debounced `MutationObserver` (childList-only) to handle dynamically added content without triggering infinite loops from class-based mutations
-
-Text input states are token-aligned with the NT design system:
-
-- Base control shape matches Figma reference: 52px height, 48px minimum, 16px inset, 480px max width
-- Default state uses 1px outline (`--clr-border-strong-02`) with no border radius
-- Focus state keeps outline treatment and unified border color
-- Error/success validation states retain unified border color for visual consistency
-
-This styling matches Squiz metadata markup patterns that may include a hidden field before the visible input (`input[type="hidden"] + input[type="text"]`).
-
-Label and helper text treatment in Matrix wrappers:
-
-- Label text: 16px Lato, weight 700
-- Helper text: 14px Lato, color `--clr-text-alt`
-- Required annotation: ` (Required)` appended via `.required::after` with danger token color
-- Labels are left-aligned across Matrix wrappers (`label`, `.sq-limbo-field`, and nested label spans)
-- `.sq-limbo-field` applies `margin-top: 16px` for label-to-field spacing
-
-Wrapper alignment treatment in Matrix wrappers:
-
-- `.sq-backend-data` and `.sq-metadata-wrapper` are top-aligned wrapper columns
-- `.sq-metadata-contents-wrapper` is a top-aligned column (`flex-direction: column; align-items: flex-start; justify-content: flex-start`)
-
-Delivery sync requirement:
-
-- Keep `src/styles/form-overrides.css` and `Publish seized item _ NT.GOV.AU_files/form-overrides.css` synchronized so captured Squiz exports render the same form control styling.
-
 ---
 
-## Deployment & Updates
+## Deployment And Updates
 
 ### Making Changes
 
-1. **Clone the repository:**
+1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/ntgovernment/daf-seized-items.git
-   ```
+```bash
+git clone https://github.com/ntgovernment/daf-seized-items.git
+```
 
-2. **Create a feature branch:**
+2. Create a feature branch:
 
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+```bash
+git checkout -b feature/your-feature-name
+```
 
-3. **Make changes** to HTML, CSS, or JavaScript
+3. Make changes to HTML, CSS, or JavaScript.
+4. Commit with semantic messages:
 
-4. **Commit with semantic messages:**
+```bash
+git commit -m "feat: add new card variant"
+```
 
-   ```bash
-   git commit -m "feat: add new card variant"
-   ```
+5. Push and create a pull request:
 
-5. **Push and create a pull request:**
+```bash
+git push origin feature/your-feature-name
+```
 
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+6. Merge to `main` after review.
 
-6. **Merge to `main` after review**
-
-### Deployment to Squiz Matrix
+### Deployment To Squiz Matrix
 
 Once changes are merged to the `main` branch:
 
-1. The **Git File Bridge** (#1619134) automatically detects the update
-2. The webhook triggers a sync
-3. Updated HTML, CSS, and JavaScript are served in Squiz Matrix
-4. Changes are live on [https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items](https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items) within seconds
+1. The Git File Bridge (#1619134) automatically detects the update.
+2. The webhook triggers a sync.
+3. Updated HTML, CSS, and JavaScript are served in Squiz Matrix.
+4. Changes are live on <https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items> within seconds.
 
 ---
 
@@ -375,21 +192,21 @@ Once changes are merged to the `main` branch:
 
 ### Cards Not Displaying
 
-1. **Check the Data Folder** (#1617850) — Ensure seized items have been created with complete metadata
-2. **Verify the Asset Listing** (#1619073) — Confirm it's configured to use the correct data folder & metadata schema
-3. **Check the Git File Bridge** (#1619134) — Ensure it's linked to the correct GitHub branch (`main`)
+1. Check the Data Folder (#1617850) - Ensure seized items have been created with complete metadata.
+2. Verify the Asset Listing (#1619073) - Confirm it is configured to use the correct data folder and metadata schema.
+3. Check the Git File Bridge (#1619134) - Ensure it is linked to the correct GitHub branch (`main`).
 
 ### Styling Issues
 
-1. Verify CSS variables in `src/styles/seized-items-cards.css`
-2. Check browser console for CSS load errors
-3. Clear browser cache and hard-refresh the page
+1. Verify CSS variables in `src/styles/seized-items-cards.css`.
+2. Check browser console for CSS load errors.
+3. Clear browser cache and hard-refresh the page.
 
 ### Data Not Updating
 
-1. Ensure metadata is saved in the **Data Folder** (#1617850)
-2. Confirm metadata uses the **Metadata Schema** (#1619057)
-3. The asset listing caches data — clear Squiz Matrix cache if needed
+1. Ensure metadata is saved in the Data Folder (#1617850).
+2. Confirm metadata uses the Metadata Schema (#1619057).
+3. The asset listing caches data - clear Squiz Matrix cache if needed.
 
 ---
 
@@ -401,16 +218,16 @@ Once changes are merged to the `main` branch:
 | Seized items                         | #1617850 | Data Folder     | Store item records              |
 | Squiz Listing - seized items         | #1619073 | Asset Listing   | Render cards in Squiz Matrix    |
 | GitHub - daf-seized-items            | #1619134 | Git File Bridge | Serve frontend code from GitHub |
-| Seized Items Card Component (GitHub) | —        | Repository      | Source code & documentation     |
+| Seized Items Card Component (GitHub) | -        | Repository      | Source code and documentation   |
 
 ---
 
 ## License
 
-MIT License. See the [LICENSE file](https://github.com/ntgovernment/daf-seized-items/blob/main/LICENSE) in the GitHub repository for details.
+MIT License. See the [LICENSE](../LICENSE) file in the repository for details.
 
 ---
 
-**Last Updated:** 2026-06-27  
+**Last Updated:** 2026-07-10  
 **Maintained By:** Fisheries Compliance (NT Government)  
 **Repository:** [ntgovernment/daf-seized-items](https://github.com/ntgovernment/daf-seized-items)
