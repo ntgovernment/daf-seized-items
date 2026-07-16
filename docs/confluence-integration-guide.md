@@ -144,6 +144,8 @@ Customize the card appearance by editing CSS variables in `src/styles/seized-ite
 }
 ```
 
+Page-level background is controlled in the `body` rule in `src/styles/seized-items-cards.css` and is explicitly set to white (`#ffffff`).
+
 ---
 
 ## Deployment And Updates
@@ -228,6 +230,6 @@ MIT License. See the [LICENSE](../LICENSE) file in the repository for details.
 
 ---
 
-**Last Updated:** 2026-07-10  
+**Last Updated:** 2026-07-16  
 **Maintained By:** Fisheries Compliance (NT Government)  
 **Repository:** [ntgovernment/daf-seized-items](https://github.com/ntgovernment/daf-seized-items)

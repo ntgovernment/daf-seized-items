@@ -23,7 +23,7 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #fafbfd 0%, #f2f4f8 100%);
+  background: #ffffff;
   color: var(--clr-text-default);
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

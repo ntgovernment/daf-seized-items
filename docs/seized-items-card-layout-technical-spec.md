@@ -3,7 +3,7 @@
 ## Frontend Build Guide for Squiz Matrix
 
 Version: 2.3  
-Date: 2026-06-27  
+Date: 2026-07-16  
 Source page: https://nt.gov.au/marine/fisheries-compliance/seized-fishing-items
 
 ## 1. Purpose
@@ -158,6 +158,7 @@ Empty state:
 
 ## 5. Visual and Content Rules
 
+- Page background: the global `body` background in `src/styles/seized-items-cards.css` is white (`#ffffff`).
 - Keep card labels exactly: ID number, Date and time seized, Location seized, Collect by.
 - Metadata rows use a two-column layout: label on the left, value on the right.
 - Value content in the right column is left-aligned.
