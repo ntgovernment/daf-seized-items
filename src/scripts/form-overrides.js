@@ -6,17 +6,26 @@
 (function () {
   "use strict";
 
+  var MAX_IMAGE_FILE_SIZE_BYTES = 100 * 1024;
+  var IMAGE_METADATA_FIELD_NAMES = [
+    "image_0_185",
+    "image_0_186",
+    "image_0_187",
+  ];
+
   // Initialize form enhancements when DOM is ready
   function initFormEnhancements() {
     enhanceFormElements();
     addFormValidationListeners();
     enhanceSelectElements();
     enhanceFileInputs();
+    hideImageMetadataFields();
     removeExternalClassFromFormAnchors();
     manageMetadataWarnings();
     manageTypeOtherFieldVisibility();
     bindCollectByFromSeizedDate();
     enhanceSubmitButtons();
+    bindSubmitStateManagement();
   }
 
   /**
@@ -92,6 +101,10 @@
     let isValid = true;
     let errorMessage = "";
 
+    if (element.type === "file") {
+      return validateFileInputElement(element, true);
+    }
+
     if (element.hasAttribute("required") && !element.value.trim()) {
       isValid = false;
       errorMessage = "This field is required";
@@ -136,6 +149,73 @@
     }
 
     return isValid;
+  }
+
+  function validateFileInputElement(fileInput, showErrors) {
+    var files = Array.from(fileInput.files || []);
+    var isRequired = fileInput.hasAttribute("required");
+
+    if (files.length === 0) {
+      if (isRequired) {
+        fileInput.classList.add("is-invalid");
+        fileInput.classList.add("form-error");
+        fileInput.classList.add("error");
+        fileInput.classList.remove("is-valid");
+        fileInput.setAttribute("aria-invalid", "true");
+        if (showErrors) {
+          showErrorMessage(fileInput, "Please upload an image under 100 KB");
+        }
+        return false;
+      }
+
+      fileInput.classList.remove(
+        "is-invalid",
+        "form-error",
+        "error",
+        "is-valid",
+      );
+      fileInput.removeAttribute("aria-invalid");
+      if (showErrors) {
+        removeErrorMessage(fileInput);
+      }
+      return true;
+    }
+
+    var acceptAttr = fileInput.getAttribute("accept") || "";
+    var maxFileSize = resolveMaxFileSizeForInput(fileInput);
+
+    for (var i = 0; i < files.length; i++) {
+      var validation = validateFile(files[i], acceptAttr, maxFileSize);
+      if (!validation.valid) {
+        fileInput.classList.add("is-invalid");
+        fileInput.classList.add("form-error");
+        fileInput.classList.add("error");
+        fileInput.classList.remove("is-valid");
+        fileInput.setAttribute("aria-invalid", "true");
+        if (showErrors) {
+          showErrorMessage(fileInput, validation.message);
+        }
+        return false;
+      }
+    }
+
+    fileInput.classList.remove("is-invalid", "form-error", "error");
+    fileInput.classList.add("is-valid");
+    fileInput.setAttribute("aria-invalid", "false");
+    if (showErrors) {
+      removeErrorMessage(fileInput);
+    }
+
+    return true;
+  }
+
+  function resolveMaxFileSizeForInput(fileInput) {
+    var container =
+      fileInput.closest(".sq-form-upload-wrapper") ||
+      fileInput.closest(".sq-form-upload") ||
+      fileInput.parentElement;
+
+    return parseMaxFileSize(container);
   }
 
   /**
@@ -460,6 +540,9 @@
         function (e) {
           var files = e.dataTransfer.files;
           handleFiles(fileInput, files, fileList, acceptAttr, maxFileSize);
+          updateSubmitButtonsForForm(
+            fileInput.form || fileInput.closest("form"),
+          );
         },
         false,
       );
@@ -473,6 +556,7 @@
           acceptAttr,
           maxFileSize,
         );
+        updateSubmitButtonsForForm(fileInput.form || fileInput.closest("form"));
       });
 
       // Allow clicking the dropzone (not the button) to also open picker
@@ -557,9 +641,23 @@
     // Set aria-invalid on the input
     if (hasError) {
       fileInput.setAttribute("aria-invalid", "true");
+      fileInput.classList.add("is-invalid", "form-error", "error");
+      fileInput.classList.remove("is-valid");
     } else {
+      fileInput.classList.remove("is-invalid", "form-error", "error");
+      fileInput.classList.add("is-valid");
       fileInput.removeAttribute("aria-invalid");
+      removeErrorMessage(fileInput);
     }
+
+    if (
+      Array.from(files || []).length === 0 &&
+      fileInput.hasAttribute("required")
+    ) {
+      fileInput.classList.remove("is-valid");
+    }
+
+    updateSubmitButtonsForForm(fileInput.form || fileInput.closest("form"));
   }
 
   /**
@@ -598,7 +696,7 @@
     if (maxFileSize > 0 && file.size > maxFileSize) {
       return {
         valid: false,
-        message: "File must be less than " + formatFileSize(maxFileSize),
+        message: "Image must be 100 KB or less",
       };
     }
 
@@ -634,18 +732,164 @@
           .closest(".sq-backend-data")
           .querySelector(".sq-backend-smallprint")
       : null;
-    if (!smallprint) return 0;
+    if (!smallprint) return MAX_IMAGE_FILE_SIZE_BYTES;
 
     var text = smallprint.textContent || "";
     var match = text.match(/([\d.]+)\s*(MB|GB|KB)/i);
-    if (!match) return 0;
+    if (!match) return MAX_IMAGE_FILE_SIZE_BYTES;
 
     var value = parseFloat(match[1]);
     var unit = match[2].toUpperCase();
-    if (unit === "KB") return value * 1024;
-    if (unit === "MB") return value * 1024 * 1024;
-    if (unit === "GB") return value * 1024 * 1024 * 1024;
-    return 0;
+    var parsedSize = 0;
+    if (unit === "KB") parsedSize = value * 1024;
+    if (unit === "MB") parsedSize = value * 1024 * 1024;
+    if (unit === "GB") parsedSize = value * 1024 * 1024 * 1024;
+    if (parsedSize <= 0) return MAX_IMAGE_FILE_SIZE_BYTES;
+
+    return Math.min(parsedSize, MAX_IMAGE_FILE_SIZE_BYTES);
+  }
+
+  function hideImageMetadataFields() {
+    IMAGE_METADATA_FIELD_NAMES.forEach(function (fieldName) {
+      var field =
+        document.querySelector('[name="' + fieldName + '"]') ||
+        document.getElementById(fieldName);
+      if (!field) return;
+
+      var row =
+        (field.closest(".sq-backend-data") || {}).parentElement ||
+        field.closest("tr") ||
+        field.closest(".sq-limbo-field") ||
+        field.parentElement;
+
+      if (!row) return;
+
+      row.style.display = "none";
+      row.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  function bindSubmitStateManagement() {
+    var forms = document.querySelectorAll("form");
+
+    forms.forEach(function (form) {
+      if (form.getAttribute("data-submit-state-bound")) {
+        updateSubmitButtonsForForm(form);
+        return;
+      }
+
+      form.setAttribute("data-submit-state-bound", "true");
+
+      form.addEventListener("input", function () {
+        updateSubmitButtonsForForm(form);
+      });
+
+      form.addEventListener("change", function () {
+        updateSubmitButtonsForForm(form);
+      });
+
+      form.addEventListener("submit", function (event) {
+        if (!isFormSubmissionReady(form, true)) {
+          event.preventDefault();
+          event.stopPropagation();
+          updateSubmitButtonsForForm(form);
+        }
+      });
+
+      updateSubmitButtonsForForm(form);
+    });
+  }
+
+  function updateSubmitButtonsForForm(form) {
+    if (!form) return;
+
+    var isReady = isFormSubmissionReady(form, false);
+    var submitButtons = form.querySelectorAll(
+      '.sq-commit-button, input[type="submit"].sq-btn-green, input[type="button"].sq-btn-green',
+    );
+
+    submitButtons.forEach(function (btn) {
+      if (btn.getAttribute("data-submitting") === "true") return;
+      btn.disabled = !isReady;
+      btn.setAttribute("aria-disabled", String(!isReady));
+    });
+  }
+
+  function isElementVisibleForValidation(element) {
+    if (!element) return false;
+    if (element.disabled) return false;
+    if (element.type === "hidden") return false;
+    return element.offsetParent !== null;
+  }
+
+  function isRequiredFieldFilled(element) {
+    if (!element.hasAttribute("required")) return true;
+
+    if (element.type === "checkbox") {
+      return element.checked;
+    }
+
+    if (element.type === "radio") {
+      var radioGroup = element.form
+        ? element.form.querySelectorAll(
+            'input[type="radio"][name="' + element.name + '"]',
+          )
+        : document.querySelectorAll(
+            'input[type="radio"][name="' + element.name + '"]',
+          );
+      return Array.from(radioGroup).some(function (radio) {
+        return radio.checked;
+      });
+    }
+
+    if (element.type === "file") {
+      return validateFileInputElement(element, false);
+    }
+
+    return !!(element.value && element.value.trim());
+  }
+
+  function hasAtLeastOneValidUploadedFile(form) {
+    var fileInputs = Array.from(
+      form.querySelectorAll('input[type="file"]'),
+    ).filter(isElementVisibleForValidation);
+    if (fileInputs.length === 0) return true;
+
+    return fileInputs.some(function (fileInput) {
+      var files = Array.from(fileInput.files || []);
+      if (files.length === 0) return false;
+      return validateFileInputElement(fileInput, false);
+    });
+  }
+
+  function isFormSubmissionReady(form, showErrors) {
+    var controls = Array.from(form.querySelectorAll("input, textarea, select"));
+    var requiredControls = controls.filter(function (control) {
+      return (
+        control.hasAttribute("required") &&
+        isElementVisibleForValidation(control)
+      );
+    });
+
+    var hasAllRequired = requiredControls.every(function (control) {
+      var isValid = isRequiredFieldFilled(control);
+      if (!isValid && showErrors) {
+        validateFormElement(control);
+      }
+      return isValid;
+    });
+
+    var fileInputs = controls.filter(function (control) {
+      return control.type === "file" && isElementVisibleForValidation(control);
+    });
+    var hasValidFiles = fileInputs.every(function (fileInput) {
+      var isValid = validateFileInputElement(fileInput, showErrors);
+      return isValid;
+    });
+
+    return (
+      hasAllRequired && hasValidFiles && hasAtLeastOneValidUploadedFile(form)
+    );
   }
 
   /**
@@ -978,9 +1222,18 @@
       btn.parentNode.insertBefore(wrapper, btn);
       wrapper.appendChild(btn);
 
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (event) {
+        var form = btn.form || btn.closest("form");
+        if (form && !isFormSubmissionReady(form, true)) {
+          event.preventDefault();
+          event.stopPropagation();
+          updateSubmitButtonsForForm(form);
+          return;
+        }
+
         // Defer so the existing onclick handler fires first
         setTimeout(function () {
+          btn.setAttribute("data-submitting", "true");
           btn.disabled = true;
 
           // Inject spinner overlay
@@ -1052,10 +1305,12 @@
     if (mutationTimer) clearTimeout(mutationTimer);
     mutationTimer = setTimeout(function () {
       enhanceFormElements();
+      hideImageMetadataFields();
       removeExternalClassFromFormAnchors();
       manageMetadataWarnings();
       manageTypeOtherFieldVisibility();
       bindCollectByFromSeizedDate();
+      bindSubmitStateManagement();
     }, 100);
   });
 
