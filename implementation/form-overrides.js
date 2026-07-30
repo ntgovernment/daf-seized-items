@@ -12,6 +12,8 @@
     "image_0_186",
     "image_0_187",
   ];
+  var FILE_UPLOAD_HELPER_TEXT =
+    "File must be no larger than 100 KB and must be of type gif, jpg, jpeg, png or webp.";
 
   // Initialize form enhancements when DOM is ready
   function initFormEnhancements() {
@@ -421,7 +423,7 @@
       if (smallprint && smallprint.textContent.trim()) {
         var helperEl = document.createElement("div");
         helperEl.className = "file-upload__helper";
-        helperEl.textContent = smallprint.textContent.trim();
+        helperEl.textContent = FILE_UPLOAD_HELPER_TEXT;
         labelSection.appendChild(helperEl);
         smallprint.style.display = "none";
       }
