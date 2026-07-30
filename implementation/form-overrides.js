@@ -811,6 +811,7 @@
       if (btn.getAttribute("data-submitting") === "true") return;
       btn.disabled = !isReady;
       btn.setAttribute("aria-disabled", String(!isReady));
+      btn.classList.toggle("is-muted-submit", !isReady);
     });
   }
 

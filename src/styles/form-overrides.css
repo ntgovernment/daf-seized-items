@@ -425,6 +425,30 @@ input[type="button"].sq-commit-button {
   background-color: #e7e7ea !important;
 }
 
+.sq-commit-button.is-muted-submit,
+.sq-btn-large.is-muted-submit,
+.sq-btn-green.is-muted-submit,
+input[type="submit"].sq-btn-green.is-muted-submit,
+input[type="button"].sq-btn-green.is-muted-submit {
+  background-color: #e7e7ea !important;
+  color: #53545f !important;
+  cursor: not-allowed !important;
+}
+
+.sq-commit-button.is-muted-submit:hover,
+.sq-btn-large.is-muted-submit:hover,
+.sq-btn-green.is-muted-submit:hover,
+input[type="submit"].sq-btn-green.is-muted-submit:hover,
+input[type="button"].sq-btn-green.is-muted-submit:hover,
+.sq-commit-button.is-muted-submit:active,
+.sq-btn-large.is-muted-submit:active,
+.sq-btn-green.is-muted-submit:active,
+input[type="submit"].sq-btn-green.is-muted-submit:active,
+input[type="button"].sq-btn-green.is-muted-submit:active {
+  background-color: #e7e7ea !important;
+  color: #53545f !important;
+}
+
 /* Submit button wrapper and spinner overlay */
 .btn-submit-wrapper {
   position: relative;
