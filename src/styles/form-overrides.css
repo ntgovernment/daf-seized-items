@@ -403,16 +403,16 @@ input[type="button"].sq-commit-button {
 .sq-commit-button:disabled,
 .sq-btn-large:disabled,
 .sq-btn-green:disabled {
-  background-color: var(--form-action-disabled, #e7e7ea) !important;
-  color: var(--form-action-disabled-text, #666774) !important;
+  background-color: #e7e7ea !important;
+  color: #53545f !important;
   cursor: not-allowed !important;
 }
 
 .sq-commit-button[aria-disabled="true"],
 .sq-btn-large[aria-disabled="true"],
 .sq-btn-green[aria-disabled="true"] {
-  background-color: var(--form-action-disabled, #e7e7ea) !important;
-  color: var(--form-action-disabled-text, #666774) !important;
+  background-color: #e7e7ea !important;
+  color: #53545f !important;
   cursor: not-allowed !important;
 }
 
@@ -422,7 +422,7 @@ input[type="button"].sq-commit-button {
 .sq-commit-button[aria-disabled="true"]:active,
 .sq-btn-large[aria-disabled="true"]:active,
 .sq-btn-green[aria-disabled="true"]:active {
-  background-color: var(--form-action-disabled, #e7e7ea) !important;
+  background-color: #e7e7ea !important;
 }
 
 /* Submit button wrapper and spinner overlay */
@@ -437,8 +437,8 @@ input[type="button"].sq-commit-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--form-action-disabled, #e7e7ea);
-  color: var(--form-action-disabled-text, #666774);
+  background: #e7e7ea;
+  color: #53545f;
 }
 
 .btn-spinner i {
